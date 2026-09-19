@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VELORA — Web Ajansı</title>
+  <meta name="description" content="VELORA, markalar için sade, hızlı ve etkili web deneyimleri tasarlayan bir web ajansıdır." />
+  <meta name="theme-color" content="#ffffff" />
+
+  <link rel="icon" type="image/png" href="assets/Velora First logo.png" />
+
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!--
+    Tema, sayfa boyanmadan önce uygulanır (flash of wrong theme önlemek için).
+    localStorage okunamıyorsa (ör. gizli sekme) sistem tercihine düşer.
+  -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("velora-theme");
+        var theme = stored === "light" || stored === "dark"
+          ? stored
+          : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (err) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <a class="visually-hidden" href="#main-content">İçeriğe geç</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#anasayfa" aria-label="VELORA ana sayfa">
+        <span class="logo-chip">
+          <img data-logo-img src="assets/Velora First logo.png" alt="VELORA logosu" width="32" height="32" />
+        </span>
+        <span class="brand-name" data-brand-name>VELORA</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Ana menü">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#anasayfa">Ana Sayfa</a></li>
+          <li><a href="#hizmetler">Hizmetlerimiz</a></li>
+          <li><a href="#paketler">Paketlerimiz</a></li>
+          <li><a href="#sss">SSS</a></li>
+          <li><a href="#soru-sor">Soru Sor</a></li>
+          <li><a href="#iletisim">İletişim</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="search-trigger" type="button" aria-label="Sitede ara">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <button class="icon-btn theme-toggle" type="button" aria-label="Açık/koyu temayı değiştir">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+        </button>
+        <button class="icon-btn menu-toggle" type="button" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="nav-links">
+          <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <line class="icon-line-1" x1="4" y1="7" x2="20" y2="7" />
+            <line class="icon-line-2" x1="4" y1="12" x2="20" y2="12" />
+            <line class="icon-line-3" x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- Ana Sayfa / Hero -->
+    <section id="anasayfa" class="hero">
+      <div class="hero-inner">
+        <span class="hero-eyebrow">Web Ajansı</span>
+        <h1>VELORA</h1>
+        <p class="lede">Markanız için sade, hızlı ve etkili web deneyimleri tasarlıyoruz.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#paketler">Paketleri İncele</a>
+          <a class="btn btn-secondary" href="#hizmetler">Hizmetleri Gör</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hizmetlerimiz -->
+    <section id="hizmetler">
+      <div class="container">
+        <div class="section-header center">
+          <span class="eyebrow">Hizmetlerimiz</span>
+          <h2>İhtiyacınıza uygun çözümler</h2>
+          <p class="lede" style="margin-inline:auto">Küçük ölçekli projelerden kapsamlı kurumsal sitelere kadar geniş bir hizmet yelpazesi.</p>
+        </div>
+        <div class="grid services-grid" id="hizmetler-grid"></div>
+      </div>
+    </section>
+
+    <!-- Web Sitesi Paketlerimiz -->
+    <section id="paketler">
+      <div class="container">
+        <div class="section-header center">
+          <span class="eyebrow">Paketlerimiz</span>
+          <h2>Sade ve şeffaf fiyatlandırma</h2>
+          <p class="lede" style="margin-inline:auto">İhtiyacınıza en uygun paketi seçin, birlikte özelleştirelim.</p>
+        </div>
+        <div class="grid packages-grid" id="paketler-grid"></div>
+      </div>
+    </section>
+
+    <!-- VELORA Hakkında (kısa) -->
+    <section id="hakkinda" class="about-section">
+      <div class="container">
+        <div>
+          <span class="eyebrow">VELORA</span>
+          <h2>Az ama kaliteli.</h2>
+          <p class="lede">Gereksiz kalabalıktan uzak, amacına hizmet eden web siteleri tasarlıyoruz. Her proje; sade tasarım, güçlü typography ve dengeli boşluklarla şekillenir.</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Esnek paket seçeneği</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">6</div>
+            <div class="stat-label">Farklı hizmet alanı</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Responsive tasarım</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">7 gün</div>
+            <div class="stat-label">Ortalama teslim</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SSS -->
+    <section id="sss">
+      <div class="container">
+        <div class="section-header center">
+          <span class="eyebrow">SSS</span>
+          <h2>Sıkça sorulan sorular</h2>
+        </div>
+        <div class="faq-list" id="sss-list"></div>
+      </div>
+    </section>
+
+    <!-- Soru Sor -->
+    <section id="soru-sor">
+      <div class="container">
+        <div class="section-header center">
+          <span class="eyebrow">Soru Sor</span>
+          <h2>Aklınıza takılan bir şey mi var?</h2>
+          <p class="lede" style="margin-inline:auto">Hesap oluşturmanıza gerek yok. Sorunuzu yazın, size dönüş yapalım.</p>
+        </div>
+
+        <form class="form-card" id="soru-form" novalidate>
+          <div class="form-row">
+            <div class="field" data-field="ad">
+              <label for="ad">Ad</label>
+              <input type="text" id="ad" name="ad" autocomplete="given-name" />
+              <span class="field-error"></span>
+            </div>
+            <div class="field" data-field="soyad">
+              <label for="soyad">Soyad</label>
+              <input type="text" id="soyad" name="soyad" autocomplete="family-name" />
+              <span class="field-error"></span>
+            </div>
+          </div>
+
+          <div class="field" data-field="eposta">
+            <label for="eposta">E-posta</label>
+            <input type="email" id="eposta" name="eposta" autocomplete="email" />
+            <span class="field-error"></span>
+          </div>
+
+          <div class="field" data-field="soru">
+            <label for="soru">Sorunuz</label>
+            <textarea id="soru" name="soru"></textarea>
+            <span class="field-error"></span>
+          </div>
+
+          <button class="btn btn-primary btn-block" type="submit">Soruyu Gönder</button>
+          <div class="form-feedback" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- İletişim -->
+    <section id="iletisim">
+      <div class="container">
+        <div class="section-header center">
+          <span class="eyebrow">İletişim</span>
+          <h2>Bize ulaşın</h2>
+        </div>
+        <div class="grid contact-grid" id="iletisim-grid"></div>
+        <div class="contact-cta">
+          <a class="btn btn-primary" href="#soru-sor">Projenizi Anlatın</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a class="footer-brand" href="#anasayfa" aria-label="VELORA ana sayfa">
+          <span class="logo-chip">
+            <img data-logo-img src="assets/Velora First logo.png" alt="VELORA logosu" width="28" height="28" style="--logo-size:28px" />
+          </span>
+          <span class="brand-name" data-brand-name>VELORA</span>
+        </a>
+
+        <nav class="footer-links" aria-label="Alt menü">
+          <a href="#hizmetler">Hizmetler</a>
+          <a href="#paketler">Paketler</a>
+          <a href="#sss">SSS</a>
+          <a href="#iletisim">İletişim</a>
+        </nav>
+
+        <div class="footer-social" id="footer-social"></div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; <span id="current-year"></span> VELORA. Tüm hakları saklıdır.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Arama -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Site içi arama">
+      <div class="search-input-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="search-input" placeholder="Hizmet, paket veya soru arayın..." aria-label="Arama" />
+        <button class="icon-btn" id="search-close" type="button" aria-label="Aramayı kapat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m5 5 14 14M19 5 5 19"/></svg>
+        </button>
+      </div>
+      <p class="search-hint">Hizmetler, paketler ve SSS içinde arama yapabilirsiniz.</p>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

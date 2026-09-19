@@ -33,7 +33,7 @@
     top: var(--header-height);
     bottom: 0;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 0;
     background-color: var(--color-bg);
     padding: var(--space-md) var(--space-lg);
@@ -54,18 +54,30 @@
   }
 
   .nav-links a {
+    display: block;
     width: 100%;
     padding: 1rem 0;
     border-bottom: 1px solid var(--color-border);
     font-size: 1.05rem;
+    line-height: 1.2;
   }
 
   .menu-toggle {
     display: inline-flex;
   }
 
+  /* Hamburger -> X dönüşümü: her çizgi kendi küçük kutusu yerine
+     ikonun tüm görünüm alanına (viewBox) göre ortalanır, böylece
+     üç çizgi de aynı (12,12) noktası etrafında dönerek düzgün ve
+     ortalanmış bir X oluşturur (önceki haliyle çizgiler farklı
+     merkezler etrafında döndüğü için çarpık/üst üste görünüyordu). */
+  .icon-menu line {
+    transform-box: view-box;
+    transform-origin: center;
+  }
+
   .icon-menu.is-open .icon-line-1 {
-    transform: translateY(6px) rotate(45deg);
+    transform: translateY(5px) rotate(45deg);
   }
 
   .icon-menu.is-open .icon-line-2 {
@@ -73,7 +85,7 @@
   }
 
   .icon-menu.is-open .icon-line-3 {
-    transform: translateY(-6px) rotate(-45deg);
+    transform: translateY(-5px) rotate(-45deg);
   }
 }
 
@@ -90,11 +102,6 @@
   .form-card {
     padding: var(--space-lg);
   }
-
-  .footer-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }
 
 /* Mobil (<=480px) */
@@ -108,13 +115,16 @@
     padding-block: var(--space-xl);
   }
 
+  /* Butonlar yan yana kalır ama VELORA başlığının genişliğini aşmayacak
+     şekilde daha kompakt hale getirilir; kenarlara yapışmaları
+     hero-inner'a eklenen yatay padding ile önlenir (bkz. main.css). */
   .hero-actions {
-    flex-direction: column;
-    width: 100%;
+    gap: 0.5rem;
   }
 
   .hero-actions .btn {
-    width: 100%;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.78rem;
   }
 
   .card {
@@ -127,6 +137,14 @@
 
   .brand-logo {
     --brand-logo-size: 30px;
+  }
+
+  .footer-logo {
+    --footer-logo-size: 28px;
+  }
+
+  .hero-inner {
+    padding-inline: var(--space-md);
   }
 
   .search-overlay {

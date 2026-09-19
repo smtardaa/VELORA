@@ -39,10 +39,7 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="#anasayfa" aria-label="VELORA ana sayfa">
-        <span class="logo-chip">
-          <img data-logo-img src="assets/Velora First logo.png" alt="VELORA logosu" width="32" height="32" />
-        </span>
-        <span class="brand-name" data-brand-name>VELORA</span>
+        <img class="brand-logo" data-logo-img src="assets/Velora Second logo.png" alt="VELORA logosu" width="34" height="36" />
       </a>
 
       <nav class="main-nav" aria-label="Ana menü">
@@ -80,7 +77,6 @@
     <!-- Ana Sayfa / Hero -->
     <section id="anasayfa" class="hero">
       <div class="hero-inner">
-        <span class="hero-eyebrow">Web Ajansı</span>
         <h1>VELORA</h1>
         <p class="lede">Markanız için sade, hızlı ve etkili web deneyimleri tasarlıyoruz.</p>
         <div class="hero-actions">
@@ -95,10 +91,13 @@
       <div class="container">
         <div class="section-header center">
           <span class="eyebrow">Hizmetlerimiz</span>
-          <h2>İhtiyacınıza uygun çözümler</h2>
-          <p class="lede" style="margin-inline:auto">Küçük ölçekli projelerden kapsamlı kurumsal sitelere kadar geniş bir hizmet yelpazesi.</p>
+          <h2>Neden bir web sitesine ihtiyacınız var?</h2>
+          <p class="lede" style="margin-inline:auto">VELORA, markanızı doğru gösteren ve farklı sektörlere uyum sağlayan web siteleri tasarlar.</p>
         </div>
-        <div class="grid services-grid" id="hizmetler-grid"></div>
+        <div class="grid hizmetler-grid">
+          <div class="big-card" id="benefits-card" data-animate></div>
+          <div class="big-card" id="industries-card" data-animate></div>
+        </div>
       </div>
     </section>
 
@@ -107,10 +106,26 @@
       <div class="container">
         <div class="section-header center">
           <span class="eyebrow">Paketlerimiz</span>
-          <h2>Sade ve şeffaf fiyatlandırma</h2>
-          <p class="lede" style="margin-inline:auto">İhtiyacınıza en uygun paketi seçin, birlikte özelleştirelim.</p>
+          <h2>İhtiyacınıza uygun paketler</h2>
+          <p class="lede" style="margin-inline:auto">Size en uygun paketi birlikte belirleyelim; net bir teklif için bize ulaşmanız yeterli.</p>
+          <span class="delivery-note">Tüm paketlerde teslim süresi: 3 iş günü</span>
         </div>
-        <div class="grid packages-grid" id="paketler-grid"></div>
+
+        <div class="packages-slider" id="packages-slider">
+          <button class="slider-arrow slider-prev" type="button" aria-label="Önceki paketler">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
+          </button>
+
+          <div class="packages-viewport">
+            <div class="packages-track" id="packages-track"></div>
+          </div>
+
+          <button class="slider-arrow slider-next" type="button" aria-label="Sonraki paketler">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="slider-dots" id="packages-dots"></div>
       </div>
     </section>
 
@@ -124,20 +139,20 @@
         </div>
         <div class="about-stats">
           <div class="stat-item">
-            <div class="stat-number">3</div>
+            <div class="stat-number">6</div>
             <div class="stat-label">Esnek paket seçeneği</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">6</div>
-            <div class="stat-label">Farklı hizmet alanı</div>
+            <div class="stat-number">7</div>
+            <div class="stat-label">İletişim kanalı</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">100%</div>
             <div class="stat-label">Responsive tasarım</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">7 gün</div>
-            <div class="stat-label">Ortalama teslim</div>
+            <div class="stat-number">3 gün</div>
+            <div class="stat-label">Teslim süresi</div>
           </div>
         </div>
       </div>
@@ -216,7 +231,7 @@
       <div class="footer-inner">
         <a class="footer-brand" href="#anasayfa" aria-label="VELORA ana sayfa">
           <span class="logo-chip">
-            <img data-logo-img src="assets/Velora First logo.png" alt="VELORA logosu" width="28" height="28" style="--logo-size:28px" />
+            <img src="assets/Velora First logo.png" alt="VELORA logosu" width="28" height="28" style="--logo-size:28px" />
           </span>
           <span class="brand-name" data-brand-name>VELORA</span>
         </a>

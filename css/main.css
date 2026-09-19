@@ -167,6 +167,16 @@ p {
   gap: 0.6rem;
 }
 
+/* Header logosu: yalnızca Velora Second logo.png kullanılır. Logonun
+   kendisine border/çerçeve/gölge/efekt eklenmez; oranı bozulmadan
+   yüksekliğe göre ölçeklenir. */
+.brand-logo {
+  display: block;
+  height: var(--brand-logo-size, 36px);
+  width: auto;
+}
+
+/* Footer'daki eski logo + marka adı biçimi korunur. */
 .logo-chip {
   display: inline-flex;
   align-items: center;
@@ -273,13 +283,6 @@ p {
   gap: var(--space-md);
 }
 
-.hero-eyebrow {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-text-secondary);
-  letter-spacing: 0.04em;
-}
-
 .hero h1 {
   margin: 0;
 }
@@ -305,12 +308,112 @@ p {
   gap: var(--space-md);
 }
 
-.services-grid {
-  grid-template-columns: repeat(3, 1fr);
+.delivery-note {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
 }
 
+/* Hizmetlerimiz: 2 büyük kart */
+
+.hizmetler-grid {
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+
+.big-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.big-card h3 {
+  margin-bottom: 0.3rem;
+}
+
+.big-card .lede {
+  font-size: 0.92rem;
+  max-width: none;
+  margin-bottom: var(--space-md);
+}
+
+.benefit-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+/* Sağ karttaki (.industry-chip) ile aynı "tek container/border" mantığı:
+   ikon ve metin aynı kutu içinde, sabit hizada. İkon burada industry-chip'e
+   göre biraz daha büyük (24px) çünkü yanında başlık + açıklama taşıyor. */
+.benefit-chip {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+.benefit-chip > svg {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin-top: 0.15rem;
+  color: var(--color-text-secondary);
+}
+
+.benefit-chip-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.benefit-chip-text strong {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.benefit-chip-text span {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+}
+
+.industry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+.industry-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.industry-chip svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+}
+
+/* Paket kartları grid'i: sütun sayısı slider tarafından
+   --packages-per-view CSS değişkeni ile belirlenir. */
 .packages-grid {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(var(--packages-per-view, 3), 1fr);
   align-items: stretch;
 }
 
@@ -327,31 +430,6 @@ p {
   box-shadow: var(--shadow-card);
 }
 
-.service-card .icon-wrap {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-sm);
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: var(--space-sm);
-}
-
-.service-card .icon-wrap svg {
-  width: 22px;
-  height: 22px;
-}
-
-.service-card h3 {
-  margin-bottom: 0.4rem;
-}
-
-.service-card p {
-  font-size: 0.92rem;
-}
-
 /* Paket kartları */
 
 .package-card {
@@ -359,6 +437,20 @@ p {
   flex-direction: column;
   position: relative;
   background-color: var(--color-bg);
+}
+
+/* Slider viewport'u overflow:hidden olduğu için kartların genel
+   hover kalkma efekti (translateY) burada uygulanmaz: kart yukarı
+   kayınca üst kenarı viewport tarafından kırpılıp bir "taşma/kayma"
+   hissi veriyordu. Konum sabit kalsın, yalnızca gölge ile geri
+   bildirim verilsin. */
+.package-card:hover {
+  transform: none;
+  box-shadow: var(--shadow-card);
+}
+
+.package-card.is-highlighted:hover {
+  box-shadow: var(--shadow-elevated);
 }
 
 .package-card.is-highlighted {
@@ -381,25 +473,7 @@ p {
 
 .package-name {
   font-size: 1.1rem;
-  margin-bottom: 0.3rem;
-}
-
-.package-price {
-  display: flex;
-  align-items: baseline;
-  gap: 0.4rem;
-  margin-block: var(--space-xs);
-}
-
-.package-price .amount {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.package-price .note {
-  font-size: 0.82rem;
-  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
 }
 
 .package-description {
@@ -429,6 +503,86 @@ p {
   flex-shrink: 0;
   margin-top: 3px;
   color: var(--color-text-secondary);
+}
+
+/* ---------- Paket slider ---------- */
+
+.packages-slider {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-sm);
+}
+
+.packages-viewport {
+  flex: 1;
+  overflow: hidden;
+}
+
+.packages-track {
+  display: flex;
+  transition: transform var(--transition-base);
+}
+
+.slider-page {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.slider-arrow {
+  flex-shrink: 0;
+  align-self: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast), opacity var(--transition-fast);
+}
+
+.slider-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.slider-arrow:hover:not(:disabled) {
+  background-color: var(--color-bg-muted);
+}
+
+.slider-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.packages-slider.has-single-page .slider-arrow {
+  visibility: hidden;
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: var(--space-md);
+}
+
+.slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-border);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.slider-dot.is-active {
+  background-color: var(--color-accent);
+  transform: scale(1.2);
+}
+
+.packages-slider.has-single-page + .slider-dots {
+  display: none;
 }
 
 /* ---------- Hakkında ---------- */
@@ -597,16 +751,30 @@ p {
 
 /* ---------- İletişim ---------- */
 
+/* İletişim kartları: grid yerine flexbox + justify-content:center
+   kullanılır. Böylece 7 kart desktop'ta 4 + 3 şeklinde dizilir ve son
+   sıradaki 3 kart sola yaslanmak yerine ortalanır. */
 .contact-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-md);
-  max-width: 920px;
+  max-width: 980px;
   margin-inline: auto;
 }
 
 .contact-card {
+  flex: 0 1 calc((100% - 3 * var(--space-md)) / 4);
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  color: var(--color-text);
+}
+
+.contact-card:hover {
+  text-decoration: none;
 }
 
 .contact-card .icon-wrap {
@@ -620,11 +788,21 @@ p {
   align-items: center;
   justify-content: center;
   margin-bottom: var(--space-sm);
+  flex-shrink: 0;
 }
 
 .contact-card .icon-wrap svg {
   width: 20px;
   height: 20px;
+}
+
+.contact-card h3 {
+  margin-bottom: 0.3rem;
+}
+
+.contact-card p {
+  font-size: 0.92rem;
+  word-break: break-word;
 }
 
 .contact-cta {

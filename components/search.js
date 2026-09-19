@@ -1,20 +1,29 @@
 // components/search.js — site içi arama. Backend/harici servis kullanmaz;
 // hizmetler, paketler ve SSS verileri üzerinde basit bir metin araması yapar.
 
-import { servicesData } from "../data/services.js";
 import { packagesData } from "../data/packages.js";
 import { faqData } from "../data/faq.js";
-import { icon } from "../js/icons.js";
-import { debounce, escapeHtml, qs } from "../js/utils.js";
+import { websiteBenefits } from "../data/benefits.js";
+import { industries } from "../data/industries.js";
+import { debounce, escapeHtml } from "../js/utils.js";
 
 function buildSearchIndex() {
   const index = [];
 
-  servicesData.forEach((service) => {
+  websiteBenefits.forEach((benefit) => {
     index.push({
       tag: "Hizmet",
-      title: service.name,
-      snippet: service.description,
+      title: benefit.title,
+      snippet: benefit.description,
+      target: "#hizmetler"
+    });
+  });
+
+  industries.forEach((item) => {
+    index.push({
+      tag: "Sektör",
+      title: item.name,
+      snippet: "VELORA bu sektör için web sitesi geliştirir.",
       target: "#hizmetler"
     });
   });

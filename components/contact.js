@@ -1,45 +1,49 @@
-// components/contact.js — iletişim bilgilerini data/contact.js verisinden üretir
+// components/contact.js — iletişim kanallarını data/contact.js verisinden üretir.
+// Tüm değerler VELORA'ya ait örnek/placeholder bilgilerdir.
 
-import { contactData } from "../data/contact.js";
+import { contactChannels } from "../data/contact.js";
 import { icon } from "../js/icons.js";
 import { escapeHtml } from "../js/utils.js";
 
-export function renderContact(container) {
+export function renderContactChannels(container) {
   if (!container) return;
 
-  container.innerHTML = `
-    <article class="card contact-card" data-animate>
-      <div class="icon-wrap">${icon("mail")}</div>
-      <h3>E-posta</h3>
-      <p><a href="mailto:${escapeHtml(contactData.email)}">${escapeHtml(contactData.email)}</a></p>
-    </article>
-    <article class="card contact-card" data-animate>
-      <div class="icon-wrap">${icon("phone")}</div>
-      <h3>Telefon</h3>
-      <p>${escapeHtml(contactData.phone)}</p>
-    </article>
-    <article class="card contact-card" data-animate>
-      <div class="icon-wrap">${icon("pin")}</div>
-      <h3>Adres</h3>
-      <p>${escapeHtml(contactData.address)}</p>
-    </article>
-  `;
+  container.innerHTML = contactChannels
+    .map((channel) => {
+      const isExternal = /^https?:/i.test(channel.href);
+      return `
+        <a
+          class="card contact-card"
+          data-animate
+          href="${escapeHtml(channel.href)}"
+          ${isExternal ? 'target="_blank" rel="noopener"' : ""}
+          aria-label="${escapeHtml(channel.name)}: ${escapeHtml(channel.value)}"
+        >
+          <span class="icon-wrap">${icon(channel.icon)}</span>
+          <h3>${escapeHtml(channel.name)}</h3>
+          <p>${escapeHtml(channel.value)}</p>
+        </a>
+      `;
+    })
+    .join("");
 }
 
-export function renderSocialLinks(container) {
+export function renderFooterSocial(container) {
   if (!container) return;
 
-  container.innerHTML = contactData.social
+  const footerChannels = contactChannels.filter((channel) => channel.showInFooter);
+
+  container.innerHTML = footerChannels
     .map(
-      (item) => `
-        <a class="icon-btn" href="${escapeHtml(item.url)}" aria-label="${escapeHtml(item.name)}" target="_blank" rel="noopener">
-          ${icon(item.icon)}
+      (channel) => `
+        <a class="icon-btn" href="${escapeHtml(channel.href)}" aria-label="${escapeHtml(channel.name)}" target="_blank" rel="noopener">
+          ${icon(channel.icon)}
         </a>
       `
     )
     .join("");
 }
 
-export function getContactData() {
-  return contactData;
+export function getContactChannels() {
+  return contactChannels;
 }

@@ -10,17 +10,14 @@
 
 /* Tablet (<=1024px) */
 @media (max-width: 1024px) {
-  .services-grid,
-  .packages-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .about-section .container {
+  .about-section .container,
+  .hizmetler-grid {
     grid-template-columns: 1fr;
   }
 
-  .contact-grid {
-    grid-template-columns: repeat(3, 1fr);
+  /* İletişim kartları: 2 sütun (son sırada tek kart varsa ortalanır) */
+  .contact-card {
+    flex: 0 1 calc((100% - var(--space-md)) / 2);
   }
 
   section {
@@ -82,12 +79,6 @@
 
 /* Tablet dikey / büyük telefon (<=768px) */
 @media (max-width: 768px) {
-  .services-grid,
-  .packages-grid,
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-
   .form-row {
     grid-template-columns: 1fr;
   }
@@ -134,8 +125,37 @@
     font-size: 1rem;
   }
 
+  .brand-logo {
+    --brand-logo-size: 30px;
+  }
+
   .search-overlay {
     padding-top: 8vh;
+  }
+
+  .benefit-list,
+  .industry-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* İletişim kartları: mobilde tek sütun */
+  .contact-card {
+    flex: 1 1 100%;
+    max-width: 320px;
+  }
+
+  .packages-slider {
+    gap: var(--space-xs);
+  }
+
+  .slider-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .slider-arrow svg {
+    width: 16px;
+    height: 16px;
   }
 }
 

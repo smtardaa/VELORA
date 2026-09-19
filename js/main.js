@@ -3,10 +3,10 @@
 import { getPreferredTheme, applyTheme, initThemeToggle } from "./theme.js";
 import { logoConfig, siteConfig } from "../data/site-config.js";
 import { initHeader } from "../components/header.js";
-import { renderServices } from "../components/services.js";
-import { renderPackages } from "../components/packages.js";
+import { renderBenefits, renderIndustries } from "../components/hizmetler.js";
+import { initPackagesSlider } from "../components/packages.js";
 import { renderFaq } from "../components/faq.js";
-import { renderContact, renderSocialLinks } from "../components/contact.js";
+import { renderContactChannels, renderFooterSocial } from "../components/contact.js";
 import { initQuestionForm } from "../components/questionForm.js";
 import { initSearch } from "../components/search.js";
 import { initScrollAnimations } from "./scrollAnimations.js";
@@ -41,11 +41,20 @@ function init() {
 
   initHeader();
 
-  renderServices(qs("#hizmetler-grid"));
-  renderPackages(qs("#paketler-grid"));
+  renderBenefits(qs("#benefits-card"));
+  renderIndustries(qs("#industries-card"));
+
+  initPackagesSlider({
+    sliderEl: qs("#packages-slider"),
+    trackEl: qs("#packages-track"),
+    prevBtn: qs(".slider-prev"),
+    nextBtn: qs(".slider-next"),
+    dotsEl: qs("#packages-dots")
+  });
+
   renderFaq(qs("#sss-list"));
-  renderContact(qs("#iletisim-grid"));
-  renderSocialLinks(qs("#footer-social"));
+  renderContactChannels(qs("#iletisim-grid"));
+  renderFooterSocial(qs("#footer-social"));
 
   initQuestionForm(qs("#soru-form"));
 

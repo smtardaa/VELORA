@@ -5,6 +5,7 @@ import { logoConfig, siteConfig } from "../data/site-config.js";
 import { initHeader } from "../components/header.js";
 import { renderBenefits, renderIndustries } from "../components/hizmetler.js";
 import { initPackagesSlider } from "../components/packages.js";
+import { initProjectsSlider } from "../components/projects.js";
 import { renderFaq } from "../components/faq.js";
 import { renderContactChannels, renderFooterSocial } from "../components/contact.js";
 import { initQuestionForm } from "../components/questionForm.js";
@@ -50,6 +51,13 @@ function init() {
     prevBtn: qs(".slider-prev"),
     nextBtn: qs(".slider-next"),
     dotsEl: qs("#packages-dots")
+  });
+
+  initProjectsSlider({
+    sliderEl: qs("#works-slider"),
+    trackEl: qs("#works-track"),
+    prevBtn: qs(".works-prev"),
+    nextBtn: qs(".works-next")
   });
 
   renderFaq(qs("#sss-list"));

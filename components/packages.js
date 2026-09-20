@@ -1,12 +1,15 @@
-// components/packages.js — Paketler bölümü: sayfalı (paged) kart slider'ı.
+// components/packages.js — Paketler bölümü: SONSUZ (infinite) gruplu kart slider'ı.
 //
 // Davranış (kesin):
-//  - Desktop  (>1024px) : aynı anda 3 kart, toplam 2 sayfa (1-2-3 / 4-5-6)
-//  - Tablet   (481-1024): aynı anda 2 kart, toplam 3 sayfa
-//  - Mobile   (<=480px) : aynı anda 1 kart, toplam 6 sayfa
-// Sayfa geçişleri ok butonları, alt nokta (dot) göstergesi ve mobilde
-// touch/swipe ile yapılabilir. Sonsuz döngü yoktur: ilk sayfada "geri",
-// son sayfada "ileri" oku pasif hale gelir.
+//  - Desktop  (>1024px) : aynı anda 3 kart -> 1-2-3 / 4-5-6 / 1-2-3 / ... (2 grup, sonsuz)
+//  - Tablet   (481-1024): aynı anda 2 kart -> 1-2 / 3-4 / 5-6 / 1-2 / ... (3 grup, sonsuz)
+//  - Mobile   (<=480px) : aynı anda 1 kart -> 1 / 2 / 3 / 4 / 5 / 6 / 1 / ... (6 grup, sonsuz)
+//
+// Her ok tıklaması TAM BİR GRUP değiştirir (tek kart kayması olmaz).
+// Sonsuzluk, ilk ve son grubun birer "klon"unu track'in başına/sonuna
+// ekleyip sınıra ulaşınca (kullanıcı fark etmeden) animasyonsuz bir
+// şekilde gerçek gruba geri sarmakla (classic clone-carousel tekniği)
+// sağlanır. Otomatik oynatma YOKTUR: yalnızca ok ve swipe ile hareket eder.
 
 import { packagesData } from "../data/packages.js";
 import { icon } from "../js/icons.js";
@@ -45,29 +48,44 @@ function renderCard(pkg) {
   `;
 }
 
+function renderPageHtml(pageItems, cardsPerView) {
+  return `
+    <div class="slider-page">
+      <div class="grid packages-grid" style="--packages-per-view:${cardsPerView}">
+        ${pageItems.map(renderCard).join("")}
+      </div>
+    </div>
+  `;
+}
+
 export function initPackagesSlider({ sliderEl, trackEl, prevBtn, nextBtn, dotsEl }) {
   if (!sliderEl || !trackEl || !prevBtn || !nextBtn || !dotsEl) return;
 
   let cardsPerView = getCardsPerView();
-  let pages = chunk(packagesData, cardsPerView);
-  let currentPage = 0;
+  let realPages = chunk(packagesData, cardsPerView);
+  let pageCount = realPages.length;
+  // extendedPages = [son grubun klonu, ...gerçek gruplar, ilk grubun klonu]
+  let extendedPages = [];
+  // currentIndex, extendedPages içindeki konumu gösterir. Gerçek gruplar
+  // her zaman [1, pageCount] aralığında; 0 ve pageCount+1 klonlardır.
+  let currentIndex = 1;
+  let isAnimating = false;
+
+  function buildExtended() {
+    extendedPages = pageCount > 1
+      ? [realPages[pageCount - 1], ...realPages, realPages[0]]
+      : [...realPages];
+    currentIndex = pageCount > 1 ? 1 : 0;
+  }
 
   function renderTrack() {
-    trackEl.innerHTML = pages
-      .map(
-        (pageItems) => `
-          <div class="slider-page">
-            <div class="grid packages-grid" style="--packages-per-view:${cardsPerView}">
-              ${pageItems.map(renderCard).join("")}
-            </div>
-          </div>
-        `
-      )
+    trackEl.innerHTML = extendedPages
+      .map((pageItems) => renderPageHtml(pageItems, cardsPerView))
       .join("");
   }
 
   function renderDots() {
-    dotsEl.innerHTML = pages
+    dotsEl.innerHTML = realPages
       .map(
         (_, index) => `
           <button class="slider-dot" type="button" data-page="${index}" aria-label="Paket grubu ${index + 1}"></button>
@@ -76,58 +94,99 @@ export function initPackagesSlider({ sliderEl, trackEl, prevBtn, nextBtn, dotsEl
       .join("");
   }
 
-  function update() {
-    const offset = currentPage * 100;
-    trackEl.style.transform = `translateX(-${offset}%)`;
+  function activeRealIndex() {
+    if (pageCount <= 1) return 0;
+    return ((currentIndex - 1) % pageCount + pageCount) % pageCount;
+  }
 
-    prevBtn.disabled = currentPage === 0;
-    nextBtn.disabled = currentPage === pages.length - 1;
-    prevBtn.setAttribute("aria-disabled", String(prevBtn.disabled));
-    nextBtn.setAttribute("aria-disabled", String(nextBtn.disabled));
+  function setTransform(withTransition) {
+    trackEl.style.transition = withTransition ? "" : "none";
+    trackEl.style.transform = `translateX(-${currentIndex * 100}%)`;
+    if (!withTransition) {
+      // Reflow zorlayarak "transition:none" değişikliğinin hemen
+      // uygulanmasını sağla, sonra transition'ı tekrar aç.
+      // eslint-disable-next-line no-unused-expressions
+      trackEl.offsetHeight;
+      trackEl.style.transition = "";
+    }
+  }
 
+  function updateControls() {
+    const active = activeRealIndex();
     dotsEl.querySelectorAll(".slider-dot").forEach((dot, index) => {
-      dot.classList.toggle("is-active", index === currentPage);
-      dot.setAttribute("aria-current", index === currentPage ? "true" : "false");
+      dot.classList.toggle("is-active", index === active);
+      dot.setAttribute("aria-current", index === active ? "true" : "false");
     });
 
-    // Tek sayfalık gruplarda (mobil) dot göstergesini gizlemeye gerek yok;
-    // ancak tek sayfa varsa (ör. çok geniş ekranlarda) kontrolleri gizle.
-    const hasMultiplePages = pages.length > 1;
+    const hasMultiplePages = pageCount > 1;
     sliderEl.classList.toggle("has-single-page", !hasMultiplePages);
+    prevBtn.disabled = !hasMultiplePages;
+    nextBtn.disabled = !hasMultiplePages;
   }
 
-  function goToPage(index) {
-    currentPage = Math.max(0, Math.min(index, pages.length - 1));
-    update();
+  function goTo(direction) {
+    if (isAnimating || pageCount <= 1) return;
+    isAnimating = true;
+    currentIndex += direction;
+    setTransform(true);
+    updateControls();
   }
 
-  function rebuild({ preserveItem = true } = {}) {
-    const firstVisibleItemIndex = preserveItem ? currentPage * cardsPerView : 0;
+  function goToRealPage(index) {
+    if (isAnimating || pageCount <= 1) return;
+    isAnimating = true;
+    currentIndex = index + 1;
+    setTransform(true);
+    updateControls();
+  }
+
+  trackEl.addEventListener("transitionend", (event) => {
+    if (event.propertyName !== "transform") return;
+    isAnimating = false;
+
+    if (currentIndex >= extendedPages.length - 1) {
+      currentIndex = 1;
+      setTransform(false);
+    } else if (currentIndex <= 0) {
+      currentIndex = pageCount;
+      setTransform(false);
+    }
+    updateControls();
+  });
+
+  function rebuild() {
+    const oldCardsPerView = cardsPerView;
+    const firstVisibleItemIndex = activeRealIndex() * oldCardsPerView;
 
     cardsPerView = getCardsPerView();
-    pages = chunk(packagesData, cardsPerView);
+    realPages = chunk(packagesData, cardsPerView);
+    pageCount = realPages.length;
+    buildExtended();
 
-    const newPage = Math.floor(firstVisibleItemIndex / cardsPerView);
-    currentPage = Math.max(0, Math.min(newPage, pages.length - 1));
+    const newPageIndex = Math.max(
+      0,
+      Math.min(Math.floor(firstVisibleItemIndex / cardsPerView), pageCount - 1)
+    );
+    currentIndex = pageCount > 1 ? newPageIndex + 1 : 0;
 
     renderTrack();
     renderDots();
-    update();
+    setTransform(false);
+    updateControls();
   }
 
-  prevBtn.addEventListener("click", () => goToPage(currentPage - 1));
-  nextBtn.addEventListener("click", () => goToPage(currentPage + 1));
+  prevBtn.addEventListener("click", () => goTo(-1));
+  nextBtn.addEventListener("click", () => goTo(1));
 
   dotsEl.addEventListener("click", (event) => {
     const dot = event.target.closest(".slider-dot");
     if (!dot) return;
-    goToPage(Number(dot.dataset.page));
+    goToRealPage(Number(dot.dataset.page));
   });
 
-  // Klavye ile ok tuşlarıyla gezinme (slider odaktayken).
   sliderEl.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight") goToPage(currentPage + 1);
-    if (event.key === "ArrowLeft") goToPage(currentPage - 1);
+    if (event.key === "ArrowRight") goTo(1);
+    if (event.key === "ArrowLeft") goTo(-1);
   });
 
   // Touch / swipe desteği (mobil ve dokunmatik trackpad'ler için).
@@ -148,8 +207,7 @@ export function initPackagesSlider({ sliderEl, trackEl, prevBtn, nextBtn, dotsEl
       if (touchStartX === null) return;
       const deltaX = event.changedTouches[0].clientX - touchStartX;
       if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
-        if (deltaX < 0) goToPage(currentPage + 1);
-        else goToPage(currentPage - 1);
+        goTo(deltaX < 0 ? 1 : -1);
       }
       touchStartX = null;
     },
@@ -166,7 +224,9 @@ export function initPackagesSlider({ sliderEl, trackEl, prevBtn, nextBtn, dotsEl
     }, 150)
   );
 
+  buildExtended();
   renderTrack();
   renderDots();
-  update();
+  setTransform(false);
+  updateControls();
 }

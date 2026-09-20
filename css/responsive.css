@@ -115,16 +115,17 @@
     padding-block: var(--space-xl);
   }
 
-  /* Butonlar yan yana kalır ama VELORA başlığının genişliğini aşmayacak
-     şekilde daha kompakt hale getirilir; kenarlara yapışmaları
-     hero-inner'a eklenen yatay padding ile önlenir (bkz. main.css). */
+  /* 480px ve altında 2'şerli ızgara yerine tek sütun: 4 buton alt
+     alta, hepsi eşit (tam) genişlikte, aralarında dengeli boşlukla. */
   .hero-actions {
-    gap: 0.5rem;
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
   }
 
   .hero-actions .btn {
-    padding: 0.55rem 0.9rem;
-    font-size: 0.78rem;
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.88rem;
   }
 
   .card {
@@ -162,8 +163,13 @@
     max-width: 320px;
   }
 
-  .packages-slider {
+  .packages-slider,
+  .works-slider {
     gap: var(--space-xs);
+  }
+
+  .works-slide {
+    padding-inline: calc(var(--space-sm) / 2);
   }
 
   .slider-arrow {

@@ -294,12 +294,41 @@ p {
   text-align: center;
 }
 
+/* 4 CTA her zaman düzenli bir 2x2 ızgara halinde durur (3+1 gibi
+   dengesiz bir sarma oluşmasın diye kasıtlı olarak grid kullanılır).
+   Sütunlar sabit bir genişlikte (--hero-btn-width) tutulur, böylece
+   buton genişliği yazı uzunluğuna göre değişmez; hepsi eşit boyutta
+   ve eşit yükseklikte görünür. */
 .hero-actions {
-  display: flex;
+  --hero-btn-width: 230px;
+  display: grid;
+  grid-template-columns: repeat(2, var(--hero-btn-width));
   gap: var(--space-sm);
   margin-top: var(--space-sm);
-  flex-wrap: wrap;
   justify-content: center;
+}
+
+.hero-actions .btn {
+  width: 100%;
+  justify-self: stretch;
+}
+
+/* "Paketleri İncele" temaya göre değişen accent renk yerine her
+   zaman sabit siyah arka plan + beyaz yazı kullanır; böylece diğer
+   üç butonla aynı görsel ağırlıkta durur, koyu temada beyaz bir
+   "blok" gibi öne çıkmaz. */
+.hero-actions .btn-primary {
+  background-color: #1d1d1f;
+  color: #ffffff;
+  /* Diğer üç buton .btn-secondary'nin 1px border'ına sahip; burada da
+     aynı kalınlıkta (görünmez, arka planla aynı renkte) bir border
+     kullanılır ki kutu modeli birebir eşleşsin ve dört buton da tam
+     olarak aynı yükseklikte olsun. */
+  border: 1px solid #1d1d1f;
+}
+
+.hero-actions .btn-primary:hover {
+  opacity: 0.85;
 }
 
 /* ---------- Grid / Kartlar ---------- */
@@ -438,6 +467,15 @@ p {
   flex-direction: column;
   position: relative;
   background-color: var(--color-bg);
+  /* Grid hücresi, içerideki (nowrap) CTA metninin doğal genişliğine
+     göre büzülmeyi reddetmesin diye min-width sıfırlanır. Aksi halde
+     en uzun CTA metnine sahip kart (ör. "Özel Proje") dar ekranlarda
+     kendi hücresinden taşıp border'ı ekran/viewport dışına çıkarıyordu. */
+  min-width: 0;
+}
+
+.package-card .btn-block {
+  white-space: normal;
 }
 
 /* Slider viewport'u overflow:hidden olduğu için kartların genel
@@ -584,6 +622,101 @@ p {
 
 .packages-slider.has-single-page + .slider-dots {
   display: none;
+}
+
+/* ---------- Çalışmalarımız (works) slider ---------- */
+
+.works-slider {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-sm);
+}
+
+.works-viewport {
+  flex: 1;
+  overflow: hidden;
+}
+
+.works-track {
+  display: flex;
+  transition: transform var(--transition-base);
+}
+
+.works-slide {
+  flex: 0 0 calc(100% / var(--project-per-view, 3));
+  min-width: 0;
+  box-sizing: border-box;
+  padding-inline: calc(var(--space-md) / 2);
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: var(--color-text);
+}
+
+/* Slider viewport'u overflow:hidden olduğu için genel .card:hover
+   kalkma efekti burada da uygulanmaz (paket kartlarındaki aynı
+   kırpılma sorununu önler); yalnızca gölge ile geri bildirim verilir. */
+.project-card:hover {
+  transform: none;
+  box-shadow: var(--shadow-elevated);
+}
+
+.project-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-muted);
+  border: 1px solid var(--color-border);
+  margin-bottom: var(--space-md);
+  overflow: hidden;
+}
+
+.project-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-thumb-icon {
+  display: inline-flex;
+  color: var(--color-text-secondary);
+}
+
+.project-thumb-icon svg {
+  width: 34px;
+  height: 34px;
+}
+
+.project-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.project-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.project-category {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.6rem;
+}
+
+.project-link {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 /* ---------- Hakkında ---------- */
@@ -861,6 +994,19 @@ p {
 
 .footer-links a:hover {
   color: var(--color-text);
+}
+
+/* "Çalışmalarımız" bağlantısı şimdilik pasif: href yok, tıklanamaz,
+   hafif soluk görünerek yakında geleceğini ima eder. */
+.nav-links a.is-disabled,
+.footer-links a.is-disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.nav-links a.is-disabled:hover,
+.footer-links a.is-disabled:hover {
+  color: inherit;
 }
 
 .footer-social {

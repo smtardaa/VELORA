@@ -9,5 +9,6 @@ export const industries = [
   { icon: "scale", name: "Hukuk" },
   { icon: "heart", name: "Sağlık & Klinik" },
   { icon: "home", name: "Gayrimenkul" },
-  { icon: "user", name: "Kişisel Marka" }
+  { icon: "user", name: "Kişisel Marka" },
+  { icon: "brush", name: "Güzellik & Kuaför" }
 ];

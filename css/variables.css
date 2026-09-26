@@ -1,12 +1,12 @@
 /* css/variables.css — renk, tipografi ve boşluk token'ları
-   Light Mode varsayılan; Dark Mode [data-theme="dark"] ile devreye girer. */
+   Tek, sabit palet (siyah / beyaz / gri) kullanılır — tema değiştirme yok. */
 
 :root {
   /* Tipografi */
   --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  /* Light Mode palet (siyah / beyaz / gri) */
+  /* Sabit palet (siyah / beyaz / gri) */
   --color-bg: #ffffff;
   --color-bg-elevated: #f7f7f8;
   --color-bg-muted: #f0f0f2;
@@ -40,16 +40,33 @@
   --transition-fast: 160ms ease;
   --transition-base: 280ms cubic-bezier(0.22, 1, 0.36, 1);
 
-  --header-height: 72px;
+  /* Desktop header yüksekliği (tam 40px). Tablet/mobilde
+     css/responsive.css içindeki kırılım noktasında eski (72px)
+     değere geri döndürülür — bkz. @media (max-width: 1024px). */
+  --header-height: 40px;
 
-  /* Logo, siyah bir kare zemin üzerine tasarlanmıştır. Görünürlüğü her iki
-     temada da korumak için sabit bir "chip" zemini üzerinde gösterilir;
-     bu zemin logonun kendisine değil yalnızca çevresine uygulanır. */
+  /* Desktop header hedef (maksimum) genişliği. Test edilen tüm
+     ekran boyutları (1920px ve altı) bu değerin altında olduğu için
+     görsel olarak header zaten tam genişlikte görünür; bu yalnızca
+     çok geniş ekranlarda header içeriğinin ortalanmasını sağlar. */
+  --header-width: 2116px;
+
+  /* Logo, siyah bir kare zemin üzerine tasarlanmıştır. Görünürlüğü
+     korumak için sabit bir "chip" zemini üzerinde gösterilir; bu zemin
+     logonun kendisine değil yalnızca çevresine uygulanır. */
   --logo-chip-bg: var(--color-bg-elevated);
   --logo-chip-border: var(--color-border);
 }
 
-:root[data-theme="dark"] {
+/* Bölüm arka plan ritmi: header her zaman beyaz olduğundan, hemen
+   ardından gelen bölümlerden başlayarak siyah/beyaz sırası kurulur.
+   .section-invert, ilgili <section> öğesine eklenir ve o bölümün
+   (ve içindeki tüm bileşenlerin — kartlar, butonlar, ikonlar, formlar)
+   renklerini eskiden [data-theme="dark"] için tanımlanmış aynı
+   siyah/beyaz/gri paleti kullanarak tersine çevirir. Yeni bir renk
+   paleti eklenmez; yalnızca mevcut koyu tondaki değerler yeniden
+   kullanılır. */
+.section-invert {
   --color-bg: #000000;
   --color-bg-elevated: #131316;
   --color-bg-muted: #1c1c1e;

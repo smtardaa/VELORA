@@ -13,24 +13,6 @@
   <link rel="stylesheet" href="css/variables.css" />
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/responsive.css" />
-
-  <!--
-    Tema, sayfa boyanmadan önce uygulanır (flash of wrong theme önlemek için).
-    localStorage okunamıyorsa (ör. gizli sekme) sistem tercihine düşer.
-  -->
-  <script>
-    (function () {
-      try {
-        var stored = localStorage.getItem("velora-theme");
-        var theme = stored === "light" || stored === "dark"
-          ? stored
-          : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-        document.documentElement.setAttribute("data-theme", theme);
-      } catch (err) {
-        document.documentElement.setAttribute("data-theme", "light");
-      }
-    })();
-  </script>
 </head>
 <body>
 
@@ -45,9 +27,9 @@
       <nav class="main-nav" aria-label="Ana menü">
         <ul class="nav-links" id="nav-links">
           <li><a href="#anasayfa">Ana Sayfa</a></li>
-          <li><a href="#hizmetler">Hizmetlerimiz</a></li>
+          <li><a href="#hizmetler">Hedeflerimiz</a></li>
           <li><a href="#paketler">Paketlerimiz</a></li>
-          <li><a class="is-disabled" aria-disabled="true">Çalışmalarımız</a></li>
+          <li><a href="#calismalarimiz">Çalışmalarımız</a></li>
           <li><a href="#sss">SSS</a></li>
           <li><a href="#soru-sor">Soru Sor</a></li>
           <li><a href="#iletisim">İletişim</a></li>
@@ -58,10 +40,15 @@
         <button class="icon-btn" id="search-trigger" type="button" aria-label="Sitede ara">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
         </button>
-        <button class="icon-btn theme-toggle" type="button" aria-label="Açık/koyu temayı değiştir">
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
-        </button>
+        <div class="lang-switch">
+          <button class="lang-switch-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Dil seçimi: Türkçe">
+            <span class="lang-switch-code">TR</span>
+            <svg class="lang-switch-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <ul class="lang-switch-menu" role="listbox">
+            <li class="lang-switch-option is-selected" role="option" aria-selected="true">Türkçe</li>
+          </ul>
+        </div>
         <button class="icon-btn menu-toggle" type="button" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="nav-links">
           <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
             <line class="icon-line-1" x1="4" y1="7" x2="20" y2="7" />
@@ -76,12 +63,12 @@
   <main id="main-content">
 
     <!-- Ana Sayfa / Hero -->
-    <section id="anasayfa" class="hero">
+    <section id="anasayfa" class="hero section-invert">
       <div class="hero-inner">
         <h1>VELORA</h1>
         <p class="lede">Markanız için sade, hızlı ve etkili web deneyimleri tasarlıyoruz.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#paketler">Paketleri İncele</a>
+          <a class="btn btn-secondary" href="#paketler">Paketleri İncele</a>
           <a class="btn btn-secondary" href="#hizmetler">Hizmetleri Gör</a>
           <a class="btn btn-secondary" href="#iletisim">Hemen İletişime Geç</a>
           <a class="btn btn-secondary" href="#soru-sor">Projenizi Anlatın</a>
@@ -93,7 +80,7 @@
     <section id="hizmetler">
       <div class="container">
         <div class="section-header center">
-          <span class="eyebrow">Hizmetlerimiz</span>
+          <span class="eyebrow">Hedeflerimiz</span>
           <h2>Neden bir web sitesine ihtiyacınız var?</h2>
           <p class="lede" style="margin-inline:auto">VELORA, markanızı doğru gösteren ve farklı sektörlere uyum sağlayan web siteleri tasarlar.</p>
         </div>
@@ -105,7 +92,7 @@
     </section>
 
     <!-- Web Sitesi Paketlerimiz -->
-    <section id="paketler">
+    <section id="paketler" class="section-invert">
       <div class="container">
         <div class="section-header center">
           <span class="eyebrow">Paketlerimiz</span>
@@ -162,7 +149,7 @@
     </section>
 
     <!-- Çalışmalarımız -->
-    <section id="calismalarimiz">
+    <section id="calismalarimiz" class="section-invert">
       <div class="container">
         <div class="section-header center">
           <span class="eyebrow">Çalışmalarımız</span>
@@ -198,7 +185,7 @@
     </section>
 
     <!-- Soru Sor -->
-    <section id="soru-sor">
+    <section id="soru-sor" class="section-invert">
       <div class="container">
         <div class="section-header center">
           <span class="eyebrow">Soru Sor</span>
@@ -262,7 +249,7 @@
           <a href="#anasayfa">Ana Sayfa</a>
           <a href="#hizmetler">Hizmetlerimiz</a>
           <a href="#paketler">Paketler</a>
-          <a class="is-disabled" aria-disabled="true">Çalışmalarımız</a>
+          <a href="#calismalarimiz">Çalışmalarımız</a>
           <a href="#iletisim">İletişim</a>
           <a href="#sss">SSS</a>
           <a href="#soru-sor">Soru Sorma</a>

@@ -54,4 +54,30 @@ export function initHeader() {
     );
     sections.forEach((section) => observer.observe(section));
   }
+
+  // Dil seçimi — şimdilik yalnızca "TR" bulunur; gerçek bir dil
+  // değiştirme sistemi değildir, sade bir aç/kapa dropdown'dır.
+  const langSwitch = qs(".lang-switch");
+  const langTrigger = langSwitch ? qs(".lang-switch-trigger", langSwitch) : null;
+
+  if (langSwitch && langTrigger) {
+    const closeLangSwitch = () => {
+      langSwitch.classList.remove("is-open");
+      langTrigger.setAttribute("aria-expanded", "false");
+    };
+
+    langTrigger.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const isOpen = langSwitch.classList.toggle("is-open");
+      langTrigger.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!langSwitch.contains(event.target)) closeLangSwitch();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeLangSwitch();
+    });
+  }
 }

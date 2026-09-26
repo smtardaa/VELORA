@@ -1,6 +1,5 @@
 // js/main.js — uygulama giriş noktası. Tüm bileşenleri başlatır.
 
-import { getPreferredTheme, applyTheme, initThemeToggle } from "./theme.js";
 import { logoConfig, siteConfig } from "../data/site-config.js";
 import { initHeader } from "../components/header.js";
 import { renderBenefits, renderIndustries } from "../components/hizmetler.js";
@@ -34,11 +33,6 @@ function applyBrandConfig() {
 
 function init() {
   applyBrandConfig();
-
-  // Tema, sayfa boyanmadan önce index.html <head> içindeki satır-içi
-  // betikle uygulanır; burada yalnızca değiştirme (toggle) davranışı bağlanır.
-  applyTheme(getPreferredTheme());
-  initThemeToggle(qs(".theme-toggle"));
 
   initHeader();
 

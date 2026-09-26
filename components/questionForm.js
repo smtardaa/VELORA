@@ -3,6 +3,7 @@
 // doğrulama, hata mesajları ve başarı geri bildirimi tam çalışır.
 
 import { isValidEmail, qs } from "../js/utils.js";
+import { t } from "../js/i18n.js";
 
 function setFieldError(form, name, message) {
   const field = form.querySelector(`[data-field="${name}"]`);
@@ -23,34 +24,34 @@ function validateForm(form) {
   let isValid = true;
 
   if (!values.ad) {
-    setFieldError(form, "ad", "Adınızı girin.");
+    setFieldError(form, "ad", t("form.errors.firstNameRequired"));
     isValid = false;
   } else {
     setFieldError(form, "ad", "");
   }
 
   if (!values.soyad) {
-    setFieldError(form, "soyad", "Soyadınızı girin.");
+    setFieldError(form, "soyad", t("form.errors.lastNameRequired"));
     isValid = false;
   } else {
     setFieldError(form, "soyad", "");
   }
 
   if (!values.eposta) {
-    setFieldError(form, "eposta", "E-posta adresinizi girin.");
+    setFieldError(form, "eposta", t("form.errors.emailRequired"));
     isValid = false;
   } else if (!isValidEmail(values.eposta)) {
-    setFieldError(form, "eposta", "Geçerli bir e-posta adresi girin.");
+    setFieldError(form, "eposta", t("form.errors.emailInvalid"));
     isValid = false;
   } else {
     setFieldError(form, "eposta", "");
   }
 
   if (!values.soru) {
-    setFieldError(form, "soru", "Sorunuzu yazın.");
+    setFieldError(form, "soru", t("form.errors.questionRequired"));
     isValid = false;
   } else if (values.soru.length < 10) {
-    setFieldError(form, "soru", "Sorunuzu biraz daha detaylandırır mısınız? (en az 10 karakter)");
+    setFieldError(form, "soru", t("form.errors.questionTooShort"));
     isValid = false;
   } else {
     setFieldError(form, "soru", "");
@@ -91,7 +92,7 @@ export function initQuestionForm(form) {
     if (!validateForm(form)) {
       if (feedback) {
         feedback.classList.add("is-error");
-        feedback.textContent = "Lütfen işaretli alanları kontrol edin.";
+        feedback.textContent = t("form.feedback.error");
       }
       return;
     }
@@ -100,7 +101,7 @@ export function initQuestionForm(form) {
     const originalLabel = submitBtn ? submitBtn.textContent : "";
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = "Gönderiliyor...";
+      submitBtn.textContent = t("form.submitting");
     }
 
     // Gerçek bir backend bulunmadığı için gönderim burada simüle edilir.
@@ -111,7 +112,7 @@ export function initQuestionForm(form) {
       }
       if (feedback) {
         feedback.classList.add("is-success");
-        feedback.textContent = "Teşekkürler! Sorunuz alındı, en kısa sürede size dönüş yapacağız.";
+        feedback.textContent = t("form.feedback.success");
       }
       form.reset();
       syncIhtiyacDiger();

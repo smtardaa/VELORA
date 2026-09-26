@@ -21,6 +21,15 @@
 import { packagesData } from "../data/packages.js";
 import { icon } from "../js/icons.js";
 import { debounce, escapeHtml } from "../js/utils.js";
+import { t, onLanguageChange } from "../js/i18n.js";
+import { openPackageContactModal } from "./packageContactModal.js";
+
+// Paket verisinin çevrilebilir kısımları (isim/açıklama/özellikler/CTA)
+// data/i18n/*.js içinde "packages.items.<id>" altında tutulur; sabit
+// alanlar (id, highlighted) yalnızca data/packages.js'ten gelir.
+function getTranslatedPackages() {
+  return packagesData.map((pkg) => ({ ...pkg, ...t(`packages.items.${pkg.id}`) }));
+}
 
 function getViewportTier() {
   const width = window.innerWidth;
@@ -55,9 +64,9 @@ function renderCard(pkg) {
           .map((feature) => `<li>${icon("check")}<span>${escapeHtml(feature)}</span></li>`)
           .join("")}
       </ul>
-      <a href="#iletisim" class="btn ${pkg.highlighted ? "btn-primary" : "btn-secondary"} btn-block">
+      <button type="button" class="btn ${pkg.highlighted ? "btn-primary" : "btn-secondary"} btn-block package-contact-trigger" data-package-name="${escapeHtml(pkg.name)}">
         ${escapeHtml(pkg.cta)}
-      </a>
+      </button>
     </article>
   `;
 }
@@ -76,7 +85,7 @@ export function initPackagesSlider({ sliderEl, trackEl, prevBtn, nextBtn, dotsEl
   if (!sliderEl || !trackEl || !prevBtn || !nextBtn || !dotsEl) return;
 
   let cardsPerView = getCardsPerView();
-  let realPages = chunk(packagesData, cardsPerView);
+  let realPages = chunk(getTranslatedPackages(), cardsPerView);
   let pageCount = realPages.length;
   // extendedPages = [son grubun klonu, ...gerçek gruplar, ilk grubun klonu]
   let extendedPages = [];
@@ -102,7 +111,7 @@ export function initPackagesSlider({ sliderEl, trackEl, prevBtn, nextBtn, dotsEl
     dotsEl.innerHTML = realPages
       .map(
         (_, index) => `
-          <button class="slider-dot" type="button" data-page="${index}" aria-label="Paket grubu ${index + 1}"></button>
+          <button class="slider-dot" type="button" data-page="${index}" aria-label="${escapeHtml(t("packages.dotAriaLabel").replace("{n}", String(index + 1)))}"></button>
         `
       )
       .join("");
@@ -169,7 +178,11 @@ export function initPackagesSlider({ sliderEl, trackEl, prevBtn, nextBtn, dotsEl
   }
 
   trackEl.addEventListener("transitionend", (event) => {
-    if (event.propertyName !== "transform") return;
+    // event.target === trackEl kontrolü önemli: aksi halde, kart
+    // içindeki iletişim butonunun kendi ":active" transform geçişi
+    // (tıklanma efekti) buraya "bubbling" ile ulaşıp track'i yanlışlıkla
+    // sonraki sayfaya kaydırabilir.
+    if (event.target !== trackEl || event.propertyName !== "transform") return;
     isAnimating = false;
 
     if (currentIndex >= extendedPages.length - 1) {
@@ -187,7 +200,7 @@ export function initPackagesSlider({ sliderEl, trackEl, prevBtn, nextBtn, dotsEl
     const firstVisibleItemIndex = activeRealIndex() * oldCardsPerView;
 
     cardsPerView = getCardsPerView();
-    realPages = chunk(packagesData, cardsPerView);
+    realPages = chunk(getTranslatedPackages(), cardsPerView);
     pageCount = realPages.length;
     buildExtended();
 
@@ -203,6 +216,22 @@ export function initPackagesSlider({ sliderEl, trackEl, prevBtn, nextBtn, dotsEl
     updateControls();
   }
 
+  // Dil değiştiğinde: kart sayısı/sayfa yapısı aynı kalır (yalnızca
+  // içerik metni değişir), bu yüzden görünen sayfa konumu korunarak
+  // yalnızca içerik yeniden çizilir — ok/nokta/touch olay dinleyicileri
+  // burada tekrar bağlanmaz (aşağıda yalnızca bir kez bağlanır).
+  function refreshContent() {
+    const activeIndexBeforeRefresh = activeRealIndex();
+    realPages = chunk(getTranslatedPackages(), cardsPerView);
+    pageCount = realPages.length;
+    buildExtended();
+    currentIndex = pageCount > 1 ? activeIndexBeforeRefresh + 1 : 0;
+    renderTrack();
+    renderDots();
+    setTransform(false);
+    updateControls();
+  }
+
   prevBtn.addEventListener("click", () => goTo(-1));
   nextBtn.addEventListener("click", () => goTo(1));
 
@@ -210,6 +239,17 @@ export function initPackagesSlider({ sliderEl, trackEl, prevBtn, nextBtn, dotsEl
     const dot = event.target.closest(".slider-dot");
     if (!dot) return;
     goToRealPage(Number(dot.dataset.page));
+  });
+
+  // Paket kartındaki iletişim butonu artık #iletisim'e yönlendirmez;
+  // seçilen pakete göre içeriği değişen popup'ı açar. Kartlar dil
+  // değişiminde / sayfa yeniden çiziminde yeniden oluşturulduğu için
+  // dinleyici, hiç değişmeyen trackEl üzerinde tek seferlik olay
+  // delegasyonu ile bağlanır.
+  trackEl.addEventListener("click", (event) => {
+    const trigger = event.target.closest(".package-contact-trigger");
+    if (!trigger) return;
+    openPackageContactModal(trigger.dataset.packageName);
   });
 
   sliderEl.addEventListener("keydown", (event) => {
@@ -257,4 +297,6 @@ export function initPackagesSlider({ sliderEl, trackEl, prevBtn, nextBtn, dotsEl
   renderDots();
   setTransform(false);
   updateControls();
+
+  onLanguageChange(refreshContent);
 }

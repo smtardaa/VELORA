@@ -16,28 +16,28 @@
 </head>
 <body>
 
-  <a class="visually-hidden" href="#main-content">İçeriğe geç</a>
+  <a class="visually-hidden" href="#main-content" data-i18n="skipLink">İçeriğe geç</a>
 
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="#anasayfa" aria-label="VELORA ana sayfa">
-        <img class="brand-logo" data-logo-img src="assets/Velora Second logo.png" alt="VELORA logosu" width="34" height="36" />
+      <a class="brand" href="#anasayfa" data-i18n-aria-label="header.brandAriaLabel" aria-label="VELORA ana sayfa">
+        <img class="brand-logo" data-logo-img data-i18n-alt="misc.logoAlt" src="assets/Velora Second logo.png" alt="VELORA logosu" width="34" height="36" />
       </a>
 
-      <nav class="main-nav" aria-label="Ana menü">
+      <nav class="main-nav" data-i18n-aria-label="header.mainNavAriaLabel" aria-label="Ana menü">
         <ul class="nav-links" id="nav-links">
-          <li><a href="#anasayfa">Ana Sayfa</a></li>
-          <li><a href="#calismalarimiz">Çalışmalarımız</a></li>
-          <li><a href="#paketler">Paketlerimiz</a></li>
-          <li><a href="#soru-sor">Soru Sor</a></li>
-          <li><a href="#sss">SSS</a></li>
-          <li><a href="#hizmetler">Hedeflerimiz</a></li>
-          <li><a href="#iletisim">İletişim</a></li>
+          <li><a href="#anasayfa" data-i18n="header.nav.home">Ana Sayfa</a></li>
+          <li><a href="#calismalarimiz" data-i18n="header.nav.works">Çalışmalarımız</a></li>
+          <li><a href="#paketler" data-i18n="header.nav.packages">Paketlerimiz</a></li>
+          <li><a href="#hakkinda" data-i18n="header.nav.about">Hakkında</a></li>
+          <li><a href="#soru-sor" data-i18n="header.nav.ask">Soru Sor</a></li>
+          <li><a href="#sss" data-i18n="header.nav.faq">SSS</a></li>
+          <li><a href="#iletisim" data-i18n="header.nav.contact">İletişim</a></li>
         </ul>
       </nav>
 
       <div class="header-actions">
-        <button class="icon-btn" id="search-trigger" type="button" aria-label="Sitede ara">
+        <button class="icon-btn" id="search-trigger" type="button" data-i18n-aria-label="header.searchAriaLabel" aria-label="Sitede ara">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
         </button>
         <div class="lang-switch">
@@ -46,14 +46,14 @@
             <svg class="lang-switch-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <ul class="lang-switch-menu" role="listbox">
-            <li class="lang-switch-option is-selected" role="option" aria-selected="true">Türkçe — TR</li>
-            <li class="lang-switch-option is-disabled" role="option" aria-selected="false" aria-disabled="true">İngilizce — EN</li>
-            <li class="lang-switch-option is-disabled" role="option" aria-selected="false" aria-disabled="true">Almanca — DE</li>
-            <li class="lang-switch-option is-disabled" role="option" aria-selected="false" aria-disabled="true">Fransızca — FR</li>
-            <li class="lang-switch-option is-disabled" role="option" aria-selected="false" aria-disabled="true">İtalyanca — IT</li>
+            <li class="lang-switch-option is-selected" role="option" aria-selected="true" tabindex="0" data-lang="tr">Türkçe — TR</li>
+            <li class="lang-switch-option" role="option" aria-selected="false" tabindex="0" data-lang="en">English — EN</li>
+            <li class="lang-switch-option" role="option" aria-selected="false" tabindex="0" data-lang="de">Deutsch — DE</li>
+            <li class="lang-switch-option" role="option" aria-selected="false" tabindex="0" data-lang="fr">Français — FR</li>
+            <li class="lang-switch-option" role="option" aria-selected="false" tabindex="0" data-lang="it">Italiano — IT</li>
           </ul>
         </div>
-        <button class="icon-btn menu-toggle" type="button" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="nav-links">
+        <button class="icon-btn menu-toggle" type="button" data-i18n-aria-label="header.menuToggleAriaLabel" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="nav-links">
           <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
             <line class="icon-line-1" x1="4" y1="7" x2="20" y2="7" />
             <line class="icon-line-2" x1="4" y1="12" x2="20" y2="12" />
@@ -70,11 +70,11 @@
     <section id="anasayfa" class="hero section-invert">
       <div class="hero-inner">
         <h1>VELORA</h1>
-        <p class="lede">İşletmenizi dijital dünyada daha görünür hale getiren sade ve etkili web deneyimleri.</p>
+        <p class="lede" data-i18n="hero.description">İşletmenizi dijital dünyada daha görünür hale getiren sade ve etkili web deneyimleri.</p>
         <div class="hero-actions">
-          <a class="btn btn-secondary" href="#paketler">Paketleri İncele</a>
-          <a class="btn btn-secondary" href="#iletisim">Hemen İletişime Geç</a>
-          <a class="btn btn-secondary" href="#soru-sor">Projenizi Anlatın</a>
+          <a class="btn btn-secondary" href="#paketler" data-i18n="hero.cta.packages">Paketleri İncele</a>
+          <a class="btn btn-secondary" href="#iletisim" data-i18n="hero.cta.contact">Hemen İletişime Geç</a>
+          <a class="btn btn-secondary" href="#soru-sor" data-i18n="hero.cta.ask">Projenizi Anlatın</a>
         </div>
       </div>
     </section>
@@ -83,13 +83,13 @@
     <section id="calismalarimiz">
       <div class="container">
         <div class="section-header center">
-          <span class="eyebrow">Çalışmalarımız</span>
-          <h2>Örnek çalışmalarımızdan bazıları</h2>
-          <p class="lede" style="margin-inline:auto">Farklı sektörlerden markalar için tasarladığımız web sitelerinden birkaç örnek.</p>
+          <span class="eyebrow" data-i18n="works.eyebrow">Çalışmalarımız</span>
+          <h2 data-i18n="works.heading">Örnek çalışmalarımızdan bazıları</h2>
+          <p class="lede" style="margin-inline:auto" data-i18n="works.lede">Farklı sektörlerden markalar için tasarladığımız web sitelerinden birkaç örnek.</p>
         </div>
 
         <div class="works-slider" id="works-slider">
-          <button class="slider-arrow works-prev" type="button" aria-label="Önceki çalışma">
+          <button class="slider-arrow works-prev" type="button" data-i18n-aria-label="works.prevAriaLabel" aria-label="Önceki çalışma">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
           </button>
 
@@ -97,7 +97,7 @@
             <div class="works-track" id="works-track"></div>
           </div>
 
-          <button class="slider-arrow works-next" type="button" aria-label="Sonraki çalışma">
+          <button class="slider-arrow works-next" type="button" data-i18n-aria-label="works.nextAriaLabel" aria-label="Sonraki çalışma">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
           </button>
         </div>
@@ -108,14 +108,14 @@
     <section id="paketler" class="section-invert">
       <div class="container">
         <div class="section-header center">
-          <span class="eyebrow">Paketlerimiz</span>
-          <h2>İhtiyacınıza uygun paketler</h2>
-          <p class="lede" style="margin-inline:auto">Size en uygun paketi birlikte belirleyelim; net bir teklif için bize ulaşmanız yeterli.</p>
-          <span class="delivery-note">Tüm paketlerde teslim süresi: 3 iş günü</span>
+          <span class="eyebrow" data-i18n="packages.eyebrow">Paketlerimiz</span>
+          <h2 data-i18n="packages.heading">İhtiyacınıza uygun paketler</h2>
+          <p class="lede" style="margin-inline:auto" data-i18n="packages.lede">Size en uygun paketi birlikte belirleyelim; net bir teklif için bize ulaşmanız yeterli.</p>
+          <span class="delivery-note" data-i18n="packages.deliveryNote">Tüm paketlerde teslim süresi: 3 iş günü</span>
         </div>
 
         <div class="packages-slider" id="packages-slider">
-          <button class="slider-arrow slider-prev" type="button" aria-label="Önceki paketler">
+          <button class="slider-arrow slider-prev" type="button" data-i18n-aria-label="packages.prevAriaLabel" aria-label="Önceki paketler">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
           </button>
 
@@ -123,7 +123,7 @@
             <div class="packages-track" id="packages-track"></div>
           </div>
 
-          <button class="slider-arrow slider-next" type="button" aria-label="Sonraki paketler">
+          <button class="slider-arrow slider-next" type="button" data-i18n-aria-label="packages.nextAriaLabel" aria-label="Sonraki paketler">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
           </button>
         </div>
@@ -132,32 +132,42 @@
       </div>
     </section>
 
-    <!-- VELORA Hakkında (kısa) -->
+    <!-- VELORA Hakkında -->
     <section id="hakkinda" class="about-section">
-      <div class="container">
-        <div>
-          <span class="eyebrow">VELORA</span>
-          <h2>Az ama kaliteli.</h2>
-          <p class="lede">Gereksiz kalabalıktan uzak, amacına hizmet eden web siteleri tasarlıyoruz. Her proje; sade tasarım, güçlü typography ve dengeli boşluklarla şekillenir.</p>
+      <div class="container about-container">
+
+        <div class="about-intro">
+          <span class="eyebrow" data-i18n="about.eyebrow">VELORA</span>
+          <h2 class="about-headline" data-i18n="about.headline">Dijital dünyadaki ilk izleniminiz, bir kapıdır.</h2>
+          <p class="lede about-lede" data-i18n="about.intro.p1">VELORA, işletmelerin dijital dünyada nasıl göründüğünü, nasıl hissedildiğini ve nasıl keşfedildiğini tasarlamak için kuruldu.</p>
+          <p class="lede about-lede" data-i18n="about.intro.p2">Çünkü bugün bir müşterinin sizinle kurduğu ilk temas çoğu zaman fiziksel değil, dijitaldir. Bir arama sonucu, bir sosyal medya bağlantısı veya doğrudan web siteniz üzerinden gerçekleşir.</p>
+          <p class="lede about-lede" data-i18n="about.intro.p3">Biz bu ilk teması sıradan bir web sitesinden daha fazlası olarak görüyoruz.</p>
+          <p class="about-statement" data-i18n="about.intro.statement">İşletmenizin dijital kapısını tasarlıyoruz.</p>
         </div>
-        <div class="about-stats">
-          <div class="stat-item">
-            <div class="stat-number">3</div>
-            <div class="stat-label">Esnek paket seçeneği</div>
+
+        <div class="about-pillars">
+          <div class="about-pillar">
+            <span class="about-pillar-index">01</span>
+            <h3 class="about-pillar-title" data-i18n="about.pillars.simple.title">Sade olanı, etkili hale getiriyoruz.</h3>
+            <p data-i18n="about.pillars.simple.body">VELORA'da tasarımın daha fazla detay eklemekten değil, doğru olanı doğru yerde kullanmaktan geçtiğine inanıyoruz. Bu yüzden oluşturduğumuz web deneyimleri; gereksiz kalabalıktan uzak, anlaşılır, hızlı, mobil uyumlu ve işletmenin karakterini yansıtan bir yapıya sahip. Her bölümün bir amacı, her detayın bir nedeni olmalı.</p>
           </div>
-          <div class="stat-item">
-            <div class="stat-number">7</div>
-            <div class="stat-label">İletişim kanalı</div>
+          <div class="about-pillar">
+            <span class="about-pillar-index">02</span>
+            <h3 class="about-pillar-title" data-i18n="about.pillars.experience.title">Tasarım ve teknoloji, tek bir deneyim.</h3>
+            <p data-i18n="about.pillars.experience.body">Bir web sitesinin yalnızca güzel görünmesi yeterli değil. İnsanların sizi birkaç saniye içinde anlayabilmesi, ihtiyaç duyduğu bilgiye kolayca ulaşabilmesi ve sizinle iletişime geçebilmesi gerekiyor. Bu nedenle tasarımı, kullanılabilirliği ve teknolojiyi birbirinden ayrı düşünmüyoruz. Ortaya yalnızca bir web sitesi değil, işletmenizin dijital dünyadaki yüzünü çıkarıyoruz.</p>
           </div>
-          <div class="stat-item">
-            <div class="stat-number">100%</div>
-            <div class="stat-label">Responsive tasarım</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">3 gün</div>
-            <div class="stat-label">Teslim süresi</div>
+          <div class="about-pillar">
+            <span class="about-pillar-index">03</span>
+            <h3 class="about-pillar-title" data-i18n="about.pillars.growth.title">Büyümek isteyen işletmeler için.</h3>
+            <p data-i18n="about.pillars.growth.body">VELORA; markasını daha güçlü göstermek, dijital dünyada daha görünür olmak ve müşterileriyle daha iyi bir ilk temas kurmak isteyen işletmelerle çalışır. İster yeni bir dijital başlangıç yapıyor olun, ister mevcut web sitenizi yeniden düşünmek isteyin, amacımız aynı: işletmenizi doğru anlatan, güven veren ve insanları bir sonraki adıma taşıyan bir dijital deneyim oluşturmak.</p>
           </div>
         </div>
+
+        <div class="about-closing">
+          <p class="about-closing-lede" data-i18n="about.closing.p1">Çünkü iyi bir web sitesi sadece ziyaret edilmez.</p>
+          <p class="about-closing-statement" data-i18n="about.closing.statement">Bir iz bırakır.</p>
+        </div>
+
       </div>
     </section>
 
@@ -165,84 +175,84 @@
     <section id="soru-sor" class="section-invert">
       <div class="container">
         <div class="section-header center">
-          <span class="eyebrow">Soru Sor</span>
-          <h2>Aklınıza takılan bir şey mi var?</h2>
-          <p class="lede" style="margin-inline:auto">Hesap oluşturmanıza gerek yok. Sorunuzu yazın, size dönüş yapalım.</p>
+          <span class="eyebrow" data-i18n="form.eyebrow">Soru Sor</span>
+          <h2 data-i18n="form.heading">Aklınıza takılan bir şey mi var?</h2>
+          <p class="lede" style="margin-inline:auto" data-i18n="form.lede">Hesap oluşturmanıza gerek yok. Sorunuzu yazın, size dönüş yapalım.</p>
         </div>
 
         <form class="form-card" id="soru-form" novalidate>
           <div class="form-row">
             <div class="field" data-field="ad">
-              <label for="ad">Ad</label>
+              <label for="ad" data-i18n="form.labels.firstName">Ad</label>
               <input type="text" id="ad" name="ad" autocomplete="given-name" />
               <span class="field-error"></span>
             </div>
             <div class="field" data-field="soyad">
-              <label for="soyad">Soyad</label>
+              <label for="soyad" data-i18n="form.labels.lastName">Soyad</label>
               <input type="text" id="soyad" name="soyad" autocomplete="family-name" />
               <span class="field-error"></span>
             </div>
           </div>
 
           <div class="field" data-field="eposta">
-            <label for="eposta">E-posta</label>
+            <label for="eposta" data-i18n="form.labels.email">E-posta</label>
             <input type="email" id="eposta" name="eposta" autocomplete="email" />
             <span class="field-error"></span>
           </div>
 
           <div class="form-row">
             <div class="field" data-field="sirket">
-              <label for="sirket">Şirket / Marka <span class="field-optional">(opsiyonel)</span></label>
+              <label for="sirket"><span data-i18n="form.labels.company">Şirket / Marka</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
               <input type="text" id="sirket" name="sirket" autocomplete="organization" />
               <span class="field-error"></span>
             </div>
             <div class="field" data-field="web-sitesi">
-              <label for="web-sitesi">Varsa Önceki Web Sitesinin Bağlantısı <span class="field-optional">(opsiyonel)</span></label>
-              <input type="url" id="web-sitesi" name="web-sitesi" autocomplete="url" placeholder="https://..." />
+              <label for="web-sitesi"><span data-i18n="form.labels.previousSite">Varsa Önceki Web Sitesinin Bağlantısı</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+              <input type="url" id="web-sitesi" name="web-sitesi" autocomplete="url" data-i18n-placeholder="form.placeholders.previousSite" placeholder="https://..." />
               <span class="field-error"></span>
             </div>
           </div>
 
           <div class="form-row">
             <div class="field" data-field="butce">
-              <label for="butce">Bütçe <span class="field-optional">(opsiyonel)</span></label>
+              <label for="butce"><span data-i18n="form.labels.budget">Bütçe</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
               <select id="butce" name="butce">
-                <option value="" selected>Seçiniz</option>
-                <option value="500-1000">$500 – $1,000</option>
-                <option value="1000-2500">$1,000 – $2,500</option>
-                <option value="2500-5000">$2,500 – $5,000</option>
-                <option value="5000+">$5,000+</option>
+                <option value="" selected data-i18n="form.selectPlaceholder">Seçiniz</option>
+                <option value="500-1000" data-i18n="form.budgetOptions.0">$500 – $1,000</option>
+                <option value="1000-2500" data-i18n="form.budgetOptions.1">$1,000 – $2,500</option>
+                <option value="2500-5000" data-i18n="form.budgetOptions.2">$2,500 – $5,000</option>
+                <option value="5000+" data-i18n="form.budgetOptions.3">$5,000+</option>
               </select>
               <span class="field-error"></span>
             </div>
             <div class="field" data-field="ihtiyac">
-              <label for="ihtiyac">İhtiyacınız ve İstekleriniz <span class="field-optional">(opsiyonel)</span></label>
+              <label for="ihtiyac"><span data-i18n="form.labels.needs">İhtiyacınız ve İstekleriniz</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
               <select id="ihtiyac" name="ihtiyac">
-                <option value="" selected>Seçiniz</option>
-                <option value="yeni-site">Yeni web sitesi</option>
-                <option value="yenileme">Mevcut web sitesini yenileme</option>
-                <option value="mobil">Mobil uyumlu tasarım</option>
-                <option value="eticaret">E-ticaret</option>
-                <option value="marka">Marka / kurumsal görünüm</option>
-                <option value="diger">Diğer</option>
+                <option value="" selected data-i18n="form.selectPlaceholder">Seçiniz</option>
+                <option value="yeni-site" data-i18n="form.needsOptions.newSite">Yeni web sitesi</option>
+                <option value="yenileme" data-i18n="form.needsOptions.renewal">Mevcut web sitesini yenileme</option>
+                <option value="mobil" data-i18n="form.needsOptions.mobile">Mobil uyumlu tasarım</option>
+                <option value="eticaret" data-i18n="form.needsOptions.ecommerce">E-ticaret</option>
+                <option value="marka" data-i18n="form.needsOptions.branding">Marka / kurumsal görünüm</option>
+                <option value="diger" data-i18n="form.needsOptions.other">Diğer</option>
               </select>
               <span class="field-error"></span>
             </div>
           </div>
 
           <div class="field is-hidden" data-field="ihtiyac-diger" id="ihtiyac-diger-wrap">
-            <label for="ihtiyac-diger">İhtiyacınızı kısaca anlatın</label>
+            <label for="ihtiyac-diger" data-i18n="form.labels.needsOther">İhtiyacınızı kısaca anlatın</label>
             <textarea id="ihtiyac-diger" name="ihtiyac-diger" rows="3"></textarea>
             <span class="field-error"></span>
           </div>
 
           <div class="field" data-field="soru">
-            <label for="soru">Sorunuz</label>
+            <label for="soru" data-i18n="form.labels.question">Sorunuz</label>
             <textarea id="soru" name="soru"></textarea>
             <span class="field-error"></span>
           </div>
 
-          <button class="btn btn-primary btn-block" type="submit">Soruyu Gönder</button>
+          <button class="btn btn-primary btn-block" type="submit" data-i18n="form.submit">Soruyu Gönder</button>
           <div class="form-feedback" role="status" aria-live="polite"></div>
         </form>
       </div>
@@ -252,34 +262,19 @@
     <section id="sss">
       <div class="container">
         <div class="section-header center">
-          <span class="eyebrow">SSS</span>
-          <h2>Sıkça sorulan sorular</h2>
+          <span class="eyebrow" data-i18n="faq.eyebrow">SSS</span>
+          <h2 data-i18n="faq.heading">Sıkça sorulan sorular</h2>
         </div>
         <div class="faq-list" id="sss-list"></div>
       </div>
     </section>
 
-    <!-- Hedeflerimiz -->
-    <section id="hizmetler" class="section-invert">
-      <div class="container">
-        <div class="section-header center">
-          <span class="eyebrow">Hedeflerimiz</span>
-          <h2>Neden bir web sitesine ihtiyacınız var?</h2>
-          <p class="lede" style="margin-inline:auto">VELORA, markanızı doğru gösteren ve farklı sektörlere uyum sağlayan web siteleri tasarlar.</p>
-        </div>
-        <div class="grid hizmetler-grid">
-          <div class="big-card" id="benefits-card"></div>
-          <div class="big-card" id="industries-card"></div>
-        </div>
-      </div>
-    </section>
-
     <!-- İletişim -->
-    <section id="iletisim">
+    <section id="iletisim" class="section-invert">
       <div class="container">
         <div class="section-header center">
-          <span class="eyebrow">İletişim</span>
-          <h2>Bize ulaşın</h2>
+          <span class="eyebrow" data-i18n="contact.eyebrow">İletişim</span>
+          <h2 data-i18n="contact.heading">Bize ulaşın</h2>
         </div>
         <div class="grid contact-grid" id="iletisim-grid"></div>
       </div>
@@ -287,44 +282,55 @@
 
   </main>
 
-  <footer class="site-footer section-invert">
+  <footer class="site-footer">
     <div class="container">
       <div class="footer-inner">
-        <a class="footer-brand" href="#anasayfa" aria-label="VELORA ana sayfa">
-          <img class="footer-logo" data-logo-img src="assets/Velora Second logo.png" alt="VELORA logosu" width="30" height="32" />
+        <a class="footer-brand" href="#anasayfa" data-i18n-aria-label="header.brandAriaLabel" aria-label="VELORA ana sayfa">
+          <img class="footer-logo" data-logo-img data-i18n-alt="misc.logoAlt" src="assets/Velora Second logo.png" alt="VELORA logosu" width="30" height="32" />
         </a>
 
-        <nav class="footer-links" aria-label="Alt menü">
-          <a href="#anasayfa">Ana Sayfa</a>
-          <a href="#hizmetler">Hizmetlerimiz</a>
-          <a href="#paketler">Paketler</a>
-          <a href="#calismalarimiz">Çalışmalarımız</a>
-          <a href="#iletisim">İletişim</a>
-          <a href="#sss">SSS</a>
-          <a href="#soru-sor">Soru Sorma</a>
+        <nav class="footer-links" data-i18n-aria-label="footer.altMenuAriaLabel" aria-label="Alt menü">
+          <a href="#anasayfa" data-i18n="footer.links.home">Ana Sayfa</a>
+          <a href="#paketler" data-i18n="footer.links.packages">Paketler</a>
+          <a href="#calismalarimiz" data-i18n="footer.links.works">Çalışmalarımız</a>
+          <a href="#hakkinda" data-i18n="footer.links.about">Hakkında</a>
+          <a href="#iletisim" data-i18n="footer.links.contact">İletişim</a>
+          <a href="#sss" data-i18n="footer.links.faq">SSS</a>
+          <a href="#soru-sor" data-i18n="footer.links.ask">Soru Sorma</a>
         </nav>
 
         <div class="footer-social" id="footer-social"></div>
       </div>
 
       <div class="footer-bottom">
-        <span>&copy; <span id="current-year"></span> VELORA. Tüm hakları saklıdır.</span>
+        <span>&copy; <span id="current-year"></span> VELORA. <span data-i18n="footer.rightsReserved">Tüm hakları saklıdır.</span></span>
       </div>
     </div>
   </footer>
 
   <!-- Arama -->
   <div class="search-overlay" id="search-overlay">
-    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Site içi arama">
+    <div class="search-panel" role="dialog" aria-modal="true" data-i18n-aria-label="search.dialogAriaLabel" aria-label="Site içi arama">
       <div class="search-input-row">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" id="search-input" placeholder="Hizmet, paket veya soru arayın..." aria-label="Arama" />
-        <button class="icon-btn" id="search-close" type="button" aria-label="Aramayı kapat">
+        <input type="text" id="search-input" data-i18n-placeholder="search.placeholder" placeholder="Paket veya soru arayın..." data-i18n-aria-label="search.inputAriaLabel" aria-label="Arama" />
+        <button class="icon-btn" id="search-close" type="button" data-i18n-aria-label="search.closeAriaLabel" aria-label="Aramayı kapat">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m5 5 14 14M19 5 5 19"/></svg>
         </button>
       </div>
-      <p class="search-hint">Hizmetler, paketler ve SSS içinde arama yapabilirsiniz.</p>
+      <p class="search-hint" data-i18n="search.hint">Paketler ve SSS içinde arama yapabilirsiniz.</p>
       <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+
+  <!-- Paket İletişim Popup'ı -->
+  <div class="package-modal-overlay" id="package-modal-overlay">
+    <div class="package-modal-panel" role="dialog" aria-modal="true" aria-labelledby="package-modal-title">
+      <button class="icon-btn package-modal-close" id="package-modal-close" type="button" data-i18n-aria-label="packageModal.closeAriaLabel" aria-label="Popup'ı kapat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m5 5 14 14M19 5 5 19"/></svg>
+      </button>
+      <h3 class="package-modal-title" id="package-modal-title"></h3>
+      <div class="package-modal-channels" id="package-modal-channels"></div>
     </div>
   </div>
 

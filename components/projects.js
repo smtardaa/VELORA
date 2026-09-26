@@ -13,6 +13,7 @@
 import { projectsData } from "../data/projects.js";
 import { icon } from "../js/icons.js";
 import { escapeHtml, debounce } from "../js/utils.js";
+import { t, onLanguageChange } from "../js/i18n.js";
 
 const AUTOPLAY_INTERVAL = 3800; // ms — yavaş, sakin, sabit hız
 
@@ -28,6 +29,10 @@ function renderCard(project) {
   const visual = project.image
     ? `<img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.name)}" loading="lazy" />`
     : `<span class="project-thumb-icon">${icon(project.icon)}</span>`;
+  // Proje adı (marka/müşteri adı) çevrilmez — yalnızca kategori etiketi
+  // ve CTA metni mevcut dile göre değişir.
+  const category = t(`works.categories.${project.id}`);
+  const ariaLabel = t("works.projectAriaLabel").replace("{name}", project.name);
 
   return `
     <div class="works-slide">
@@ -35,13 +40,13 @@ function renderCard(project) {
         class="card project-card"
         href="${escapeHtml(project.href || "#")}"
         ${isExternal ? 'target="_blank" rel="noopener"' : ""}
-        aria-label="${escapeHtml(project.name)} projesini incele"
+        aria-label="${escapeHtml(ariaLabel)}"
       >
         <span class="project-thumb">${visual}</span>
         <span class="project-body">
           <span class="project-name">${escapeHtml(project.name)}</span>
-          <span class="project-category">${escapeHtml(project.category)}</span>
-          <span class="project-link">Projeyi İncele <span aria-hidden="true">→</span></span>
+          <span class="project-category">${escapeHtml(category)}</span>
+          <span class="project-link">${escapeHtml(t("works.viewProject"))} <span aria-hidden="true">→</span></span>
         </span>
       </a>
     </div>
@@ -97,7 +102,11 @@ export function initProjectsSlider({ sliderEl, trackEl, prevBtn, nextBtn }) {
   }
 
   trackEl.addEventListener("transitionend", (event) => {
-    if (event.propertyName !== "transform") return;
+    // event.target === trackEl kontrolü: kart içindeki herhangi bir
+    // ".btn" elemanının kendi "transform" geçişinin (ör. :active efekti)
+    // buraya "bubbling" ile ulaşıp track'i yanlışlıkla kaydırmasını önler
+    // (packages.js'te tespit edilen aynı sınıf hatanın önleyici düzeltmesi).
+    if (event.target !== trackEl || event.propertyName !== "transform") return;
     isAnimating = false;
 
     if (currentIndex >= N + K) {
@@ -203,4 +212,12 @@ export function initProjectsSlider({ sliderEl, trackEl, prevBtn, nextBtn }) {
   renderTrack();
   setTransform(false);
   startAutoplay();
+
+  // Dil değiştiğinde: kart sayısı ve konum aynı kalır, yalnızca kart
+  // içeriği (kategori etiketi, CTA metni, aria-label) yeniden çizilir.
+  // Otomatik oynatma/touch/klavye dinleyicileri burada tekrar bağlanmaz.
+  onLanguageChange(() => {
+    renderTrack();
+    setTransform(false);
+  });
 }

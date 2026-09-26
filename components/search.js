@@ -1,45 +1,29 @@
 // components/search.js — site içi arama. Backend/harici servis kullanmaz;
-// hizmetler, paketler ve SSS verileri üzerinde basit bir metin araması yapar.
+// paketler ve SSS verileri üzerinde basit bir metin araması yapar.
 
 import { packagesData } from "../data/packages.js";
-import { faqData } from "../data/faq.js";
-import { websiteBenefits } from "../data/benefits.js";
-import { industries } from "../data/industries.js";
 import { debounce, escapeHtml } from "../js/utils.js";
+import { t, getLang, onLanguageChange } from "../js/i18n.js";
 
+// Arama dizini tamamen mevcut dile göre kurulur; dil değiştiğinde
+// initSearch içindeki onLanguageChange dinleyicisi bu fonksiyonu tekrar
+// çağırarak dizini günceller.
 function buildSearchIndex() {
   const index = [];
 
-  websiteBenefits.forEach((benefit) => {
-    index.push({
-      tag: "Hizmet",
-      title: benefit.title,
-      snippet: benefit.description,
-      target: "#hizmetler"
-    });
-  });
-
-  industries.forEach((item) => {
-    index.push({
-      tag: "Sektör",
-      title: item.name,
-      snippet: "VELORA bu sektör için web sitesi geliştirir.",
-      target: "#hizmetler"
-    });
-  });
-
   packagesData.forEach((pkg) => {
+    const translated = t(`packages.items.${pkg.id}`);
     index.push({
-      tag: "Paket",
-      title: pkg.name,
-      snippet: pkg.description,
+      tag: t("search.tags.package"),
+      title: translated.name,
+      snippet: translated.description,
       target: "#paketler"
     });
   });
 
-  faqData.forEach((item) => {
+  t("faq.items").forEach((item) => {
     index.push({
-      tag: "SSS",
+      tag: t("search.tags.faq"),
       title: item.question,
       snippet: item.answer,
       target: "#sss"
@@ -50,16 +34,19 @@ function buildSearchIndex() {
 }
 
 function matches(entry, query) {
-  const haystack = `${entry.title} ${entry.snippet}`.toLocaleLowerCase("tr");
+  const haystack = `${entry.title} ${entry.snippet}`.toLocaleLowerCase(getLang());
   return haystack.includes(query);
 }
 
 export function initSearch({ trigger, overlay, input, resultsEl, closeBtn }) {
   if (!trigger || !overlay || !input || !resultsEl) return;
 
-  const index = buildSearchIndex();
+  let index = buildSearchIndex();
+  let lastQuery = "";
 
   function renderResults(query) {
+    lastQuery = query;
+
     if (!query) {
       resultsEl.innerHTML = "";
       overlay.querySelector(".search-hint")?.classList.remove("visually-hidden");
@@ -69,11 +56,11 @@ export function initSearch({ trigger, overlay, input, resultsEl, closeBtn }) {
     const hint = overlay.querySelector(".search-hint");
     if (hint) hint.classList.add("visually-hidden");
 
-    const normalized = query.trim().toLocaleLowerCase("tr");
+    const normalized = query.trim().toLocaleLowerCase(getLang());
     const found = index.filter((entry) => matches(entry, normalized));
 
     if (!found.length) {
-      resultsEl.innerHTML = `<p class="search-empty">"${escapeHtml(query)}" için sonuç bulunamadı.</p>`;
+      resultsEl.innerHTML = `<p class="search-empty">${escapeHtml(t("search.noResults").replace("{query}", query))}</p>`;
       return;
     }
 
@@ -128,5 +115,14 @@ export function initSearch({ trigger, overlay, input, resultsEl, closeBtn }) {
     const link = event.target.closest(".search-result");
     if (!link) return;
     closeSearch();
+  });
+
+  // Dil değiştiğinde: arama indeksi yeniden oluşturulur; arama açıkken
+  // mevcut sorgu, yeni dildeki içerikle yeniden render edilir.
+  onLanguageChange(() => {
+    index = buildSearchIndex();
+    if (overlay.classList.contains("is-open")) {
+      renderResults(lastQuery);
+    }
   });
 }

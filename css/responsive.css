@@ -16,9 +16,9 @@
     --header-height: 72px;
   }
 
-  .about-section .container,
-  .hizmetler-grid {
+  .about-pillars {
     grid-template-columns: 1fr;
+    gap: var(--space-lg);
   }
 
   /* İletişim kartları: 2 sütun (son sırada tek kart varsa ortalanır) */
@@ -105,6 +105,15 @@
     padding-block: var(--space-xl);
   }
 
+  /* Hakkında bölümünün iç blok aralıkları (giriş -> köşe taşları ->
+     kapanış), diğer bölümlerin padding-block küçülmesiyle aynı
+     mantıkla, mobilde gereksiz yükseklik oluşturmaması için sıkılaştırılır. */
+  .about-pillars,
+  .about-closing {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+  }
+
   /* 480px ve altında tek sütun: 3 buton alt alta, hepsi eşit (tam)
      genişlikte, aralarında dengeli boşlukla. */
   .hero-actions {
@@ -145,11 +154,6 @@
 
   .search-overlay {
     padding-top: 8vh;
-  }
-
-  .benefit-list,
-  .industry-grid {
-    grid-template-columns: 1fr;
   }
 
   /* İletişim kartları: mobilde tek sütun */

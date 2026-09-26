@@ -3,11 +3,17 @@
 import { faqData } from "../data/faq.js";
 import { icon } from "../js/icons.js";
 import { escapeHtml, qsa } from "../js/utils.js";
+import { t } from "../js/i18n.js";
 
 export function renderFaq(container) {
   if (!container) return;
 
-  container.innerHTML = faqData
+  // Soru/cevap metinleri mevcut dile göre data/i18n/*.js içinden gelir
+  // (aynı sıradaki dizi); data/faq.js yalnızca TR referans/varsayılan
+  // içerik ve öğe sayısı için kalır.
+  const items = t("faq.items");
+
+  container.innerHTML = items
     .map(
       (item, index) => `
         <div class="faq-item" data-index="${index}">
@@ -23,9 +29,9 @@ export function renderFaq(container) {
     )
     .join("");
 
-  const items = qsa(".faq-item", container);
+  const faqItems = qsa(".faq-item", container);
 
-  items.forEach((item) => {
+  faqItems.forEach((item) => {
     const question = item.querySelector(".faq-question");
     const answer = item.querySelector(".faq-answer");
 
@@ -33,7 +39,7 @@ export function renderFaq(container) {
       const isOpen = item.classList.contains("is-open");
 
       // Sade davranış: aynı anda yalnızca bir soru açık kalır.
-      items.forEach((other) => {
+      faqItems.forEach((other) => {
         if (other !== item) {
           other.classList.remove("is-open");
           other.querySelector(".faq-question").setAttribute("aria-expanded", "false");

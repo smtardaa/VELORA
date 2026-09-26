@@ -4,6 +4,7 @@
 import { contactChannels } from "../data/contact.js";
 import { icon } from "../js/icons.js";
 import { escapeHtml } from "../js/utils.js";
+import { t } from "../js/i18n.js";
 
 export function renderContactChannels(container) {
   if (!container) return;
@@ -11,15 +12,18 @@ export function renderContactChannels(container) {
   container.innerHTML = contactChannels
     .map((channel) => {
       const isExternal = /^https?:/i.test(channel.href);
+      // Kanal etiketi (ör. "E-posta"/"Telefon") mevcut dile göre çevrilir;
+      // gerçek değer (e-posta adresi, telefon, kullanıcı adı) değişmez.
+      const name = t(`contact.channels.${channel.id}`);
       return `
         <a
           class="card contact-card"
           href="${escapeHtml(channel.href)}"
           ${isExternal ? 'target="_blank" rel="noopener"' : ""}
-          aria-label="${escapeHtml(channel.name)}: ${escapeHtml(channel.value)}"
+          aria-label="${escapeHtml(name)}: ${escapeHtml(channel.value)}"
         >
           <span class="icon-wrap">${icon(channel.icon)}</span>
-          <h3>${escapeHtml(channel.name)}</h3>
+          <h3>${escapeHtml(name)}</h3>
           <p>${escapeHtml(channel.value)}</p>
         </a>
       `;
@@ -35,7 +39,7 @@ export function renderFooterSocial(container) {
   container.innerHTML = footerChannels
     .map(
       (channel) => `
-        <a class="icon-btn" href="${escapeHtml(channel.href)}" aria-label="${escapeHtml(channel.name)}" target="_blank" rel="noopener">
+        <a class="icon-btn" href="${escapeHtml(channel.href)}" aria-label="${escapeHtml(t(`contact.channels.${channel.id}`))}" target="_blank" rel="noopener">
           ${icon(channel.icon)}
         </a>
       `

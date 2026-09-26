@@ -1,6 +1,7 @@
 // components/header.js — mobil menü, kaydırmada header stili ve scroll-spy
 
 import { qs, qsa } from "../js/utils.js";
+import { setLanguage } from "../js/i18n.js";
 
 export function initHeader() {
   const header = qs(".site-header");
@@ -55,10 +56,13 @@ export function initHeader() {
     sections.forEach((section) => observer.observe(section));
   }
 
-  // Dil seçimi — şimdilik yalnızca "TR" bulunur; gerçek bir dil
-  // değiştirme sistemi değildir, sade bir aç/kapa dropdown'dır.
+  // Dil seçimi — 5 dilli (TR/EN/DE/FR/IT) tam çalışan dil dropdown'u.
+  // Dropdown'un kendi aç/kapa mekaniği burada kalır; gerçek dil değişimi
+  // (çeviri uygulama, localStorage, dinamik bileşenlerin yeniden çizimi)
+  // js/i18n.js'deki setLanguage() içinde yapılır.
   const langSwitch = qs(".lang-switch");
   const langTrigger = langSwitch ? qs(".lang-switch-trigger", langSwitch) : null;
+  const langOptions = langSwitch ? qsa(".lang-switch-option", langSwitch) : [];
 
   if (langSwitch && langTrigger) {
     const closeLangSwitch = () => {
@@ -70,6 +74,25 @@ export function initHeader() {
       event.stopPropagation();
       const isOpen = langSwitch.classList.toggle("is-open");
       langTrigger.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    langOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        const code = option.dataset.lang;
+        if (code) setLanguage(code);
+        closeLangSwitch();
+        langTrigger.focus();
+      });
+
+      option.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          const code = option.dataset.lang;
+          if (code) setLanguage(code);
+          closeLangSwitch();
+          langTrigger.focus();
+        }
+      });
     });
 
     document.addEventListener("click", (event) => {

@@ -289,6 +289,7 @@ p {
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--color-text);
+  cursor: pointer;
   transition: background-color var(--transition-fast);
 }
 
@@ -336,6 +337,7 @@ p {
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
   color: var(--color-text);
+  cursor: pointer;
 }
 
 .lang-switch-option.is-selected {
@@ -425,96 +427,6 @@ p {
   border: 1px solid var(--color-border);
   border-radius: 999px;
   padding: 0.4rem 0.9rem;
-}
-
-/* Hizmetlerimiz: 2 büyük kart */
-
-.hizmetler-grid {
-  grid-template-columns: 1fr 1fr;
-  align-items: stretch;
-}
-
-.big-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.big-card h3 {
-  margin-bottom: 0.3rem;
-}
-
-.big-card .lede {
-  font-size: 0.92rem;
-  max-width: none;
-  margin-bottom: var(--space-md);
-}
-
-.benefit-list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-sm);
-}
-
-/* Sağ karttaki (.industry-chip) ile aynı "tek container/border" mantığı:
-   ikon ve metin aynı kutu içinde, sabit hizada. İkon burada industry-chip'e
-   göre biraz daha büyük (24px) çünkü yanında başlık + açıklama taşıyor. */
-.benefit-chip {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.7rem;
-  padding: 0.75rem 0.9rem;
-  border-radius: var(--radius-sm);
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-}
-
-.benefit-chip > svg {
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  margin-top: 0.15rem;
-  color: var(--color-text-secondary);
-}
-
-.benefit-chip-text {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.benefit-chip-text strong {
-  font-size: 0.92rem;
-  font-weight: 600;
-}
-
-.benefit-chip-text span {
-  font-size: 0.82rem;
-  color: var(--color-text-secondary);
-}
-
-.industry-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-sm);
-}
-
-.industry-chip {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.75rem 0.9rem;
-  border-radius: var(--radius-sm);
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  font-size: 0.88rem;
-  font-weight: 500;
-}
-
-.industry-chip svg {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-  color: var(--color-text-secondary);
 }
 
 /* Paket kartları grid'i: sütun sayısı slider tarafından
@@ -798,29 +710,103 @@ p {
 }
 
 /* ---------- Hakkında ---------- */
+/* Sitenin geri kalanı ürün/pazarlama odaklı, ortalanmış bölüm başlıklarıyla
+   ilerlerken; Hakkında bilinçli olarak daha "editorial" bir ritim kullanır:
+   sola hizalı, geniş bir okuma sütunu + üç köşe taşı + kapanış cümlesi.
+   Yalnızca .about-* önekli sınıflar kullanılır; başka hiçbir bölümün
+   seçicisiyle çakışma yoktur. */
 
-.about-section .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-xl);
-  align-items: center;
+#hakkinda {
+  /* Header sabit (fixed) konumlu olduğundan, "Hakkında" nav/footer
+     bağlantısıyla bu bölüme atlandığında (özellikle mobilde header
+     72px'e çıktığı için) bölümün en üstü (VELORA etiketi) header'ın
+     arkasında kalıyordu. scroll-margin-top, header yüksekliği +
+     biraz nefes payı kadar üst boşluk bırakarak bunu düzeltir; normal
+     kaydırmada (anchor kullanılmadan) hiçbir görsel etkisi yoktur. */
+  scroll-margin-top: calc(var(--header-height) + var(--space-sm));
 }
 
-.about-stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-md);
+.about-container {
+  display: flex;
+  flex-direction: column;
 }
 
-.stat-item .stat-number {
-  font-size: 2.25rem;
+.about-intro {
+  max-width: 800px;
+}
+
+.about-headline {
+  font-size: clamp(2.1rem, 4.1vw, 3.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
+  line-height: 1.12;
+  max-width: 780px;
+  margin-bottom: var(--space-lg);
 }
 
-.stat-item .stat-label {
-  font-size: 0.85rem;
+.about-lede {
+  max-width: 640px;
+}
+
+.about-lede + .about-lede {
+  margin-top: var(--space-sm);
+}
+
+.about-statement {
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--color-text);
+  max-width: 640px;
+  margin-top: var(--space-lg);
+}
+
+.about-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-2xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.about-pillar-index {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   color: var(--color-text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.about-pillar-title {
+  font-size: clamp(1.2rem, 1.7vw, 1.45rem);
+  margin-bottom: var(--space-sm);
+}
+
+.about-pillar p {
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.about-closing {
+  max-width: 640px;
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.about-closing-lede {
+  font-size: 1.05rem;
+}
+
+.about-closing-statement {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin-top: var(--space-xs);
 }
 
 /* ---------- SSS / Accordion ---------- */
@@ -916,6 +902,19 @@ p {
   color: var(--color-text);
   font-family: inherit;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Tekli satır alanları (Ad, Soyad, E-posta, Şirket/Marka, Önceki site
+   bağlantısı, Bütçe ve İhtiyaç dropdown'ları) sabit bir yükseklik ile
+   birebir aynı boyuta getirilir — tarayıcıların <select> öğesini
+   <input>'tan farklı yükseklikte render etmesini önler. Genişlik zaten
+   .field'in flex (stretch) davranışıyla eşit; burada yalnızca netlik
+   için tekrar belirtilir. Textarea'lar bu kuralın dışındadır, mevcut
+   boyutlarını (min-height / rows) korurlar. */
+.field input,
+.field select {
+  width: 100%;
+  height: 48px;
 }
 
 .field textarea {
@@ -1071,6 +1070,12 @@ p {
 /* ---------- Footer ---------- */
 
 .site-footer {
+  /* Section-invert olmadığında arka plan varsayılan olarak transparan
+     kalır (body'nin beyaz zeminiyle görsel olarak aynı sonucu verir),
+     ancak burada açıkça beyaz olarak ayarlanır: hem niyeti netleştirir
+     hem de footer'ın kendi arka planının her koşulda beyaz kalmasını
+     garanti eder. */
+  background-color: var(--color-bg);
   border-top: 1px solid var(--color-border);
   /* var(--space-xl) (4rem) yerine ~%5 azaltılmış, footer'a özel bir
      değer kullanılır; paylaşılan boşluk ölçeği (--space-xl) diğer
@@ -1281,6 +1286,95 @@ p {
   text-align: center;
   font-size: 0.85rem;
   color: var(--color-text-secondary);
+}
+
+/* ---------- Paket İletişim Popup'ı ----------
+   Arama popup'ıyla aynı görsel dil (fixed overlay + blur + ortalanmış
+   panel); seçilen pakete göre başlık dinamik olarak güncellenir.
+   İletişim kanalı butonları bu aşamada yalnızca görseldir, hiçbir
+   bağlantıya yönlendirmezler. */
+
+.package-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  background-color: color-mix(in srgb, var(--color-bg) 55%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+}
+
+.package-modal-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.package-modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-elevated);
+  padding: var(--space-xl) var(--space-lg) var(--space-lg);
+  text-align: center;
+  transform: translateY(-10px);
+  transition: transform var(--transition-base);
+}
+
+.package-modal-overlay.is-open .package-modal-panel {
+  transform: translateY(0);
+}
+
+.package-modal-close {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+}
+
+.package-modal-title {
+  font-size: 1.15rem;
+  line-height: 1.4;
+  max-width: 320px;
+  margin-inline: auto;
+  margin-bottom: var(--space-lg);
+}
+
+.package-modal-channels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.package-modal-channel {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  transition: background-color var(--transition-fast);
+}
+
+.package-modal-channel:hover {
+  background-color: var(--color-bg-muted);
+}
+
+.package-modal-channel svg {
+  width: 22px;
+  height: 22px;
 }
 
 /* ---------- Yardımcı sınıflar ---------- */

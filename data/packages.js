@@ -9,6 +9,11 @@
 
 export const sharedDeliveryNote = "3 iş günü teslim";
 
+// Not: Paket sayısı toplamda 3 ile sınırlı tutulur (bkz.
+// components/packages.js — desktop'ta 3 paket aynı anda, slider
+// kontrolü olmadan gösterilir). Farklı bütçe/kapsam ihtiyacını
+// temsil eden en ayırt edici 3 paket (giriş seviyesi, en popüler
+// orta seviye, özel/genişletilebilir üst seviye) seçilmiştir.
 export const packagesData = [
   {
     id: "tek-sayfa",
@@ -24,30 +29,6 @@ export const packagesData = [
     description: "Çok sayfalı, kurumsal kimliğinizi yansıtan profesyonel web sitesi.",
     features: ["5 sayfaya kadar özel tasarım", "Gelişmiş SEO yapılandırması", "Kolay içerik güncelleme"],
     highlighted: true,
-    cta: "İletişime Geç"
-  },
-  {
-    id: "kisisel-portfolyo",
-    name: "Kişisel Portfolyo",
-    description: "Kişisel markanızı veya çalışmalarınızı öne çıkaran sade bir vitrin.",
-    features: ["Portfolyo/CV odaklı düzen", "Sade galeri yapısı", "Tam responsive yapı"],
-    highlighted: false,
-    cta: "İletişime Geç"
-  },
-  {
-    id: "vitrin-eticaret",
-    name: "Vitrin E-Ticaret",
-    description: "Ürünlerinizi sergileyen, sipariş sürecini yönlendiren vitrin sitesi.",
-    features: ["Ürün/kategori vitrini", "WhatsApp/telefon ile sipariş yönlendirme", "Mobil öncelikli tasarım"],
-    highlighted: false,
-    cta: "İletişime Geç"
-  },
-  {
-    id: "restoran-menu",
-    name: "Restoran & Menü",
-    description: "Menünüzü, konumunuzu ve rezervasyon bilgilerinizi öne çıkaran site.",
-    features: ["Dijital menü düzeni", "Konum ve çalışma saatleri", "Rezervasyon/iletişim CTA"],
-    highlighted: false,
     cta: "İletişime Geç"
   },
   {

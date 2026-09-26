@@ -65,6 +65,21 @@ export function initQuestionForm(form) {
   const feedback = qs(".form-feedback", form.closest(".form-card") || form.parentElement) ||
     form.querySelector(".form-feedback");
 
+  // "İhtiyacınız ve İstekleriniz" alanında "Diğer" seçildiğinde altında
+  // serbest metin alanı görünür; başka bir seçenek seçilince (veya form
+  // sıfırlandığında) tekrar gizlenir. Bu alan tamamen opsiyoneldir,
+  // doğrulamaya dahil değildir.
+  const ihtiyacSelect = form.querySelector("#ihtiyac");
+  const ihtiyacDigerWrap = form.querySelector("#ihtiyac-diger-wrap");
+  const syncIhtiyacDiger = () => {
+    if (!ihtiyacSelect || !ihtiyacDigerWrap) return;
+    ihtiyacDigerWrap.classList.toggle("is-hidden", ihtiyacSelect.value !== "diger");
+  };
+  if (ihtiyacSelect) {
+    ihtiyacSelect.addEventListener("change", syncIhtiyacDiger);
+    syncIhtiyacDiger();
+  }
+
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -99,10 +114,11 @@ export function initQuestionForm(form) {
         feedback.textContent = "Teşekkürler! Sorunuz alındı, en kısa sürede size dönüş yapacağız.";
       }
       form.reset();
+      syncIhtiyacDiger();
     }, 650);
   });
 
-  form.querySelectorAll("input, textarea").forEach((el) => {
+  form.querySelectorAll("input, select, textarea").forEach((el) => {
     el.addEventListener("input", () => {
       const field = el.closest("[data-field]");
       if (field && field.classList.contains("has-error")) {

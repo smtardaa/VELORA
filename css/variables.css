@@ -56,6 +56,11 @@
      logonun kendisine değil yalnızca çevresine uygulanır. */
   --logo-chip-bg: var(--color-bg-elevated);
   --logo-chip-border: var(--color-border);
+
+  /* Soru Sor formundaki <select> alanları için özel ok ikonu.
+     Mevcut lang-switch-chevron ile aynı çizgi ikonu, yalnızca
+     bölüm ters çevrildiğinde (.section-invert) renk değiştirir. */
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231d1d1f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
 }
 
 /* Bölüm arka plan ritmi: header her zaman beyaz olduğundan, hemen
@@ -78,4 +83,6 @@
 
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
   --shadow-elevated: 0 12px 40px rgba(0, 0, 0, 0.5);
+
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f7' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
 }

@@ -72,27 +72,11 @@
     display: inline-flex;
   }
 
-  /* Hamburger -> X dönüşümü: her çizgi kendi küçük kutusu yerine
-     ikonun tüm görünüm alanına (viewBox) göre ortalanır, böylece
-     üç çizgi de aynı (12,12) noktası etrafında dönerek düzgün ve
-     ortalanmış bir X oluşturur (önceki haliyle çizgiler farklı
-     merkezler etrafında döndüğü için çarpık/üst üste görünüyordu). */
-  .icon-menu line {
-    transform-box: view-box;
-    transform-origin: center;
-  }
-
-  .icon-menu.is-open .icon-line-1 {
-    transform: translateY(5px) rotate(45deg);
-  }
-
-  .icon-menu.is-open .icon-line-2 {
-    opacity: 0;
-  }
-
-  .icon-menu.is-open .icon-line-3 {
-    transform: translateY(-5px) rotate(-45deg);
-  }
+  /* Not: hamburger ikonu artık mobilde açıkken çarpıya (X) dönüşmüyor;
+     ikon her zaman aynı üç çizgi halinde kalır. components/header.js
+     içindeki .icon-menu "is-open" sınıf ekleme/kaldırma mantığına
+     dokunulmadı (menünün açılıp kapanma davranışı aynı), yalnızca bu
+     sınıfa bağlı görsel dönüşüm kaldırıldı. */
 }
 
 /* Tablet dikey / büyük telefon (<=768px) */
@@ -121,8 +105,8 @@
     padding-block: var(--space-xl);
   }
 
-  /* 480px ve altında 2'şerli ızgara yerine tek sütun: 4 buton alt
-     alta, hepsi eşit (tam) genişlikte, aralarında dengeli boşlukla. */
+  /* 480px ve altında tek sütun: 3 buton alt alta, hepsi eşit (tam)
+     genişlikte, aralarında dengeli boşlukla. */
   .hero-actions {
     grid-template-columns: 1fr;
     gap: 0.65rem;

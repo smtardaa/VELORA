@@ -14,7 +14,6 @@ export function renderContactChannels(container) {
       return `
         <a
           class="card contact-card"
-          data-animate
           href="${escapeHtml(channel.href)}"
           ${isExternal ? 'target="_blank" rel="noopener"' : ""}
           aria-label="${escapeHtml(channel.name)}: ${escapeHtml(channel.value)}"

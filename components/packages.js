@@ -1,25 +1,39 @@
-// components/packages.js — Paketler bölümü: SONSUZ (infinite) gruplu kart slider'ı.
+// components/packages.js — Paketler bölümü: toplamda yalnızca 3 paket
+// olduğu için "sonsuz kaydırma" yalnızca mobilde anlamlıdır.
 //
 // Davranış (kesin):
-//  - Desktop  (>1024px) : aynı anda 3 kart -> 1-2-3 / 4-5-6 / 1-2-3 / ... (2 grup, sonsuz)
-//  - Tablet   (481-1024): aynı anda 2 kart -> 1-2 / 3-4 / 5-6 / 1-2 / ... (3 grup, sonsuz)
-//  - Mobile   (<=480px) : aynı anda 1 kart -> 1 / 2 / 3 / 4 / 5 / 6 / 1 / ... (6 grup, sonsuz)
+//  - Desktop  (>1024px) : 3 kart aynı anda, düz bir ızgara gibi — ok,
+//    pagination ve swipe YOKTUR, tamamen statik görünür.
+//  - Tablet   (481-1024): 3 kart aynı anda görünmeye devam eder, ancak
+//    ok ve dokunmatik kaydırma kontrolleri görsel olarak etkin kalır
+//    (yalnızca 3 paket olduğundan gerçekte kaydırılacak ikinci bir
+//    sayfa yoktur; bu nedenle tıklama/kaydırma sessizce hiçbir şeyi
+//    değiştirmez, ancak arayüz devre dışı görünmez).
+//  - Mobile   (<=480px) : aynı anda 1 kart -> 1 / 2 / 3 / 1 / ... (3 grup,
+//    sonsuz); ok, swipe ve pagination noktaları tam işlevseldir.
 //
-// Her ok tıklaması TAM BİR GRUP değiştirir (tek kart kayması olmaz).
-// Sonsuzluk, ilk ve son grubun birer "klon"unu track'in başına/sonuna
-// ekleyip sınıra ulaşınca (kullanıcı fark etmeden) animasyonsuz bir
-// şekilde gerçek gruba geri sarmakla (classic clone-carousel tekniği)
-// sağlanır. Otomatik oynatma YOKTUR: yalnızca ok ve swipe ile hareket eder.
+// Sonsuzluk (mobilde), ilk ve son grubun birer "klon"unu track'in
+// başına/sonuna ekleyip sınıra ulaşınca (kullanıcı fark etmeden)
+// animasyonsuz bir şekilde gerçek gruba geri sarmakla (classic
+// clone-carousel tekniği) sağlanır. Otomatik oynatma YOKTUR: yalnızca
+// ok ve swipe ile hareket eder.
 
 import { packagesData } from "../data/packages.js";
 import { icon } from "../js/icons.js";
 import { debounce, escapeHtml } from "../js/utils.js";
 
-function getCardsPerView() {
+function getViewportTier() {
   const width = window.innerWidth;
-  if (width <= 480) return 1;
-  if (width <= 1024) return 2;
-  return 3;
+  if (width <= 480) return "mobile";
+  if (width <= 1024) return "tablet";
+  return "desktop";
+}
+
+function getCardsPerView() {
+  // Tablet ve desktop'ta toplam paket sayısı (3) kadar sütun kullanılır,
+  // böylece 3 paket de her zaman aynı anda görünür; yalnızca mobilde
+  // tek kart gösterilir.
+  return getViewportTier() === "mobile" ? 1 : 3;
 }
 
 function chunk(array, size) {
@@ -119,9 +133,23 @@ export function initPackagesSlider({ sliderEl, trackEl, prevBtn, nextBtn, dotsEl
     });
 
     const hasMultiplePages = pageCount > 1;
-    sliderEl.classList.toggle("has-single-page", !hasMultiplePages);
-    prevBtn.disabled = !hasMultiplePages;
-    nextBtn.disabled = !hasMultiplePages;
+    const tier = getViewportTier();
+
+    // Masaüstünde gerçekten tek sayfa varsa (3 paket, 3'lü ızgara)
+    // slider tamamen düz bir ızgaraya döner: ok tamamen gizlenir ve
+    // devre dışı bırakılır. Tablette ise — 3 kart aynı anda görünse
+    // bile — ok ve dokunmatik kaydırma kontrolleri görsel/işlevsel
+    // olarak etkin görünmeye devam eder (istenen davranış); pratikte
+    // kaydırılacak ikinci bir sayfa olmadığından bir etkisi olmaz.
+    const hideArrows = !hasMultiplePages && tier === "desktop";
+    sliderEl.classList.toggle("has-single-page", hideArrows);
+    prevBtn.disabled = tier === "desktop" ? !hasMultiplePages : false;
+    nextBtn.disabled = tier === "desktop" ? !hasMultiplePages : false;
+
+    // Pagination noktaları, gerçekten birden fazla sayfa olmadığı
+    // sürece (tier fark etmeksizin) gösterilmez — tek sayfa için tek
+    // bir nokta göstermenin anlamı yoktur.
+    dotsEl.style.display = hasMultiplePages ? "" : "none";
   }
 
   function goTo(direction) {

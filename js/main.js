@@ -9,7 +9,6 @@ import { renderFaq } from "../components/faq.js";
 import { renderContactChannels, renderFooterSocial } from "../components/contact.js";
 import { initQuestionForm } from "../components/questionForm.js";
 import { initSearch } from "../components/search.js";
-import { initScrollAnimations } from "./scrollAnimations.js";
 import { qs } from "./utils.js";
 
 function setYear() {
@@ -69,7 +68,6 @@ function init() {
   });
 
   setYear();
-  initScrollAnimations();
 }
 
 if (document.readyState === "loading") {

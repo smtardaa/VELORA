@@ -24,7 +24,8 @@ section {
    yalnızca bölümün kendi arka planı ve metin rengi bu token'lara
    bağlanır (aksi halde alt öğeler token'ı yeniden okumadığı için
    eski/açık renkte kalır). */
-section.section-invert {
+section.section-invert,
+.site-footer.section-invert {
   background-color: var(--color-bg);
   color: var(--color-text);
 }
@@ -309,7 +310,7 @@ p {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  min-width: 130px;
+  min-width: 175px;
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -344,6 +345,13 @@ p {
 
 .menu-toggle {
   display: none;
+  /* Burger menü butonu her zaman düz beyaz zemine sahiptir; genel
+     .icon-btn:hover grileşme efekti burada devre dışı bırakılır. */
+  background-color: #ffffff;
+}
+
+.menu-toggle:hover {
+  background-color: #ffffff;
 }
 
 /* ---------- Hero ---------- */
@@ -374,17 +382,16 @@ p {
   text-align: center;
 }
 
-/* 4 CTA her zaman düzenli bir 2x2 ızgara halinde durur (3+1 gibi
-   dengesiz bir sarma oluşmasın diye kasıtlı olarak grid kullanılır).
-   Sütunlar sabit bir genişlikte (--hero-btn-width) tutulur, böylece
-   buton genişliği yazı uzunluğuna göre değişmez; hepsi eşit boyutta
-   ve eşit yükseklikte görünür. Tüm 4 buton aynı (.btn-secondary)
-   arka plan stilini kullanır — hiçbiri diğerlerinden görsel olarak
-   ayrışmaz. */
+/* 3 CTA, desktop/tablette tek satırda yan yana durur. Sütunlar sabit
+   bir genişlikte (--hero-btn-width) tutulur, böylece buton genişliği
+   yazı uzunluğuna göre değişmez; hepsi eşit boyutta ve eşit
+   yükseklikte görünür. Tüm butonlar aynı (.btn-secondary) arka plan
+   stilini kullanır — hiçbiri diğerlerinden görsel olarak ayrışmaz.
+   480px altında (bkz. css/responsive.css) tek sütuna (alt alta) döner. */
 .hero-actions {
   --hero-btn-width: 130.85px;
   display: grid;
-  grid-template-columns: repeat(2, var(--hero-btn-width));
+  grid-template-columns: repeat(3, var(--hero-btn-width));
   gap: var(--space-sm);
   margin-top: var(--space-sm);
   justify-content: center;
@@ -563,7 +570,8 @@ p {
 }
 
 .package-card.is-highlighted {
-  border-color: var(--color-accent);
+  /* Border rengi artık diğer paket kartlarıyla aynı (var(--color-border),
+     .card kuralından miras alınır) — yalnızca gölge farkı korunur. */
   box-shadow: var(--shadow-elevated);
 }
 
@@ -891,7 +899,14 @@ p {
   font-weight: 500;
 }
 
+.field-optional {
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+}
+
 .field input,
+.field select,
 .field textarea {
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
@@ -899,6 +914,7 @@ p {
   padding: 0.75rem 1rem;
   font-size: 0.95rem;
   color: var(--color-text);
+  font-family: inherit;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
@@ -907,7 +923,24 @@ p {
   min-height: 120px;
 }
 
+/* Opsiyonel "Diğer" serbest metin alanı için biraz daha kompakt yükseklik. */
+.field textarea[rows] {
+  min-height: 0;
+}
+
+.field select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: var(--select-arrow);
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 16px;
+  padding-right: 2.6rem;
+  cursor: pointer;
+}
+
 .field input:focus,
+.field select:focus,
 .field textarea:focus {
   outline: none;
   border-color: var(--color-focus);
@@ -915,8 +948,15 @@ p {
 }
 
 .field.has-error input,
+.field.has-error select,
 .field.has-error textarea {
   border-color: #ff3b30;
+}
+
+/* "İhtiyacınız ve İstekleriniz" alanında "Diğer" seçilmediği sürece
+   gizli kalan serbest metin alanı. */
+.field.is-hidden {
+  display: none;
 }
 
 .field-error {
@@ -1064,6 +1104,10 @@ p {
   display: block;
   height: var(--footer-logo-size, 32px);
   width: auto;
+  /* Logo görseli kendi içinde opak beyaz bir zemine sahip; footer
+     artık siyah olabildiğinden, keskin bir beyaz dikdörtgen yerine
+     yumuşak bir "chip" görünmesi için köşeler yuvarlatılır. */
+  border-radius: var(--radius-sm);
 }
 
 .footer-links {
@@ -1086,9 +1130,13 @@ p {
 }
 
 /* "Çalışmalarımız" bağlantısı şimdilik pasif: href yok, tıklanamaz,
-   hafif soluk görünerek yakında geleceğini ima eder. */
+   hafif soluk görünerek yakında geleceğini ima eder. Aynı görsel dil,
+   dil seçimi dropdown'ındaki henüz aktif olmayan diller (EN/DE/FR/IT)
+   için de kullanılır — gerçek bir işlevleri yoktur, yalnızca
+   ileride eklenebileceklerini gösteren pasif seçeneklerdir. */
 .nav-links a.is-disabled,
-.footer-links a.is-disabled {
+.footer-links a.is-disabled,
+.lang-switch-option.is-disabled {
   opacity: 0.5;
   cursor: default;
 }
@@ -1096,6 +1144,11 @@ p {
 .nav-links a.is-disabled:hover,
 .footer-links a.is-disabled:hover {
   color: inherit;
+}
+
+.lang-switch-option.is-disabled {
+  font-weight: 400;
+  background-color: transparent;
 }
 
 .footer-social {
@@ -1245,13 +1298,7 @@ p {
   white-space: nowrap;
 }
 
-[data-animate] {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 700ms ease, transform 700ms ease;
-}
-
-[data-animate].is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* Not: scroll ile tetiklenen fade-in/reveal giriş animasyonu
+   (eski [data-animate] / .is-visible mekanizması) kullanıcı isteği
+   üzerine tamamen kaldırıldı. İçerikler artık sayfa yüklenir
+   yüklenmez, kaydırma beklemeden normal şekilde görünür durumda. */

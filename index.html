@@ -7,7 +7,7 @@
   <meta name="description" content="VELORA, markalar için sade, hızlı ve etkili web deneyimleri tasarlayan bir web ajansıdır." />
   <meta name="theme-color" content="#ffffff" />
 
-  <link rel="icon" type="image/png" href="assets/Velora Second logo.png" />
+  <link rel="icon" type="image/png" href="assets/Velora First logo.png" />
 
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/variables.css" />
@@ -27,11 +27,11 @@
       <nav class="main-nav" aria-label="Ana menü">
         <ul class="nav-links" id="nav-links">
           <li><a href="#anasayfa">Ana Sayfa</a></li>
-          <li><a href="#hizmetler">Hedeflerimiz</a></li>
-          <li><a href="#paketler">Paketlerimiz</a></li>
           <li><a href="#calismalarimiz">Çalışmalarımız</a></li>
-          <li><a href="#sss">SSS</a></li>
+          <li><a href="#paketler">Paketlerimiz</a></li>
           <li><a href="#soru-sor">Soru Sor</a></li>
+          <li><a href="#sss">SSS</a></li>
+          <li><a href="#hizmetler">Hedeflerimiz</a></li>
           <li><a href="#iletisim">İletişim</a></li>
         </ul>
       </nav>
@@ -46,7 +46,11 @@
             <svg class="lang-switch-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <ul class="lang-switch-menu" role="listbox">
-            <li class="lang-switch-option is-selected" role="option" aria-selected="true">Türkçe</li>
+            <li class="lang-switch-option is-selected" role="option" aria-selected="true">Türkçe — TR</li>
+            <li class="lang-switch-option is-disabled" role="option" aria-selected="false" aria-disabled="true">İngilizce — EN</li>
+            <li class="lang-switch-option is-disabled" role="option" aria-selected="false" aria-disabled="true">Almanca — DE</li>
+            <li class="lang-switch-option is-disabled" role="option" aria-selected="false" aria-disabled="true">Fransızca — FR</li>
+            <li class="lang-switch-option is-disabled" role="option" aria-selected="false" aria-disabled="true">İtalyanca — IT</li>
           </ul>
         </div>
         <button class="icon-btn menu-toggle" type="button" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="nav-links">
@@ -66,27 +70,36 @@
     <section id="anasayfa" class="hero section-invert">
       <div class="hero-inner">
         <h1>VELORA</h1>
-        <p class="lede">Markanız için sade, hızlı ve etkili web deneyimleri tasarlıyoruz.</p>
+        <p class="lede">İşletmenizi dijital dünyada daha görünür hale getiren sade ve etkili web deneyimleri.</p>
         <div class="hero-actions">
           <a class="btn btn-secondary" href="#paketler">Paketleri İncele</a>
-          <a class="btn btn-secondary" href="#hizmetler">Hizmetleri Gör</a>
           <a class="btn btn-secondary" href="#iletisim">Hemen İletişime Geç</a>
           <a class="btn btn-secondary" href="#soru-sor">Projenizi Anlatın</a>
         </div>
       </div>
     </section>
 
-    <!-- Hizmetlerimiz -->
-    <section id="hizmetler">
+    <!-- Çalışmalarımız -->
+    <section id="calismalarimiz">
       <div class="container">
         <div class="section-header center">
-          <span class="eyebrow">Hedeflerimiz</span>
-          <h2>Neden bir web sitesine ihtiyacınız var?</h2>
-          <p class="lede" style="margin-inline:auto">VELORA, markanızı doğru gösteren ve farklı sektörlere uyum sağlayan web siteleri tasarlar.</p>
+          <span class="eyebrow">Çalışmalarımız</span>
+          <h2>Örnek çalışmalarımızdan bazıları</h2>
+          <p class="lede" style="margin-inline:auto">Farklı sektörlerden markalar için tasarladığımız web sitelerinden birkaç örnek.</p>
         </div>
-        <div class="grid hizmetler-grid">
-          <div class="big-card" id="benefits-card" data-animate></div>
-          <div class="big-card" id="industries-card" data-animate></div>
+
+        <div class="works-slider" id="works-slider">
+          <button class="slider-arrow works-prev" type="button" aria-label="Önceki çalışma">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
+          </button>
+
+          <div class="works-viewport">
+            <div class="works-track" id="works-track"></div>
+          </div>
+
+          <button class="slider-arrow works-next" type="button" aria-label="Sonraki çalışma">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+          </button>
         </div>
       </div>
     </section>
@@ -129,7 +142,7 @@
         </div>
         <div class="about-stats">
           <div class="stat-item">
-            <div class="stat-number">6</div>
+            <div class="stat-number">3</div>
             <div class="stat-label">Esnek paket seçeneği</div>
           </div>
           <div class="stat-item">
@@ -145,42 +158,6 @@
             <div class="stat-label">Teslim süresi</div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Çalışmalarımız -->
-    <section id="calismalarimiz" class="section-invert">
-      <div class="container">
-        <div class="section-header center">
-          <span class="eyebrow">Çalışmalarımız</span>
-          <h2>Örnek çalışmalarımızdan bazıları</h2>
-          <p class="lede" style="margin-inline:auto">Farklı sektörlerden markalar için tasarladığımız web sitelerinden birkaç örnek.</p>
-        </div>
-
-        <div class="works-slider" id="works-slider">
-          <button class="slider-arrow works-prev" type="button" aria-label="Önceki çalışma">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
-          </button>
-
-          <div class="works-viewport">
-            <div class="works-track" id="works-track"></div>
-          </div>
-
-          <button class="slider-arrow works-next" type="button" aria-label="Sonraki çalışma">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- SSS -->
-    <section id="sss">
-      <div class="container">
-        <div class="section-header center">
-          <span class="eyebrow">SSS</span>
-          <h2>Sıkça sorulan sorular</h2>
-        </div>
-        <div class="faq-list" id="sss-list"></div>
       </div>
     </section>
 
@@ -213,6 +190,52 @@
             <span class="field-error"></span>
           </div>
 
+          <div class="form-row">
+            <div class="field" data-field="sirket">
+              <label for="sirket">Şirket / Marka <span class="field-optional">(opsiyonel)</span></label>
+              <input type="text" id="sirket" name="sirket" autocomplete="organization" />
+              <span class="field-error"></span>
+            </div>
+            <div class="field" data-field="web-sitesi">
+              <label for="web-sitesi">Varsa Önceki Web Sitesinin Bağlantısı <span class="field-optional">(opsiyonel)</span></label>
+              <input type="url" id="web-sitesi" name="web-sitesi" autocomplete="url" placeholder="https://..." />
+              <span class="field-error"></span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field" data-field="butce">
+              <label for="butce">Bütçe <span class="field-optional">(opsiyonel)</span></label>
+              <select id="butce" name="butce">
+                <option value="" selected>Seçiniz</option>
+                <option value="500-1000">$500 – $1,000</option>
+                <option value="1000-2500">$1,000 – $2,500</option>
+                <option value="2500-5000">$2,500 – $5,000</option>
+                <option value="5000+">$5,000+</option>
+              </select>
+              <span class="field-error"></span>
+            </div>
+            <div class="field" data-field="ihtiyac">
+              <label for="ihtiyac">İhtiyacınız ve İstekleriniz <span class="field-optional">(opsiyonel)</span></label>
+              <select id="ihtiyac" name="ihtiyac">
+                <option value="" selected>Seçiniz</option>
+                <option value="yeni-site">Yeni web sitesi</option>
+                <option value="yenileme">Mevcut web sitesini yenileme</option>
+                <option value="mobil">Mobil uyumlu tasarım</option>
+                <option value="eticaret">E-ticaret</option>
+                <option value="marka">Marka / kurumsal görünüm</option>
+                <option value="diger">Diğer</option>
+              </select>
+              <span class="field-error"></span>
+            </div>
+          </div>
+
+          <div class="field is-hidden" data-field="ihtiyac-diger" id="ihtiyac-diger-wrap">
+            <label for="ihtiyac-diger">İhtiyacınızı kısaca anlatın</label>
+            <textarea id="ihtiyac-diger" name="ihtiyac-diger" rows="3"></textarea>
+            <span class="field-error"></span>
+          </div>
+
           <div class="field" data-field="soru">
             <label for="soru">Sorunuz</label>
             <textarea id="soru" name="soru"></textarea>
@@ -222,6 +245,32 @@
           <button class="btn btn-primary btn-block" type="submit">Soruyu Gönder</button>
           <div class="form-feedback" role="status" aria-live="polite"></div>
         </form>
+      </div>
+    </section>
+
+    <!-- SSS -->
+    <section id="sss">
+      <div class="container">
+        <div class="section-header center">
+          <span class="eyebrow">SSS</span>
+          <h2>Sıkça sorulan sorular</h2>
+        </div>
+        <div class="faq-list" id="sss-list"></div>
+      </div>
+    </section>
+
+    <!-- Hedeflerimiz -->
+    <section id="hizmetler" class="section-invert">
+      <div class="container">
+        <div class="section-header center">
+          <span class="eyebrow">Hedeflerimiz</span>
+          <h2>Neden bir web sitesine ihtiyacınız var?</h2>
+          <p class="lede" style="margin-inline:auto">VELORA, markanızı doğru gösteren ve farklı sektörlere uyum sağlayan web siteleri tasarlar.</p>
+        </div>
+        <div class="grid hizmetler-grid">
+          <div class="big-card" id="benefits-card"></div>
+          <div class="big-card" id="industries-card"></div>
+        </div>
       </div>
     </section>
 
@@ -238,7 +287,7 @@
 
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer section-invert">
     <div class="container">
       <div class="footer-inner">
         <a class="footer-brand" href="#anasayfa" aria-label="VELORA ana sayfa">

@@ -110,9 +110,19 @@ function updateLangSwitchUI() {
 
 function applyMeta() {
   document.documentElement.setAttribute("lang", currentLang);
-  document.title = t("meta.title");
+
+  // Varsayılan olarak "meta.title" / "meta.description" kullanılır
+  // (index.html'in bugüne kadarki davranışı — geriye dönük uyumlu).
+  // Yeni bir sayfa (ör. calismalarimiz.html) <html> etiketine
+  // data-i18n-meta-title / data-i18n-meta-description ekleyerek kendi
+  // sayfasına özgü başlık/açıklama anahtarlarını belirtebilir.
+  const titleKey = document.documentElement.getAttribute("data-i18n-meta-title") || "meta.title";
+  const descriptionKey =
+    document.documentElement.getAttribute("data-i18n-meta-description") || "meta.description";
+
+  document.title = t(titleKey);
   const metaDescription = document.querySelector('meta[name="description"]');
-  if (metaDescription) metaDescription.setAttribute("content", t("meta.description"));
+  if (metaDescription) metaDescription.setAttribute("content", t(descriptionKey));
 }
 
 function applyAll() {

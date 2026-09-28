@@ -55,6 +55,100 @@ export const en = {
       "vera-klinik": "Health & Clinic",
       "marka-vitrin": "E-Commerce",
       "ada-mimarlik": "Personal Portfolio"
+    },
+    detail: {
+      metaTitle: "VELORA — Our Work",
+      metaDescription: "Explore the concept website projects VELORA has designed for different industries.",
+      pageHeading: "Explore all of our work",
+      pageLede:
+        "Below you'll find the concept projects we've put together for different industries. Each one is a concept/demo project created to showcase VELORA's design approach; it does not represent actual client work or a verified result.",
+      conceptBadge: "Concept Project",
+      labels: {
+        description: "Project description",
+        benefitsTech: "Benefits and technologies used",
+        pricing: "Pricing and timeline information"
+      },
+      pricingNote:
+        "Pricing and timeline are worked out for you once the scope is clear. As a reference, the standard delivery time across our packages is 3 business days — just get in touch for a clear quote.",
+      filter: {
+        heading: "Find and explore the site that suits you",
+        lede: "The area below is a design example showing how filtering by industry could work in the future; it doesn't currently make any selection and doesn't filter the list of work.",
+        options: {
+          hairdresser: "Hairdresser",
+          beauty: "Beauty & Nails",
+          legal: "Legal",
+          accounting: "Accounting & Finance"
+        },
+        note: "This area is only a design example; the options are disabled."
+      },
+      items: {
+        "velora-kurumsal": {
+          description:
+            "A website concept that reflects VELORA's own corporate identity and clearly presents its services and packages.",
+          benefits: [
+            "A clean, trustworthy corporate look",
+            "Clear presentation of services and packages",
+            "Mobile-friendly, fast-loading structure"
+          ],
+          techNote: "Recommended approach for this concept: a fast, dependency-free structure built with plain HTML/CSS/JS."
+        },
+        "lumen-kahve": {
+          description:
+            "A concept that puts a coffee shop's menu and atmosphere front and center, inviting visitors straight into the space.",
+          benefits: [
+            "An organized structure that makes the menu easy to update",
+            "A clean visual language that reflects the venue's atmosphere",
+            "Location and opening hours front and center"
+          ],
+          techNote: "Recommended approach for this concept: a simple, mobile-first structure built for fast image loading."
+        },
+        "atlas-hukuk": {
+          description: "A concept that presents a law firm's areas of expertise and corporate standing in a trustworthy voice.",
+          benefits: [
+            "A corporate, trust-building first impression",
+            "Clear listing of areas of expertise",
+            "Clear calls to action that make it easy to get in touch"
+          ],
+          techNote: "Recommended approach for this concept: a clean, distraction-free, corporate design language."
+        },
+        "fitcore-studyo": {
+          description: "A concept that reflects a fitness studio's class schedule and energy in a simple, dynamic way.",
+          benefits: [
+            "Clear presentation of the class schedule/services",
+            "An energetic visual language that stays uncluttered",
+            "Easy contact from mobile devices"
+          ],
+          techNote: "Recommended approach for this concept: a fast-loading, mobile-first structure."
+        },
+        "vera-klinik": {
+          description: "A calm, informative, trust-building concept for a health/clinic business.",
+          benefits: [
+            "Services explained in a calm, trustworthy voice",
+            "An easy-to-find contact step",
+            "Frequently asked questions given a clear place"
+          ],
+          techNote: "Recommended approach for this concept: a clean design language that prioritizes readability."
+        },
+        "marka-vitrin": {
+          description:
+            "An e-commerce concept that showcases a brand's products with a simple, storefront-style approach (a full checkout/payment system is outside the scope of this concept).",
+          benefits: [
+            "Clear, simple product showcase",
+            "Easy navigation between categories",
+            "A visual language that reflects the brand's own character"
+          ],
+          techNote: "Recommended approach for this concept: a simple, extensible structure for a basic product showcase."
+        },
+        "ada-mimarlik": {
+          description: "A concept that presents an architecture office's project portfolio in a clean, visual-first way.",
+          benefits: [
+            "Clean, visual-first presentation of projects",
+            "A structure that's easy to keep up to date",
+            "A tone that's corporate yet personal"
+          ],
+          techNote: "Recommended approach for this concept: a clean gallery/portfolio layout that lets the visuals lead."
+        }
+      }
     }
   },
 

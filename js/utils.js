@@ -28,6 +28,14 @@ export function qsa(selector, scope = document) {
   return Array.from(scope.querySelectorAll(selector));
 }
 
+// setYear(selector) — footer'daki telif yılı span'ini günceller. Hem
+// ana sayfa (js/main.js) hem de calismalarimiz.html (js/worksPage.js)
+// aynı footer'ı kullandığı için burada paylaşılan tek bir yerde tutulur.
+export function setYear(selector = "#current-year") {
+  const el = qs(selector);
+  if (el) el.textContent = new Date().getFullYear();
+}
+
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 

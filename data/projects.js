@@ -1,10 +1,14 @@
 // data/projects.js — "Çalışmalarımız" bölümündeki örnek/demo proje verileri.
 //
-// Henüz gerçek proje bağlantıları/görselleri olmadığı için `image` alanı
-// boş (null) bırakılmıştır; bileşen bunun yerine ikonlu, VELORA tasarım
-// diline uygun sade bir görsel-yer-tutucu (placeholder) render eder.
-// Gerçek projeler hazır olduğunda yalnızca bu dosyadaki `image` ve
-// `href` alanlarını doldurmak yeterlidir (örn. image: "assets/proje-1.jpg").
+// Henüz gerçek proje görselleri olmadığı için `image` alanı boş (null)
+// bırakılmıştır; bileşenler bunun yerine ikonlu, VELORA tasarım diline
+// uygun sade bir görsel-yer-tutucu (placeholder) render eder. Gerçek
+// projeler hazır olduğunda yalnızca bu dosyadaki `image` alanını
+// doldurmak yeterlidir (örn. image: "assets/proje-1.jpg").
+//
+// `href`: her kart, calismalarimiz.html sayfasındaki kendi detay
+// bloğuna (aynı id'li <article id="...">) yönlendirir — components/worksDetail.js
+// bu id'leri kullanarak detay bloklarını render eder.
 
 export const projectsData = [
   {
@@ -13,7 +17,7 @@ export const projectsData = [
     category: "Kurumsal Web Sitesi",
     icon: "building",
     image: null,
-    href: "#"
+    href: "calismalarimiz.html#velora-kurumsal"
   },
   {
     id: "lumen-kahve",
@@ -21,7 +25,7 @@ export const projectsData = [
     category: "Restoran & Menü",
     icon: "utensils",
     image: null,
-    href: "#"
+    href: "calismalarimiz.html#lumen-kahve"
   },
   {
     id: "atlas-hukuk",
@@ -29,7 +33,7 @@ export const projectsData = [
     category: "Kurumsal Web Sitesi",
     icon: "scale",
     image: null,
-    href: "#"
+    href: "calismalarimiz.html#atlas-hukuk"
   },
   {
     id: "fitcore-studyo",
@@ -37,7 +41,7 @@ export const projectsData = [
     category: "Fitness & Spor",
     icon: "dumbbell",
     image: null,
-    href: "#"
+    href: "calismalarimiz.html#fitcore-studyo"
   },
   {
     id: "vera-klinik",
@@ -45,7 +49,7 @@ export const projectsData = [
     category: "Sağlık & Klinik",
     icon: "heart",
     image: null,
-    href: "#"
+    href: "calismalarimiz.html#vera-klinik"
   },
   {
     id: "marka-vitrin",
@@ -53,7 +57,7 @@ export const projectsData = [
     category: "E-Ticaret",
     icon: "cart",
     image: null,
-    href: "#"
+    href: "calismalarimiz.html#marka-vitrin"
   },
   {
     id: "ada-mimarlik",
@@ -61,6 +65,6 @@ export const projectsData = [
     category: "Kişisel Portfolyo",
     icon: "brush",
     image: null,
-    href: "#"
+    href: "calismalarimiz.html#ada-mimarlik"
   }
 ];

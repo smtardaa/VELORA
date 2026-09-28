@@ -55,6 +55,99 @@ export const it = {
       "vera-klinik": "Salute & Clinica",
       "marka-vitrin": "E-commerce",
       "ada-mimarlik": "Portfolio personale"
+    },
+    detail: {
+      metaTitle: "VELORA — I nostri lavori",
+      metaDescription: "Scopri i progetti di siti concept che VELORA ha realizzato per diversi settori.",
+      pageHeading: "Scopri tutti i nostri lavori",
+      pageLede:
+        "Qui sotto trovi i progetti concept che abbiamo realizzato per diversi settori. Ognuno è un progetto concept/demo creato per mostrare l'approccio di design di VELORA; non rappresenta un lavoro reale per un cliente né un risultato verificato.",
+      conceptBadge: "Progetto Concept",
+      labels: {
+        description: "Descrizione del progetto",
+        benefitsTech: "Vantaggi e tecnologie utilizzate",
+        pricing: "Informazioni su prezzo e tempistiche"
+      },
+      pricingNote:
+        "Prezzo e tempistiche vengono definiti su misura una volta chiarito l'ambito del progetto. Come riferimento, i tempi di consegna standard dei nostri pacchetti sono di 3 giorni lavorativi; per un preventivo chiaro basta contattarci.",
+      filter: {
+        heading: "Trova e scopri il sito più adatto a te",
+        lede: "L'area qui sotto è un esempio di design che mostra come potrebbe funzionare in futuro un filtro per settore; al momento non effettua alcuna selezione e non filtra l'elenco dei lavori.",
+        options: {
+          hairdresser: "Parrucchiere",
+          beauty: "Bellezza & Unghie",
+          legal: "Studio Legale",
+          accounting: "Commercialista"
+        },
+        note: "Quest'area è solo un esempio di design; le opzioni sono disattivate."
+      },
+      items: {
+        "velora-kurumsal": {
+          description: "Un concept di sito che riflette l'identità aziendale di VELORA e presenta in modo chiaro i suoi servizi e pacchetti.",
+          benefits: [
+            "Un aspetto aziendale sobrio e affidabile",
+            "Presentazione chiara di servizi e pacchetti",
+            "Struttura mobile-friendly e veloce da caricare"
+          ],
+          techNote: "Approccio consigliato per questo concept: una struttura veloce, senza dipendenze aggiuntive, basata su semplice HTML/CSS/JS."
+        },
+        "lumen-kahve": {
+          description:
+            "Un concept che mette in primo piano il menu e l'atmosfera di una caffetteria, invitando direttamente il visitatore nel locale.",
+          benefits: [
+            "Una struttura ordinata che rende facile aggiornare il menu",
+            "Un linguaggio visivo sobrio che riflette l'atmosfera del locale",
+            "Posizione e orari in primo piano"
+          ],
+          techNote: "Approccio consigliato per questo concept: una struttura sobria e mobile-first, adatta al caricamento rapido delle immagini."
+        },
+        "atlas-hukuk": {
+          description: "Un concept che presenta le aree di competenza e la posizione aziendale di uno studio legale con un tono affidabile.",
+          benefits: [
+            "Una prima impressione aziendale e affidabile",
+            "Elenco chiaro delle aree di competenza",
+            "Call to action chiare che facilitano il contatto"
+          ],
+          techNote: "Approccio consigliato per questo concept: un linguaggio di design sobrio, aziendale e privo di distrazioni."
+        },
+        "fitcore-studyo": {
+          description: "Un concept che riflette il programma corsi e l'energia di uno studio sportivo in modo sobrio e dinamico.",
+          benefits: [
+            "Presentazione chiara del programma corsi/servizi",
+            "Un linguaggio visivo energico ma ordinato",
+            "Contatto facile da dispositivi mobili"
+          ],
+          techNote: "Approccio consigliato per questo concept: una struttura veloce e mobile-first."
+        },
+        "vera-klinik": {
+          description: "Un concept affidabile, calmo e informativo per un'attività sanitaria/clinica.",
+          benefits: [
+            "Servizi spiegati con un tono calmo e affidabile",
+            "Un passaggio di contatto facile da trovare",
+            "Domande frequenti messe in evidenza"
+          ],
+          techNote: "Approccio consigliato per questo concept: un linguaggio di design sobrio, che dà priorità alla leggibilità."
+        },
+        "marka-vitrin": {
+          description:
+            "Un concept e-commerce che presenta i prodotti di un brand con un approccio semplice, come una vetrina (un'infrastruttura completa di pagamento/ordini non fa parte di questo concept).",
+          benefits: [
+            "Presentazione dei prodotti chiara e sobria",
+            "Navigazione facile tra le categorie",
+            "Un linguaggio visivo che riflette il carattere del brand"
+          ],
+          techNote: "Approccio consigliato per questo concept: una struttura sobria ed espandibile per una vetrina prodotti di base."
+        },
+        "ada-mimarlik": {
+          description: "Un concept che presenta il portfolio progetti di uno studio di architettura in modo sobrio e incentrato sul visivo.",
+          benefits: [
+            "Presentazione dei progetti sobria e incentrata sul visivo",
+            "Una struttura facile da aggiornare",
+            "Un tono aziendale ma personale"
+          ],
+          techNote: "Approccio consigliato per questo concept: un layout a galleria/portfolio sobrio che lascia parlare le immagini."
+        }
+      }
     }
   },
 

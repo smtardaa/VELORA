@@ -92,6 +92,21 @@
   .form-card {
     padding: var(--space-lg);
   }
+
+  /* Çalışmalarımız detay sayfası: masaüstündeki 2 sütunlu (bilgi solda /
+     görsel sağda) yerleşim tek sütuna düşer, taşma veya yatay kaydırma
+     oluşmaz. DOM sırası erişilebilirlik için her zaman bilgi->görsel
+     olduğundan (ekran okuyucular önce metni duyar); mobilde ise sitedeki
+     diğer proje kartlarıyla (görsel üstte) tutarlı olması için görsel,
+     yalnızca GÖRSEL OLARAK "order" ile bilginin üstüne alınır. */
+  .work-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .work-detail-visual {
+    order: -1;
+    aspect-ratio: 16 / 10;
+  }
 }
 
 /* Mobil (<=480px) */
@@ -174,6 +189,19 @@
   .slider-arrow svg {
     width: 16px;
     height: 16px;
+  }
+
+  .work-detail-list {
+    gap: var(--space-2xl);
+  }
+
+  .works-filter-chips {
+    gap: 0.5rem;
+  }
+
+  .works-filter-chip {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
   }
 }
 

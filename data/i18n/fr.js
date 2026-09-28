@@ -55,6 +55,100 @@ export const fr = {
       "vera-klinik": "Santé & Clinique",
       "marka-vitrin": "E-commerce",
       "ada-mimarlik": "Portfolio personnel"
+    },
+    detail: {
+      metaTitle: "VELORA — Nos réalisations",
+      metaDescription: "Découvrez les projets de sites concept que VELORA a conçus pour différents secteurs.",
+      pageHeading: "Découvrez toutes nos réalisations",
+      pageLede:
+        "Vous trouverez ci-dessous les projets concept que nous avons réalisés pour différents secteurs. Chacun est un projet concept/démo créé pour illustrer l'approche de design de VELORA ; il ne représente pas un travail client réel ni un résultat vérifié.",
+      conceptBadge: "Projet concept",
+      labels: {
+        description: "Description du projet",
+        benefitsTech: "Avantages et technologies utilisées",
+        pricing: "Informations sur le tarif et les délais"
+      },
+      pricingNote:
+        "Le tarif et le délai sont définis pour vous une fois le périmètre précisé. À titre de référence, le délai de livraison standard de nos offres est de 3 jours ouvrés ; contactez-nous pour obtenir un devis clair.",
+      filter: {
+        heading: "Trouvez et découvrez le site qui vous correspond",
+        lede: "La zone ci-dessous est un exemple de design illustrant un futur filtrage par secteur ; elle n'effectue actuellement aucune sélection et ne filtre pas la liste des réalisations.",
+        options: {
+          hairdresser: "Coiffeur",
+          beauty: "Beauté & Ongles",
+          legal: "Droit",
+          accounting: "Expertise comptable"
+        },
+        note: "Cette zone est uniquement un exemple de design ; les options sont désactivées."
+      },
+      items: {
+        "velora-kurumsal": {
+          description:
+            "Un concept de site qui reflète l'identité institutionnelle de VELORA et présente clairement ses services et ses offres.",
+          benefits: [
+            "Une image institutionnelle sobre et rassurante",
+            "Une présentation claire des services et des offres",
+            "Une structure adaptée aux mobiles et rapide"
+          ],
+          techNote: "Approche recommandée pour ce concept : une structure rapide, sans dépendance supplémentaire, basée sur du HTML/CSS/JS simple."
+        },
+        "lumen-kahve": {
+          description: "Un concept qui met en avant le menu et l'atmosphère d'un café, invitant directement le visiteur à s'y rendre.",
+          benefits: [
+            "Une structure organisée facilitant la mise à jour du menu",
+            "Un langage visuel sobre reflétant l'atmosphère du lieu",
+            "La localisation et les horaires mis en avant"
+          ],
+          techNote: "Approche recommandée pour ce concept : une structure sobre et mobile-first, adaptée au chargement rapide des images."
+        },
+        "atlas-hukuk": {
+          description:
+            "Un concept qui présente les domaines d'expertise et la posture institutionnelle d'un cabinet d'avocats dans un ton rassurant.",
+          benefits: [
+            "Une première impression institutionnelle et rassurante",
+            "Une liste claire des domaines d'expertise",
+            "Des appels à l'action clairs facilitant la prise de contact"
+          ],
+          techNote: "Approche recommandée pour ce concept : un langage de design sobre, institutionnel et sans distraction."
+        },
+        "fitcore-studyo": {
+          description: "Un concept qui reflète le planning des cours et l'énergie d'un studio de sport, de façon sobre et dynamique.",
+          benefits: [
+            "Une présentation claire du planning des cours/services",
+            "Un langage visuel énergique mais ordonné",
+            "Une prise de contact facile depuis mobile"
+          ],
+          techNote: "Approche recommandée pour ce concept : une structure rapide et mobile-first."
+        },
+        "vera-klinik": {
+          description: "Un concept rassurant, calme et informatif pour un établissement de santé/clinique.",
+          benefits: [
+            "Des services présentés dans un ton calme et rassurant",
+            "Une étape de contact facile à trouver",
+            "Les questions fréquentes mises en avant"
+          ],
+          techNote: "Approche recommandée pour ce concept : un langage de design sobre, privilégiant la lisibilité."
+        },
+        "marka-vitrin": {
+          description:
+            "Un concept e-commerce qui présente les produits d'une marque comme une vitrine sobre (une infrastructure complète de paiement/commande ne fait pas partie de ce concept).",
+          benefits: [
+            "Une présentation claire et sobre des produits",
+            "Une navigation facile entre les catégories",
+            "Un langage visuel reflétant le caractère propre de la marque"
+          ],
+          techNote: "Approche recommandée pour ce concept : une structure sobre et évolutive pour une vitrine produits de base."
+        },
+        "ada-mimarlik": {
+          description: "Un concept qui présente le portfolio de projets d'un cabinet d'architecture de façon sobre et axée sur le visuel.",
+          benefits: [
+            "Une présentation sobre et axée sur le visuel des projets",
+            "Une structure facile à mettre à jour",
+            "Un ton institutionnel mais personnel"
+          ],
+          techNote: "Approche recommandée pour ce concept : une mise en page de type galerie/portfolio qui met les visuels en avant."
+        }
+      }
     }
   },
 

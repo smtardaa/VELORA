@@ -57,6 +57,112 @@ export const tr = {
       "vera-klinik": "Sağlık & Klinik",
       "marka-vitrin": "E-Ticaret",
       "ada-mimarlik": "Kişisel Portfolyo"
+    },
+    // calismalarimiz.html (ayrı Çalışmalarımız sayfası) için içerik.
+    // Buradaki her şey KONSEPT/DEMO amaçlıdır: description/benefits/techNote
+    // gerçek bir müşteri işini, doğrulanmış sonucu veya fiilen kullanılmış
+    // teknolojiyi temsil etmez — techNote alanları bilinçli olarak "önerilen
+    // yaklaşım" diliyle yazılmıştır. pricingNote, data/packages.js >
+    // sharedDeliveryNote ile aynı gerçek teslim süresine (3 iş günü) atıfta
+    // bulunur; proje bazlı uydurma fiyat/süre eklenmemiştir.
+    detail: {
+      metaTitle: "VELORA — Çalışmalarımız",
+      metaDescription:
+        "VELORA'nın farklı sektörler için hazırladığı konsept web sitesi çalışmalarını inceleyin.",
+      pageHeading: "Tüm çalışmalarımızı inceleyin",
+      pageLede:
+        "Farklı sektörler için hazırladığımız konsept çalışmaları aşağıda bulabilirsiniz. Her biri, VELORA'nın tasarım yaklaşımını göstermek amacıyla hazırlanmış bir konsept/demo projesidir; gerçek bir müşteri işini veya doğrulanmış sonucu temsil etmez.",
+      conceptBadge: "Konsept Proje",
+      labels: {
+        description: "Proje açıklaması",
+        benefitsTech: "Faydalar ve kullanılan teknolojiler",
+        pricing: "Fiyatlandırma ve süre hakkında bilgi"
+      },
+      pricingNote:
+        "Fiyat ve teslim süresi, kapsam netleştikten sonra size özel olarak belirlenir. Referans olarak paketlerimizde standart teslim süresi 3 iş günüdür; net bir teklif için bizimle iletişime geçmeniz yeterli.",
+      filter: {
+        heading: "Kendinize uygun siteyi bulup inceleyin",
+        lede: "Aşağıdaki alan, ileride sektöre göre filtreleme yapılabileceğini gösteren bir tasarım örneğidir; şu an herhangi bir seçim yapmaz ve çalışma listesini filtrelemez.",
+        options: {
+          hairdresser: "Kuaför",
+          beauty: "Güzellik & Tırnak",
+          legal: "Hukuk",
+          accounting: "Mali Müşavirlik"
+        },
+        note: "Bu alan yalnızca bir tasarım örneğidir; seçenekler devre dışıdır."
+      },
+      items: {
+        "velora-kurumsal": {
+          description:
+            "VELORA'nın kendi kurumsal kimliğini yansıtan, hizmetlerini ve paketlerini net biçimde anlatan bir web sitesi konsepti.",
+          benefits: [
+            "Sade ve güven veren kurumsal görünüm",
+            "Hizmetlerin ve paketlerin anlaşılır sunumu",
+            "Mobil uyumlu, hızlı yüklenen yapı"
+          ],
+          techNote:
+            "Bu konsept için önerilen yaklaşım: ek bağımlılık gerektirmeyen, sade HTML/CSS/JS tabanlı hızlı bir yapı."
+        },
+        "lumen-kahve": {
+          description:
+            "Bir kahve dükkanının menüsünü ve atmosferini ön plana çıkaran, ziyaretçiyi mekâna davet eden bir konsept.",
+          benefits: [
+            "Menünün kolayca güncellenebileceği düzenli bir yapı",
+            "Mekânın atmosferini yansıtan sade görsel dil",
+            "Konum ve çalışma saatlerinin öne çıkması"
+          ],
+          techNote:
+            "Bu konsept için önerilen yaklaşım: görsellerin hızlı yüklenmesine uygun, mobil öncelikli sade bir yapı."
+        },
+        "atlas-hukuk": {
+          description:
+            "Bir hukuk bürosunun uzmanlık alanlarını ve kurumsal duruşunu güven veren bir dille anlatan konsept.",
+          benefits: [
+            "Kurumsal ve güven veren bir ilk izlenim",
+            "Uzmanlık alanlarının net biçimde listelenmesi",
+            "İletişime geçmeyi kolaylaştıran net yönlendirmeler"
+          ],
+          techNote: "Bu konsept için önerilen yaklaşım: sade, dikkat dağıtmayan, kurumsal bir tasarım dili."
+        },
+        "fitcore-studyo": {
+          description: "Bir spor stüdyosunun ders programını ve enerjisini yansıtan, sade ve hareketli bir konsept.",
+          benefits: [
+            "Ders programının/hizmetlerin net biçimde sunulması",
+            "Enerjik ama dağınık olmayan bir görsel dil",
+            "Mobil cihazlardan kolay iletişim yönlendirmesi"
+          ],
+          techNote: "Bu konsept için önerilen yaklaşım: hızlı yüklenen, mobil öncelikli bir yapı."
+        },
+        "vera-klinik": {
+          description: "Bir sağlık/klinik işletmesi için güven veren, sakin ve bilgilendirici bir konsept.",
+          benefits: [
+            "Hizmetlerin sakin ve güven veren bir dille anlatılması",
+            "İletişim adımının kolay bulunması",
+            "Sık sorulan soruların öne çıkarılabilmesi"
+          ],
+          techNote: "Bu konsept için önerilen yaklaşım: okunabilirliği önceliklendiren, sade bir tasarım dili."
+        },
+        "marka-vitrin": {
+          description:
+            "Bir markanın ürünlerini sade bir vitrin mantığıyla sergileyen bir e-ticaret görünümü konsepti (uçtan uca satın alma altyapısı bu konsept kapsamında değildir).",
+          benefits: [
+            "Ürünlerin net ve sade biçimde sergilenmesi",
+            "Kategoriler arasında kolay gezinme",
+            "Markanın kendi karakterini yansıtan bir görsel dil"
+          ],
+          techNote:
+            "Bu konsept için önerilen yaklaşım: temel bir ürün vitrini için sade ve genişletilebilir bir yapı."
+        },
+        "ada-mimarlik": {
+          description: "Bir mimarlık ofisinin proje portfolyosunu sade ve görsel odaklı biçimde sunan bir konsept.",
+          benefits: [
+            "Projelerin sade ve görsel odaklı biçimde sunulması",
+            "Portfolyonun kolayca güncellenebileceği bir yapı",
+            "Kurumsal ama kişisel bir ton"
+          ],
+          techNote: "Bu konsept için önerilen yaklaşım: görsellerin öne çıktığı, sade bir galeri/portfolyo düzeni."
+        }
+      }
     }
   },
 

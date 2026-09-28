@@ -8,8 +8,14 @@ import { t, getLang, onLanguageChange } from "../js/i18n.js";
 // Arama dizini tamamen mevcut dile göre kurulur; dil değiştiğinde
 // initSearch içindeki onLanguageChange dinleyicisi bu fonksiyonu tekrar
 // çağırarak dizini günceller.
+//
+// Not: Paketler (#paketler) ve SSS (#sss) bölümleri yalnızca index.html
+// üzerinde bulunur. Bu bileşen calismalarimiz.html gibi başka bir
+// sayfada da çalıştığı için hedefler o sayfada mevcut olup olmadığına
+// göre "index.html#..." ile öneklenir; ana sayfada davranış değişmez.
 function buildSearchIndex() {
   const index = [];
+  const prefix = document.getElementById("paketler") ? "" : "index.html";
 
   packagesData.forEach((pkg) => {
     const translated = t(`packages.items.${pkg.id}`);
@@ -17,7 +23,7 @@ function buildSearchIndex() {
       tag: t("search.tags.package"),
       title: translated.name,
       snippet: translated.description,
-      target: "#paketler"
+      target: `${prefix}#paketler`
     });
   });
 
@@ -26,7 +32,7 @@ function buildSearchIndex() {
       tag: t("search.tags.faq"),
       title: item.question,
       snippet: item.answer,
-      target: "#sss"
+      target: `${prefix}#sss`
     });
   });
 

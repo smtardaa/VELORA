@@ -55,6 +55,102 @@ export const de = {
       "vera-klinik": "Gesundheit & Klinik",
       "marka-vitrin": "E-Commerce",
       "ada-mimarlik": "Persönliches Portfolio"
+    },
+    detail: {
+      metaTitle: "VELORA — Projekte",
+      metaDescription: "Entdecken Sie die Konzept-Website-Projekte, die VELORA für verschiedene Branchen gestaltet hat.",
+      pageHeading: "Entdecken Sie alle unsere Projekte",
+      pageLede:
+        "Nachfolgend finden Sie die Konzeptprojekte, die wir für verschiedene Branchen erstellt haben. Jedes davon ist ein Konzept-/Demoprojekt, das den Gestaltungsansatz von VELORA zeigen soll; es stellt keine tatsächliche Kundenarbeit oder ein bestätigtes Ergebnis dar.",
+      conceptBadge: "Konzeptprojekt",
+      labels: {
+        description: "Projektbeschreibung",
+        benefitsTech: "Vorteile und eingesetzte Technologien",
+        pricing: "Informationen zu Preis und Zeitrahmen"
+      },
+      pricingNote:
+        "Preis und Zeitrahmen werden für Sie individuell festgelegt, sobald der Umfang klar ist. Als Anhaltspunkt: Die Standardlieferzeit für unsere Pakete beträgt 3 Werktage — für ein konkretes Angebot genügt eine kurze Kontaktaufnahme.",
+      filter: {
+        heading: "Finden und entdecken Sie die passende Website",
+        lede: "Der folgende Bereich ist ein Gestaltungsbeispiel, das zeigt, wie eine Filterung nach Branche künftig aussehen könnte; er trifft aktuell keine Auswahl und filtert die Projektliste nicht.",
+        options: {
+          hairdresser: "Friseur",
+          beauty: "Beauty & Nagelstudio",
+          legal: "Recht",
+          accounting: "Steuerberatung"
+        },
+        note: "Dieser Bereich ist nur ein Gestaltungsbeispiel; die Optionen sind deaktiviert."
+      },
+      items: {
+        "velora-kurumsal": {
+          description:
+            "Ein Website-Konzept, das die eigene Unternehmensidentität von VELORA widerspiegelt und Leistungen sowie Pakete klar darstellt.",
+          benefits: [
+            "Schlichter, vertrauenswürdiger Unternehmensauftritt",
+            "Verständliche Darstellung von Leistungen und Paketen",
+            "Mobilfreundliche, schnell ladende Struktur"
+          ],
+          techNote: "Empfohlener Ansatz für dieses Konzept: eine schnelle, abhängigkeitsfreie Struktur auf Basis von einfachem HTML/CSS/JS."
+        },
+        "lumen-kahve": {
+          description:
+            "Ein Konzept, das Speisekarte und Atmosphäre eines Kaffeehauses in den Vordergrund stellt und Besucher direkt ins Lokal einlädt.",
+          benefits: [
+            "Übersichtliche Struktur für eine leicht aktualisierbare Speisekarte",
+            "Schlichte visuelle Sprache, die die Atmosphäre des Lokals widerspiegelt",
+            "Standort und Öffnungszeiten im Fokus"
+          ],
+          techNote: "Empfohlener Ansatz für dieses Konzept: eine schlichte, mobil-optimierte Struktur für schnell ladende Bilder."
+        },
+        "atlas-hukuk": {
+          description:
+            "Ein Konzept, das die Fachgebiete und den unternehmerischen Auftritt einer Anwaltskanzlei in einer vertrauenswürdigen Sprache darstellt.",
+          benefits: [
+            "Ein seriöser, vertrauenswürdiger erster Eindruck",
+            "Klare Auflistung der Fachgebiete",
+            "Klare Handlungsaufforderungen für eine einfache Kontaktaufnahme"
+          ],
+          techNote: "Empfohlener Ansatz für dieses Konzept: eine schlichte, ablenkungsfreie, unternehmerische Gestaltungssprache."
+        },
+        "fitcore-studyo": {
+          description: "Ein Konzept, das den Kursplan und die Energie eines Sportstudios schlicht und dynamisch widerspiegelt.",
+          benefits: [
+            "Klare Darstellung von Kursplan/Leistungen",
+            "Energiegeladene, aber aufgeräumte visuelle Sprache",
+            "Einfache Kontaktaufnahme über mobile Geräte"
+          ],
+          techNote: "Empfohlener Ansatz für dieses Konzept: eine schnell ladende, mobil-optimierte Struktur."
+        },
+        "vera-klinik": {
+          description: "Ein vertrauenswürdiges, ruhiges und informatives Konzept für ein Gesundheits-/Klinikunternehmen.",
+          benefits: [
+            "Leistungen in ruhiger, vertrauenswürdiger Sprache erklärt",
+            "Leicht auffindbarer Kontaktschritt",
+            "Häufig gestellte Fragen im Fokus"
+          ],
+          techNote: "Empfohlener Ansatz für dieses Konzept: eine schlichte, auf Lesbarkeit ausgelegte Gestaltungssprache."
+        },
+        "marka-vitrin": {
+          description:
+            "Ein E-Commerce-Konzept, das die Produkte einer Marke schlicht wie in einem Schaufenster präsentiert (eine vollständige Zahlungs-/Bestellabwicklung ist nicht Teil dieses Konzepts).",
+          benefits: [
+            "Klare, schlichte Produktpräsentation",
+            "Einfache Navigation zwischen Kategorien",
+            "Visuelle Sprache, die den Charakter der Marke widerspiegelt"
+          ],
+          techNote: "Empfohlener Ansatz für dieses Konzept: eine schlichte, erweiterbare Struktur für ein einfaches Produkt-Schaufenster."
+        },
+        "ada-mimarlik": {
+          description: "Ein Konzept, das das Projektportfolio eines Architekturbüros schlicht und visuell fokussiert präsentiert.",
+          benefits: [
+            "Schlichte, visuell fokussierte Präsentation der Projekte",
+            "Struktur, die sich leicht aktualisieren lässt",
+            "Unternehmerischer, aber persönlicher Ton"
+          ],
+          techNote:
+            "Empfohlener Ansatz für dieses Konzept: ein schlichtes Galerie-/Portfolio-Layout, bei dem die Bilder im Vordergrund stehen."
+        }
+      }
     }
   },
 

@@ -1287,6 +1287,212 @@ p {
   height: 22px;
 }
 
+/* ---------- Çalışmalarımız Detay Sayfası (calismalarimiz.html) ---------- */
+/* Ana sayfadaki "Çalışmalarımız" slider'ından (.works-slider vb.) ayrı bir
+   bileşen seti: burada her proje için sağda görsel / solda 3'lü accordion
+   içeren daha geniş bir detay bloğu var. Sitedeki renk/boşluk/kenar
+   yuvarlaklığı token'ları (variables.css) ve SSS accordion'unun görsel
+   dili (bkz. yukarıdaki "SSS / Accordion" bloğu) referans alınmıştır. */
+
+.works-filter {
+  max-width: 760px;
+  margin: 0 auto var(--space-2xl);
+  text-align: center;
+}
+
+.works-filter-heading {
+  font-size: clamp(1.2rem, 1.6vw, 1.4rem);
+  margin-bottom: var(--space-xs);
+}
+
+.works-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: var(--space-md);
+}
+
+/* Butonlar bilinçli olarak "disabled" — hiçbir seçim/filtreleme yapmazlar.
+   Global "button { cursor: pointer }" kuralı burada yanıltıcı olacağından
+   (tıklanabilirmiş gibi görünür) cursor açıkça ezilir. */
+.works-filter-chip {
+  padding: 0.6rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.works-filter-note {
+  margin-top: var(--space-sm);
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+}
+
+.work-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+}
+
+.work-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: start;
+  padding-top: var(--space-2xl);
+  border-top: 1px solid var(--color-border);
+  /* Ana sayfadaki proje kartları calismalarimiz.html#<id> ile doğrudan bu
+     bloğa bağlanır; sabit header'ın içeriği kapatmaması için #hakkinda ile
+     aynı scroll-margin-top tekniği kullanılır. */
+  scroll-margin-top: calc(var(--header-height) + var(--space-sm));
+}
+
+.work-detail:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.work-detail-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.work-detail-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  margin-bottom: var(--space-sm);
+}
+
+.work-detail-category {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.3rem;
+}
+
+.work-detail-name {
+  font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+  margin-bottom: var(--space-lg);
+}
+
+.work-detail-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-muted);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.work-detail-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-detail-visual-icon {
+  display: inline-flex;
+  color: var(--color-text-secondary);
+}
+
+.work-detail-visual-icon svg {
+  width: 56px;
+  height: 56px;
+}
+
+/* Accordion: SSS ile aynı görsel/etkileşim dili, ayrı sınıflarla (bkz.
+   components/worksDetail.js — her projenin 3 öğesi kendi içinde bağımsız
+   bir grup olarak açılıp kapanır). */
+.work-accordion {
+  border-top: 1px solid var(--color-border);
+}
+
+.work-accordion-item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.work-accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-block: 1.1rem;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.work-accordion-trigger .chevron {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  transition: transform var(--transition-base);
+}
+
+.work-accordion-item.is-open .chevron {
+  transform: rotate(180deg);
+}
+
+.work-accordion-panel {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height var(--transition-base);
+}
+
+.work-accordion-panel-inner {
+  padding-bottom: 1.1rem;
+  font-size: 0.92rem;
+}
+
+.work-accordion-panel-inner p {
+  font-size: 0.92rem;
+}
+
+.work-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: var(--space-sm);
+}
+
+.work-benefits li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.92rem;
+  color: var(--color-text);
+}
+
+.work-benefits svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--color-text-secondary);
+}
+
+.work-tech-note {
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
 /* ---------- Yardımcı sınıflar ---------- */
 
 .text-center {

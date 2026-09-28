@@ -10,12 +10,7 @@ import { initQuestionForm } from "../components/questionForm.js";
 import { initSearch } from "../components/search.js";
 import { initPackageContactModal } from "../components/packageContactModal.js";
 import { initI18n, onLanguageChange } from "./i18n.js";
-import { qs } from "./utils.js";
-
-function setYear() {
-  const el = qs("#current-year");
-  if (el) el.textContent = new Date().getFullYear();
-}
+import { qs, setYear } from "./utils.js";
 
 function applyBrandConfig() {
   // Logo dosyası tek bir yerden (data/site-config.js > logoConfig.path)

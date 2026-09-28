@@ -1,6 +1,5 @@
 // components/faq.js — SSS accordion. Tek seferde yalnızca bir soru açık kalır.
 
-import { faqData } from "../data/faq.js";
 import { icon } from "../js/icons.js";
 import { escapeHtml, qsa } from "../js/utils.js";
 import { t } from "../js/i18n.js";
@@ -52,8 +51,4 @@ export function renderFaq(container) {
       answer.style.maxHeight = !isOpen ? `${answer.scrollHeight}px` : null;
     });
   });
-}
-
-export function getFaqData() {
-  return faqData;
 }

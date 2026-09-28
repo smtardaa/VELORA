@@ -194,32 +194,6 @@ p {
   width: auto;
 }
 
-/* Footer'daki eski logo + marka adı biçimi korunur. */
-.logo-chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-  border-radius: var(--radius-sm);
-  background-color: var(--logo-chip-bg);
-  border: 1px solid var(--logo-chip-border);
-  line-height: 0;
-}
-
-.logo-chip img {
-  width: var(--logo-size, 32px);
-  height: var(--logo-size, 32px);
-  display: block;
-  border-radius: 6px;
-  object-fit: contain;
-}
-
-.brand-name {
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-
 .main-nav {
   display: flex;
   align-items: center;
@@ -744,24 +718,6 @@ p {
   margin-bottom: var(--space-lg);
 }
 
-.about-lede {
-  max-width: 640px;
-}
-
-.about-lede + .about-lede {
-  margin-top: var(--space-sm);
-}
-
-.about-statement {
-  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-  color: var(--color-text);
-  max-width: 640px;
-  margin-top: var(--space-lg);
-}
-
 .about-pillars {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -788,25 +744,6 @@ p {
 .about-pillar p {
   font-size: 0.98rem;
   line-height: 1.65;
-}
-
-.about-closing {
-  max-width: 640px;
-  margin-top: var(--space-2xl);
-  padding-top: var(--space-xl);
-  border-top: 1px solid var(--color-border);
-}
-
-.about-closing-lede {
-  font-size: 1.05rem;
-}
-
-.about-closing-statement {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--color-text);
-  margin-top: var(--space-xs);
 }
 
 /* ---------- SSS / Accordion ---------- */
@@ -1062,11 +999,6 @@ p {
   color: #a1a1a6;
 }
 
-.contact-cta {
-  text-align: center;
-  margin-top: var(--space-xl);
-}
-
 /* ---------- Footer ---------- */
 
 .site-footer {
@@ -1132,28 +1064,6 @@ p {
 
 .footer-links a:hover {
   color: var(--color-text);
-}
-
-/* "Çalışmalarımız" bağlantısı şimdilik pasif: href yok, tıklanamaz,
-   hafif soluk görünerek yakında geleceğini ima eder. Aynı görsel dil,
-   dil seçimi dropdown'ındaki henüz aktif olmayan diller (EN/DE/FR/IT)
-   için de kullanılır — gerçek bir işlevleri yoktur, yalnızca
-   ileride eklenebileceklerini gösteren pasif seçeneklerdir. */
-.nav-links a.is-disabled,
-.footer-links a.is-disabled,
-.lang-switch-option.is-disabled {
-  opacity: 0.5;
-  cursor: default;
-}
-
-.nav-links a.is-disabled:hover,
-.footer-links a.is-disabled:hover {
-  color: inherit;
-}
-
-.lang-switch-option.is-disabled {
-  font-weight: 400;
-  background-color: transparent;
 }
 
 .footer-social {

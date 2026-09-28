@@ -98,12 +98,6 @@ export const tr = {
   about: {
     eyebrow: "VELORA",
     headline: "Dijital dünyadaki ilk izleniminiz, bir kapıdır.",
-    intro: {
-      p1: "VELORA, işletmelerin dijital dünyada nasıl göründüğünü, nasıl hissedildiğini ve nasıl keşfedildiğini tasarlamak için kuruldu.",
-      p2: "Çünkü bugün bir müşterinin sizinle kurduğu ilk temas çoğu zaman fiziksel değil, dijitaldir. Bir arama sonucu, bir sosyal medya bağlantısı veya doğrudan web siteniz üzerinden gerçekleşir.",
-      p3: "Biz bu ilk teması sıradan bir web sitesinden daha fazlası olarak görüyoruz.",
-      statement: "İşletmenizin dijital kapısını tasarlıyoruz."
-    },
     pillars: {
       simple: {
         title: "Sade olanı, etkili hale getiriyoruz.",
@@ -117,10 +111,6 @@ export const tr = {
         title: "Büyümek isteyen işletmeler için.",
         body: "VELORA; markasını daha güçlü göstermek, dijital dünyada daha görünür olmak ve müşterileriyle daha iyi bir ilk temas kurmak isteyen işletmelerle çalışır. İster yeni bir dijital başlangıç yapıyor olun, ister mevcut web sitenizi yeniden düşünmek isteyin, amacımız aynı: işletmenizi doğru anlatan, güven veren ve insanları bir sonraki adıma taşıyan bir dijital deneyim oluşturmak."
       }
-    },
-    closing: {
-      p1: "Çünkü iyi bir web sitesi sadece ziyaret edilmez.",
-      statement: "Bir iz bırakır."
     }
   },
 

@@ -139,10 +139,7 @@
         <div class="about-intro">
           <span class="eyebrow" data-i18n="about.eyebrow">VELORA</span>
           <h2 class="about-headline" data-i18n="about.headline">Dijital dünyadaki ilk izleniminiz, bir kapıdır.</h2>
-          <p class="lede about-lede" data-i18n="about.intro.p1">VELORA, işletmelerin dijital dünyada nasıl göründüğünü, nasıl hissedildiğini ve nasıl keşfedildiğini tasarlamak için kuruldu.</p>
-          <p class="lede about-lede" data-i18n="about.intro.p2">Çünkü bugün bir müşterinin sizinle kurduğu ilk temas çoğu zaman fiziksel değil, dijitaldir. Bir arama sonucu, bir sosyal medya bağlantısı veya doğrudan web siteniz üzerinden gerçekleşir.</p>
-          <p class="lede about-lede" data-i18n="about.intro.p3">Biz bu ilk teması sıradan bir web sitesinden daha fazlası olarak görüyoruz.</p>
-          <p class="about-statement" data-i18n="about.intro.statement">İşletmenizin dijital kapısını tasarlıyoruz.</p>
+
         </div>
 
         <div class="about-pillars">
@@ -163,11 +160,6 @@
           </div>
         </div>
 
-        <div class="about-closing">
-          <p class="about-closing-lede" data-i18n="about.closing.p1">Çünkü iyi bir web sitesi sadece ziyaret edilmez.</p>
-          <p class="about-closing-statement" data-i18n="about.closing.statement">Bir iz bırakır.</p>
-        </div>
-
       </div>
     </section>
 
@@ -185,31 +177,31 @@
             <div class="field" data-field="ad">
               <label for="ad" data-i18n="form.labels.firstName">Ad</label>
               <input type="text" id="ad" name="ad" autocomplete="given-name" />
-              <span class="field-error"></span>
+              <span class="field-error" aria-live="polite"></span>
             </div>
             <div class="field" data-field="soyad">
               <label for="soyad" data-i18n="form.labels.lastName">Soyad</label>
               <input type="text" id="soyad" name="soyad" autocomplete="family-name" />
-              <span class="field-error"></span>
+              <span class="field-error" aria-live="polite"></span>
             </div>
           </div>
 
           <div class="field" data-field="eposta">
             <label for="eposta" data-i18n="form.labels.email">E-posta</label>
             <input type="email" id="eposta" name="eposta" autocomplete="email" />
-            <span class="field-error"></span>
+            <span class="field-error" aria-live="polite"></span>
           </div>
 
           <div class="form-row">
             <div class="field" data-field="sirket">
               <label for="sirket"><span data-i18n="form.labels.company">Şirket / Marka</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
               <input type="text" id="sirket" name="sirket" autocomplete="organization" />
-              <span class="field-error"></span>
+              <span class="field-error" aria-live="polite"></span>
             </div>
             <div class="field" data-field="web-sitesi">
               <label for="web-sitesi"><span data-i18n="form.labels.previousSite">Varsa Önceki Web Sitesinin Bağlantısı</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
               <input type="url" id="web-sitesi" name="web-sitesi" autocomplete="url" data-i18n-placeholder="form.placeholders.previousSite" placeholder="https://..." />
-              <span class="field-error"></span>
+              <span class="field-error" aria-live="polite"></span>
             </div>
           </div>
 
@@ -223,7 +215,7 @@
                 <option value="2500-5000" data-i18n="form.budgetOptions.2">$2,500 – $5,000</option>
                 <option value="5000+" data-i18n="form.budgetOptions.3">$5,000+</option>
               </select>
-              <span class="field-error"></span>
+              <span class="field-error" aria-live="polite"></span>
             </div>
             <div class="field" data-field="ihtiyac">
               <label for="ihtiyac"><span data-i18n="form.labels.needs">İhtiyacınız ve İstekleriniz</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
@@ -236,20 +228,20 @@
                 <option value="marka" data-i18n="form.needsOptions.branding">Marka / kurumsal görünüm</option>
                 <option value="diger" data-i18n="form.needsOptions.other">Diğer</option>
               </select>
-              <span class="field-error"></span>
+              <span class="field-error" aria-live="polite"></span>
             </div>
           </div>
 
           <div class="field is-hidden" data-field="ihtiyac-diger" id="ihtiyac-diger-wrap">
             <label for="ihtiyac-diger" data-i18n="form.labels.needsOther">İhtiyacınızı kısaca anlatın</label>
             <textarea id="ihtiyac-diger" name="ihtiyac-diger" rows="3"></textarea>
-            <span class="field-error"></span>
+            <span class="field-error" aria-live="polite"></span>
           </div>
 
           <div class="field" data-field="soru">
             <label for="soru" data-i18n="form.labels.question">Sorunuz</label>
             <textarea id="soru" name="soru"></textarea>
-            <span class="field-error"></span>
+            <span class="field-error" aria-live="polite"></span>
           </div>
 
           <button class="btn btn-primary btn-block" type="submit" data-i18n="form.submit">Soruyu Gönder</button>

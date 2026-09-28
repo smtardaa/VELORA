@@ -135,7 +135,6 @@ export function initProjectsSlider({ sliderEl, trackEl, prevBtn, nextBtn }) {
   }
 
   function rebuild() {
-    const oldCardsPerView = cardsPerView;
     const currentRealIndex = loopEnabled()
       ? ((currentIndex - K) % N + N) % N
       : 0;
@@ -147,8 +146,6 @@ export function initProjectsSlider({ sliderEl, trackEl, prevBtn, nextBtn }) {
     renderTrack();
     setTransform(false);
     startAutoplay();
-    // eslint-disable-next-line no-unused-vars
-    void oldCardsPerView;
   }
 
   prevBtn.addEventListener("click", () => goTo(-1));

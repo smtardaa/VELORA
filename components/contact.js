@@ -46,7 +46,3 @@ export function renderFooterSocial(container) {
     )
     .join("");
 }
-
-export function getContactChannels() {
-  return contactChannels;
-}

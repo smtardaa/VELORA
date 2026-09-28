@@ -2,7 +2,7 @@
 // paketler ve SSS verileri üzerinde basit bir metin araması yapar.
 
 import { packagesData } from "../data/packages.js";
-import { debounce, escapeHtml } from "../js/utils.js";
+import { debounce, escapeHtml, trapFocus } from "../js/utils.js";
 import { t, getLang, onLanguageChange } from "../js/i18n.js";
 
 // Arama dizini tamamen mevcut dile göre kurulur; dil değiştiğinde
@@ -41,8 +41,11 @@ function matches(entry, query) {
 export function initSearch({ trigger, overlay, input, resultsEl, closeBtn }) {
   if (!trigger || !overlay || !input || !resultsEl) return;
 
+  const panel = overlay.querySelector(".search-panel") || overlay;
   let index = buildSearchIndex();
   let lastQuery = "";
+  let releaseFocusTrap = null;
+  let previouslyFocusedEl = null;
 
   function renderResults(query) {
     lastQuery = query;
@@ -80,16 +83,28 @@ export function initSearch({ trigger, overlay, input, resultsEl, closeBtn }) {
   const debouncedRender = debounce((value) => renderResults(value), 120);
 
   function openSearch() {
+    previouslyFocusedEl = document.activeElement;
     overlay.classList.add("is-open");
     document.body.style.overflow = "hidden";
     input.value = "";
     renderResults("");
+    releaseFocusTrap = trapFocus(panel);
     window.setTimeout(() => input.focus(), 50);
   }
 
   function closeSearch() {
     overlay.classList.remove("is-open");
     document.body.style.overflow = "";
+
+    if (releaseFocusTrap) {
+      releaseFocusTrap();
+      releaseFocusTrap = null;
+    }
+    // Odağı aramayı açan öğeye (header'daki arama butonu) geri ver —
+    // klavye/ekran okuyucu kullanıcıları kapanıştan sonra kaldıkları
+    // yerde kalır.
+    previouslyFocusedEl?.focus();
+    previouslyFocusedEl = null;
   }
 
   trigger.addEventListener("click", openSearch);

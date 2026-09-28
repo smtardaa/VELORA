@@ -51,12 +51,6 @@
      çok geniş ekranlarda header içeriğinin ortalanmasını sağlar. */
   --header-width: 2116px;
 
-  /* Logo, siyah bir kare zemin üzerine tasarlanmıştır. Görünürlüğü
-     korumak için sabit bir "chip" zemini üzerinde gösterilir; bu zemin
-     logonun kendisine değil yalnızca çevresine uygulanır. */
-  --logo-chip-bg: var(--color-bg-elevated);
-  --logo-chip-border: var(--color-border);
-
   /* Soru Sor formundaki <select> alanları için özel ok ikonu.
      Mevcut lang-switch-chevron ile aynı çizgi ikonu, yalnızca
      bölüm ters çevrildiğinde (.section-invert) renk değiştirir. */

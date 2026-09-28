@@ -105,11 +105,10 @@
     padding-block: var(--space-xl);
   }
 
-  /* Hakkında bölümünün iç blok aralıkları (giriş -> köşe taşları ->
-     kapanış), diğer bölümlerin padding-block küçülmesiyle aynı
-     mantıkla, mobilde gereksiz yükseklik oluşturmaması için sıkılaştırılır. */
-  .about-pillars,
-  .about-closing {
+  /* Hakkında bölümünün köşe taşları bloğu, diğer bölümlerin
+     padding-block küçülmesiyle aynı mantıkla, mobilde gereksiz
+     yükseklik oluşturmaması için sıkılaştırılır. */
+  .about-pillars {
     margin-top: var(--space-xl);
     padding-top: var(--space-lg);
   }
@@ -134,10 +133,6 @@
 
   .card {
     padding: var(--space-md);
-  }
-
-  .brand-name {
-    font-size: 1rem;
   }
 
   .brand-logo {

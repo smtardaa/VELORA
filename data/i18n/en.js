@@ -96,12 +96,6 @@ export const en = {
   about: {
     eyebrow: "VELORA",
     headline: "Your first impression in the digital world is a doorway.",
-    intro: {
-      p1: "VELORA was founded to design how businesses look, feel and get discovered in the digital world.",
-      p2: "Because today, a customer's first contact with you is rarely physical — it happens through a search result, a social media link, or your own website.",
-      p3: "We see this first contact as more than just an ordinary website.",
-      statement: "We design the digital doorway to your business."
-    },
     pillars: {
       simple: {
         title: "We make simple, effective.",
@@ -115,10 +109,6 @@ export const en = {
         title: "For businesses ready to grow.",
         body: "VELORA works with businesses that want to strengthen their brand, become more visible online, and make a better first impression with their customers. Whether you're starting fresh in the digital world or rethinking your existing website, our goal stays the same: to create a digital experience that tells your story accurately, builds trust, and moves people to take the next step."
       }
-    },
-    closing: {
-      p1: "Because a good website isn't just visited.",
-      statement: "It leaves a mark."
     }
   },
 

@@ -96,12 +96,6 @@ export const de = {
   about: {
     eyebrow: "VELORA",
     headline: "Ihr erster Eindruck in der digitalen Welt ist eine Tür.",
-    intro: {
-      p1: "VELORA wurde gegründet, um zu gestalten, wie Unternehmen in der digitalen Welt wahrgenommen, erlebt und entdeckt werden.",
-      p2: "Denn der erste Kontakt eines Kunden mit Ihnen ist heute selten physisch — er entsteht über ein Suchergebnis, einen Social-Media-Link oder Ihre eigene Website.",
-      p3: "Wir sehen diesen ersten Kontakt als mehr als nur eine gewöhnliche Website.",
-      statement: "Wir gestalten die digitale Tür zu Ihrem Unternehmen."
-    },
     pillars: {
       simple: {
         title: "Wir machen das Einfache wirkungsvoll.",
@@ -115,10 +109,6 @@ export const de = {
         title: "Für Unternehmen, die wachsen wollen.",
         body: "VELORA arbeitet mit Unternehmen zusammen, die ihre Marke stärken, im digitalen Raum sichtbarer werden und einen besseren ersten Kontakt mit ihren Kunden herstellen möchten. Ob Sie einen digitalen Neuanfang wagen oder Ihre bestehende Website überdenken möchten — unser Ziel bleibt dasselbe: eine digitale Erfahrung zu schaffen, die Ihr Unternehmen richtig darstellt, Vertrauen schafft und Menschen zum nächsten Schritt bewegt."
       }
-    },
-    closing: {
-      p1: "Denn eine gute Website wird nicht nur besucht.",
-      statement: "Sie hinterlässt eine Spur."
     }
   },
 

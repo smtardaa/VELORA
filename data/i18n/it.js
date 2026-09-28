@@ -96,12 +96,6 @@ export const it = {
   about: {
     eyebrow: "VELORA",
     headline: "La tua prima impressione nel mondo digitale è una porta.",
-    intro: {
-      p1: "VELORA nasce per progettare il modo in cui le aziende appaiono, si percepiscono e vengono scoperte nel mondo digitale.",
-      p2: "Perché oggi il primo contatto di un cliente con te raramente è fisico: avviene tramite un risultato di ricerca, un link sui social media o il tuo stesso sito web.",
-      p3: "Per noi questo primo contatto è molto più di un semplice sito web.",
-      statement: "Progettiamo la porta digitale della tua azienda."
-    },
     pillars: {
       simple: {
         title: "Rendiamo l'essenziale efficace.",
@@ -115,10 +109,6 @@ export const it = {
         title: "Per le aziende che vogliono crescere.",
         body: "VELORA lavora con aziende che vogliono rafforzare il proprio brand, essere più visibili nel mondo digitale e creare un primo contatto migliore con i propri clienti. Che tu stia muovendo i primi passi nel digitale o voglia ripensare il tuo sito attuale, il nostro obiettivo resta lo stesso: creare un'esperienza digitale che racconti la tua azienda in modo autentico, generi fiducia e porti le persone al passo successivo."
       }
-    },
-    closing: {
-      p1: "Perché un buon sito web non si limita a essere visitato.",
-      statement: "Lascia un segno."
     }
   },
 

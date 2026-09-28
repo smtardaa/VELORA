@@ -1,6 +1,6 @@
 // js/main.js — uygulama giriş noktası. Tüm bileşenleri başlatır.
 
-import { logoConfig, siteConfig } from "../data/site-config.js";
+import { logoConfig } from "../data/site-config.js";
 import { initHeader } from "../components/header.js";
 import { initPackagesSlider } from "../components/packages.js";
 import { initProjectsSlider } from "../components/projects.js";
@@ -18,16 +18,12 @@ function setYear() {
 }
 
 function applyBrandConfig() {
-  // Logo ve marka adı, tek bir yerden (data/site-config.js) yönetilir.
+  // Logo dosyası tek bir yerden (data/site-config.js > logoConfig.path)
+  // yönetilir; header ve footer'daki [data-logo-img] elemanları buradan
+  // kaynak alır. Alt metni ise data-i18n-alt="misc.logoAlt" ile
+  // js/i18n.js tarafından yönetilir.
   document.querySelectorAll("[data-logo-img]").forEach((img) => {
     img.src = logoConfig.path;
-    // alt metni artık data-i18n-alt="misc.logoAlt" ile js/i18n.js tarafından yönetiliyor.
-  });
-  document.querySelectorAll("[data-brand-name]").forEach((el) => {
-    el.textContent = siteConfig.brandName;
-  });
-  document.querySelectorAll("[data-brand-tagline]").forEach((el) => {
-    el.textContent = siteConfig.tagline;
   });
 }
 

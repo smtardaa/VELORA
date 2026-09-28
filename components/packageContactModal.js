@@ -9,13 +9,17 @@
 
 import { contactChannels } from "../data/contact.js";
 import { icon } from "../js/icons.js";
-import { escapeHtml } from "../js/utils.js";
+import { escapeHtml, trapFocus } from "../js/utils.js";
 import { t, onLanguageChange } from "../js/i18n.js";
 
 let overlayEl = null;
+let panelEl = null;
 let titleEl = null;
 let channelsEl = null;
+let closeBtnEl = null;
 let currentPackageName = "";
+let releaseFocusTrap = null;
+let previouslyFocusedEl = null;
 
 function renderTitle() {
   if (!titleEl) return;
@@ -42,22 +46,41 @@ function closeModal() {
   if (!overlayEl) return;
   overlayEl.classList.remove("is-open");
   document.body.style.overflow = "";
+
+  if (releaseFocusTrap) {
+    releaseFocusTrap();
+    releaseFocusTrap = null;
+  }
+  // Odağı popup'ı açan öğeye (paket kartındaki iletişim butonu) geri
+  // ver — klavye/ekran okuyucu kullanıcıları kapanıştan sonra sayfanın
+  // başına değil, kaldıkları yere döner.
+  previouslyFocusedEl?.focus();
+  previouslyFocusedEl = null;
 }
 
 export function openPackageContactModal(packageName) {
   if (!overlayEl) return;
+  previouslyFocusedEl = document.activeElement;
   currentPackageName = packageName;
   renderTitle();
   overlayEl.classList.add("is-open");
   document.body.style.overflow = "hidden";
+
+  if (panelEl) releaseFocusTrap = trapFocus(panelEl);
+  // Popup açılır açılmaz odağı kapatma butonuna taşı; aksi halde
+  // klavye/ekran okuyucu kullanıcıları için odak sayfada kaldığı
+  // yerde (görünmeyen bir arka plan öğesinde) kalıyordu.
+  closeBtnEl?.focus();
 }
 
 export function initPackageContactModal({ overlay, panel, title, channels, closeBtn }) {
   if (!overlay || !panel || !title || !channels) return;
 
   overlayEl = overlay;
+  panelEl = panel;
   titleEl = title;
   channelsEl = channels;
+  closeBtnEl = closeBtn || null;
 
   renderChannels();
 

@@ -96,12 +96,6 @@ export const fr = {
   about: {
     eyebrow: "VELORA",
     headline: "Votre première impression dans le monde numérique est une porte.",
-    intro: {
-      p1: "VELORA a été fondée pour concevoir la façon dont les entreprises apparaissent, se ressentent et se font découvrir dans le monde numérique.",
-      p2: "Car aujourd'hui, le premier contact d'un client avec vous est rarement physique — il passe par un résultat de recherche, un lien sur les réseaux sociaux ou votre propre site web.",
-      p3: "Nous considérons ce premier contact comme bien plus qu'un site web ordinaire.",
-      statement: "Nous concevons la porte numérique de votre entreprise."
-    },
     pillars: {
       simple: {
         title: "Nous rendons le simple efficace.",
@@ -115,10 +109,6 @@ export const fr = {
         title: "Pour les entreprises qui veulent grandir.",
         body: "VELORA travaille avec les entreprises qui souhaitent renforcer leur marque, gagner en visibilité dans le monde numérique et créer un meilleur premier contact avec leurs clients. Que vous fassiez vos premiers pas dans le numérique ou que vous souhaitiez repenser votre site actuel, notre objectif reste le même : créer une expérience numérique qui raconte fidèlement votre histoire, inspire confiance et incite les visiteurs à passer à l'étape suivante."
       }
-    },
-    closing: {
-      p1: "Car un bon site web ne se contente pas d'être visité.",
-      statement: "Il laisse une empreinte."
     }
   },
 

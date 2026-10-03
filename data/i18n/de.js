@@ -355,11 +355,16 @@ export const de = {
       metaDescription: "Erfahren Sie mehr über VELORA.",
       eyebrow: "Über uns",
       heading: "Über VELORA",
-      lede: "Diese Seite wird vorbereitet, um ausführlichere Informationen über VELORA zu teilen. Die Inhalte werden in Kürze ergänzt.",
+      lede: "VELORA möchte einfache, benutzerfreundliche Websites gestalten, mit denen sich Unternehmen online klar und treffend präsentieren können.",
       sections: {
-        who: "Wer wir sind",
-        approach: "Wie wir arbeiten",
-        values: "Was uns wichtig ist"
+        who: "Was wir tun",
+        approach: "Worauf wir beim Design achten",
+        values: "Unser Beitrag für Ihr Unternehmen"
+      },
+      bodies: {
+        who: "VELORA hat das Ziel, Unternehmen Webdesign und Webentwicklung anzubieten. Dieser Ansatz stützt sich auf Erfahrung im Bereich Webdesign und -entwicklung, die inzwischen im dritten Jahr ist. Ziel ist, dass jedes Unternehmen ein eigenes, übersichtliches und vertrauenswürdiges digitales Schaufenster hat.",
+        approach: "Bei der Gestaltung einer Website versuchen wir zuerst zu verstehen, was ein Unternehmen wem vermitteln möchte. Einfachheit, eine leichte Orientierung für Besucher und eine Struktur, die auf jedem Gerät angenehm nutzbar ist, bilden die Grundlage des Designs. Wir verzichten auf unnötige Überladung und rücken die Inhalte in den Vordergrund.",
+        values: "Unser Ziel ist, den ersten digitalen Eindruck Ihres Unternehmens klar und stimmig zu gestalten. Eine Website, die Ihre Leistungen, Ihre Identität und den Weg zur Kontaktaufnahme deutlich zeigt, hilft Besuchern, Sie leichter kennenzulernen."
       },
       ctaHeading: "Haben Sie Fragen?",
       ctaLede: "Sie erreichen uns über unsere Kontaktkanäle oder das Frageformular.",
@@ -368,19 +373,80 @@ export const de = {
     },
     projectBrief: {
       metaTitle: "VELORA — Erzählen Sie uns von Ihrem Projekt",
-      metaDescription: "Teilen Sie Ihr Projekt mit VELORA.",
+      metaDescription: "Teilen Sie Ihr Projekt und Ihr Unternehmen mit VELORA.",
       eyebrow: "Ihr Projekt",
       heading: "Erzählen Sie uns von Ihrem Projekt",
-      lede: "Diese Seite, auf der Sie die Details Ihres Projekts teilen können, wird vorbereitet. In der Zwischenzeit erreichen Sie uns über das Frageformular oder unsere Kontaktkanäle.",
-      sections: {
-        project: "Über Ihr Projekt",
-        goals: "Ihre Ziele und Anforderungen",
-        scope: "Umfang und Zeitplan"
+      lede: "Beschreiben Sie Ihr Unternehmen und Ihre Erwartungen an die Website mit dem folgenden Formular – so klären wir Ihren Bedarf gemeinsam.",
+      form: {
+        requiredNote: "Mit * markierte Felder sind Pflichtfelder.",
+        labels: {
+          fullName: "Vor- und Nachname",
+          email: "E-Mail",
+          businessName: "Unternehmens- / Markenname",
+          businessType: "Art des Unternehmens",
+          businessTypeOther: "Art Ihres Unternehmens",
+          need: "Bedarf",
+          needOther: "Beschreiben Sie Ihren Bedarf",
+          website: "Link zur aktuellen Website",
+          summary: "Beschreiben Sie kurz Ihr Projekt und Ihr Unternehmen",
+          details: "Weitere Details, die Ihnen wichtig sind",
+          files: "Projektdateien"
+        },
+        placeholders: {
+          website: "https://...",
+          summary: "Was macht Ihr Unternehmen, und was möchten Sie mit der Website erreichen?",
+          details: "Zum Beispiel: Ihre Farbwünsche, ob Sie ein neues Logo benötigen, Beispiel-Websites, die Ihnen gefallen, gewünschte Seiten und Funktionen oder andere Details, die Ihnen wichtig sind.",
+          businessTypeOther: "Art Ihres Unternehmens",
+          needOther: "Ihr Bedarf"
+        },
+        selectPlaceholder: "Bitte wählen",
+        businessTypes: {
+          menBarber: "Herrenfriseur",
+          womenHairdresser: "Damenfriseur",
+          beautySalon: "Kosmetikstudio",
+          nailStudio: "Nagelstudio",
+          lawFirm: "Anwaltskanzlei",
+          independentLawyer: "Selbstständige/r Rechtsanwalt/Rechtsanwältin",
+          accountant: "Steuerberater/in",
+          other: "Sonstiges"
+        },
+        needs: {
+          newSite: "Neue Website",
+          redesign: "Bestehende Website erneuern",
+          booking: "Reservierung / Speisekarte",
+          ecommerce: "E-Commerce",
+          other: "Sonstiges"
+        },
+        chooseFiles: "Dateien auswählen",
+        noFiles: "Noch keine Dateien ausgewählt",
+        filesCount: "{count} Datei(en) ausgewählt",
+        filesHelp: "Sie können mehrere Dateien auswählen, z. B. Dateien Ihrer aktuellen Website, Ihr Logo, Bilder oder zugehörige Dokumente.",
+        filesPending: "Der Dateiversand ist noch nicht aktiv: Die ausgewählten Dateien werden derzeit nirgendwohin hochgeladen.",
+        filesSelected: "Ausgewählte Dateien ({count})",
+        filesClear: "Auswahl löschen",
+        notice: "Dieses Formular ist noch mit keinem Versanddienst verbunden; Ihre Angaben und Dateien werden derzeit nirgendwohin übermittelt. Um uns zu erreichen, nutzen Sie bitte die Kontaktkanäle unten auf dieser Seite.",
+        submit: "Projekt senden",
+        submitting: "Wird gesendet...",
+        feedback: {
+          error: "Bitte prüfen Sie die markierten Felder.",
+          notSent: "Ihre Angaben wurden nicht gesendet: Dieses Formular ist noch mit keinem Versanddienst verbunden. Bitte kontaktieren Sie uns über die Kontaktkanäle unten.",
+          success: "Vielen Dank, Ihre Angaben wurden übermittelt.",
+          sendFailed: "Der Versand ist fehlgeschlagen; Ihre Angaben konnten nicht übermittelt werden. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns über unsere Kontaktkanäle."
+        },
+        errors: {
+          fullNameRequired: "Bitte geben Sie Ihren Vor- und Nachnamen ein.",
+          emailRequired: "Bitte geben Sie Ihre E-Mail-Adresse ein.",
+          emailInvalid: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+          summaryRequired: "Bitte beschreiben Sie kurz Ihr Projekt und Ihr Unternehmen.",
+          summaryTooShort: "Könnten Sie etwas mehr Details angeben? (mindestens 10 Zeichen)"
+        },
+        footnote: "Je klarer Sie die Informationen teilen, desto genauer können wir Ihren Bedarf und den Projektumfang verstehen und desto schneller die passende Lösung und die nächsten Schritte für Sie klären."
       },
-      ctaHeading: "Möchten Sie Ihr Projekt jetzt teilen?",
-      ctaLede: "Nutzen Sie das Frageformular oder schreiben Sie uns über unsere Kontaktkanäle.",
-      ctaAsk: "Zum Frageformular",
-      ctaContact: "Kontaktkanäle"
+      works: {
+        heading: "Sehen Sie sich unsere Beispielarbeiten an",
+        lede: "Sehen Sie sich die Konzepte an, die wir für verschiedene Unternehmen erstellt haben, und holen Sie sich Ideen für Ihre Website.",
+        link: "Unsere Projekte ansehen"
+      }
     }
   },
 

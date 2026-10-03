@@ -353,11 +353,16 @@ export const en = {
       metaDescription: "Learn more about VELORA.",
       eyebrow: "About Us",
       heading: "About VELORA",
-      lede: "This page is being prepared to share more detailed information about VELORA. Content will be added soon.",
+      lede: "VELORA aims to design simple, usable websites that help businesses present themselves clearly and accurately online.",
       sections: {
-        who: "Who we are",
-        approach: "How we work",
-        values: "What we care about"
+        who: "What we do",
+        approach: "What matters to us in design",
+        values: "How we contribute to your business"
+      },
+      bodies: {
+        who: "VELORA aims to offer website design and development services for businesses. This approach builds on experience in web design and development that is now in its third year. The goal is for every business to have a digital storefront of its own that is well organised and inspires trust.",
+        approach: "When designing a website, we first try to understand what a business wants to communicate, and to whom. Simplicity, making it easy for visitors to find what they are looking for, and a structure that is comfortable to use on every device form the foundation of the design. We avoid unnecessary clutter and let the content stand out.",
+        values: "Our aim is to make your business's first impression online clear and consistent. A website that clearly shows your services, your identity and how to get in touch with you helps visitors get to know you more easily."
       },
       ctaHeading: "Have a question?",
       ctaLede: "You can reach us through our contact channels or the Ask a Question form.",
@@ -366,19 +371,80 @@ export const en = {
     },
     projectBrief: {
       metaTitle: "VELORA — Tell Us About Your Project",
-      metaDescription: "Share your project with VELORA.",
+      metaDescription: "Share your project and your business with VELORA.",
       eyebrow: "Tell Us About Your Project",
       heading: "Tell us about your project",
-      lede: "This page, where you will be able to share the details of your project, is being prepared. In the meantime, you can reach us through the Ask a Question form or our contact channels.",
-      sections: {
-        project: "About your project",
-        goals: "Your goals and needs",
-        scope: "Scope and timing"
+      lede: "Share your business and what you expect from your website using the form below, and let's clarify your needs together.",
+      form: {
+        requiredNote: "Fields marked with * are required.",
+        labels: {
+          fullName: "Full name",
+          email: "Email",
+          businessName: "Business / brand name",
+          businessType: "Business type",
+          businessTypeOther: "Enter your business type",
+          need: "Need",
+          needOther: "Describe your need",
+          website: "Current website link",
+          summary: "Briefly describe your project and your business",
+          details: "Other details you have in mind",
+          files: "Project files"
+        },
+        placeholders: {
+          website: "https://...",
+          summary: "What does your business do, and what do you want to achieve with your website?",
+          details: "For example: your colour preferences, whether you need a new logo, example websites you like, the pages and features you would like, or any other details you consider important.",
+          businessTypeOther: "Your business type",
+          needOther: "Your need"
+        },
+        selectPlaceholder: "Select",
+        businessTypes: {
+          menBarber: "Men's barber",
+          womenHairdresser: "Women's hairdresser",
+          beautySalon: "Beauty salon",
+          nailStudio: "Nail studio",
+          lawFirm: "Law firm",
+          independentLawyer: "Independent lawyer",
+          accountant: "Certified public accountant",
+          other: "Other"
+        },
+        needs: {
+          newSite: "New website",
+          redesign: "Redesign of an existing website",
+          booking: "Booking / menu",
+          ecommerce: "E-commerce",
+          other: "Other"
+        },
+        chooseFiles: "Choose files",
+        noFiles: "No files selected yet",
+        filesCount: "{count} file(s) selected",
+        filesHelp: "You can select multiple files, such as your current website's files, your logo, images or related documents.",
+        filesPending: "File sending is not active yet: the files you select are not uploaded anywhere at the moment.",
+        filesSelected: "Selected files ({count})",
+        filesClear: "Clear selection",
+        notice: "This form is not yet connected to a submission service; the information and files you enter are not sent anywhere at the moment. To reach us, please use the contact channels at the bottom of this page.",
+        submit: "Send Project",
+        submitting: "Sending...",
+        feedback: {
+          error: "Please check the highlighted fields.",
+          notSent: "Your information was not sent: this form is not yet connected to a submission service. Please reach us through the contact channels below.",
+          success: "Thank you, your information has been sent.",
+          sendFailed: "Sending failed; your information could not be delivered. Please try again later or reach us through our contact channels."
+        },
+        errors: {
+          fullNameRequired: "Please enter your full name.",
+          emailRequired: "Please enter your email address.",
+          emailInvalid: "Please enter a valid email address.",
+          summaryRequired: "Please briefly describe your project and your business.",
+          summaryTooShort: "Could you add a little more detail? (at least 10 characters)"
+        },
+        footnote: "The more clearly you share the details, the more accurately we can understand your needs and the scope of your project, and the faster we can clarify the right solution and next steps for you."
       },
-      ctaHeading: "Would you like to share your project now?",
-      ctaLede: "You can use the Ask a Question form or write to us through our contact channels.",
-      ctaAsk: "Go to the question form",
-      ctaContact: "Contact channels"
+      works: {
+        heading: "Take a look at our sample work",
+        lede: "Browse the concepts we have prepared for different businesses to get ideas for your website.",
+        link: "View our work"
+      }
     }
   },
 

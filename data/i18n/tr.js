@@ -372,10 +372,11 @@ export const tr = {
     }
   },
 
-  // Ayrı sayfalar (hakkimizda.html, projenizi-anlatin.html) için içerik.
-  // Şimdilik yalnızca başlık + nötr bir içerik iskeleti vardır; gerçek
-  // içerik geldiğinde ilgili metinler buradan (ve diğer 4 dilde aynı
-  // anahtarlardan) güncellenmelidir. Doğrulanmamış bilgi eklenmedi.
+  // Ayrı sayfalar için içerik: "about" (hakkimizda.html — şimdilik yalnızca
+  // başlık + nötr içerik iskeleti) ve "projectBrief" (projenizi-anlatin.html
+  // — proje anlatım formu + çalışmalar/iletişim bölümü). Gerçek içerik
+  // geldiğinde metinler buradan (ve diğer 4 dilde aynı anahtarlardan)
+  // güncellenmelidir. Doğrulanmamış bilgi eklenmedi.
   pages: {
     placeholder: "Bu bölümün içeriği yakında eklenecek.",
     about: {
@@ -383,32 +384,102 @@ export const tr = {
       metaDescription: "VELORA hakkında daha fazla bilgi edinin.",
       eyebrow: "Hakkımızda",
       heading: "VELORA hakkında",
-      lede: "Bu sayfa, VELORA hakkında daha ayrıntılı bilgileri paylaşmak için hazırlanıyor. İçerik yakında eklenecek.",
+      lede: "VELORA, işletmelerin dijitalde kendini doğru ve anlaşılır biçimde anlatabilmesi için sade ve kullanışlı web siteleri tasarlamayı amaçlar.",
       sections: {
-        who: "Biz kimiz",
-        approach: "Nasıl çalışıyoruz",
-        values: "Neye önem veriyoruz"
+        who: "Ne yapıyoruz",
+        approach: "Tasarımda neye önem veriyoruz",
+        values: "İşletmenize katkımız"
+      },
+      bodies: {
+        who: "VELORA, işletmeler için web sitesi tasarımı ve geliştirme hizmeti sunmayı hedefler. Bu yaklaşım, web tasarımı ve geliştirme alanında üçüncü yılına ulaşan bir deneyime dayanır. Amaç, her işletmenin kendine ait, düzenli ve güven veren bir dijital vitrine sahip olmasıdır.",
+        approach: "Bir web sitesi tasarlarken önce işletmenin neyi, kime anlatmak istediğini anlamaya çalışırız. Sadelik, ziyaretçinin aradığını kolayca bulabilmesi ve her cihazda rahat kullanılabilen bir yapı tasarımın temelini oluşturur. Gereksiz kalabalıktan kaçınır, içeriğin öne çıkmasını sağlarız.",
+        values: "Hedefimiz, işletmenizin dijitaldeki ilk izlenimini net ve tutarlı hale getirmektir. Hizmetlerinizi, kimliğinizi ve sizinle iletişime geçmenin yolunu açıkça gösteren bir site, ziyaretçilerin sizi daha kolay tanımasına yardımcı olur."
       },
       ctaHeading: "Sorularınız mı var?",
       ctaLede: "Bize iletişim kanallarımızdan veya Soru Sor formundan ulaşabilirsiniz.",
       ctaContact: "İletişime geçin",
       ctaPackages: "Paketleri inceleyin"
     },
+    // projenizi-anlatin.html: proje anlatım formu + çalışmalar/iletişim
+    // bölümü. Form henüz bir gönderim altyapısına bağlı olmadığı için
+    // 'notice', 'filesPending' ve 'feedback.notSent' metinleri bunu açıkça
+    // belirtir (bkz. components/projectBriefForm.js).
     projectBrief: {
       metaTitle: "VELORA — Projenizi Anlatın",
-      metaDescription: "Projenizi VELORA ile paylaşın.",
+      metaDescription: "Projenizi ve işletmenizi VELORA ile paylaşın.",
       eyebrow: "Projenizi Anlatın",
       heading: "Projenizi anlatın",
-      lede: "Projenizin ayrıntılarını paylaşabileceğiniz bu sayfa hazırlanıyor. Bu arada Soru Sor formundan veya iletişim kanallarımızdan bize ulaşabilirsiniz.",
-      sections: {
-        project: "Projeniz hakkında",
-        goals: "Hedefleriniz ve ihtiyaçlarınız",
-        scope: "Kapsam ve zamanlama"
+      lede: "İşletmenizi ve web sitesinden beklentilerinizi aşağıdaki formla paylaşın; ihtiyacınızı birlikte netleştirelim.",
+      form: {
+        requiredNote: "* ile işaretli alanlar zorunludur.",
+        labels: {
+          fullName: "Ad Soyad",
+          email: "E-posta",
+          businessName: "İşletme / Marka adı",
+          businessType: "İşletme türü",
+          businessTypeOther: "İşletme türünüzü yazın",
+          need: "İhtiyaç",
+          needOther: "İhtiyacınızı yazın",
+          website: "Mevcut web sitesi bağlantısı",
+          summary: "Projenizi ve işletmenizi kısaca anlatın",
+          details: "Aklınızdaki diğer detaylar",
+          files: "Proje dosyaları"
+        },
+        placeholders: {
+          website: "https://...",
+          summary: "İşletmeniz ne yapıyor, web sitesiyle neyi amaçlıyorsunuz?",
+          details: "Örneğin: renk tercihleriniz, yeni bir logoya ihtiyacınız olup olmadığı, beğendiğiniz örnek siteler, olmasını istediğiniz sayfalar ve özellikler ya da önemli gördüğünüz diğer ayrıntılar.",
+          businessTypeOther: "İşletme türünüz",
+          needOther: "İhtiyacınız"
+        },
+        selectPlaceholder: "Seçiniz",
+        businessTypes: {
+          menBarber: "Erkek kuaförü",
+          womenHairdresser: "Kadın kuaförü",
+          beautySalon: "Güzellik salonu",
+          nailStudio: "Tırnak stüdyosu",
+          lawFirm: "Hukuk bürosu",
+          independentLawyer: "Bağımsız avukat",
+          accountant: "Mali müşavir",
+          other: "Diğer"
+        },
+        needs: {
+          newSite: "Yeni web sitesi",
+          redesign: "Mevcut web sitesini yenileme",
+          booking: "Rezervasyon / menü",
+          ecommerce: "E-ticaret",
+          other: "Diğer"
+        },
+        chooseFiles: "Dosya seç",
+        noFiles: "Henüz dosya seçilmedi",
+        filesCount: "{count} dosya seçildi",
+        filesHelp: "Mevcut web sitenizin dosyaları, logonuz, görseller veya ilgili dokümanlar gibi birden fazla dosya seçebilirsiniz.",
+        filesPending: "Dosya gönderimi henüz etkin değil: seçtiğiniz dosyalar şu an hiçbir yere yüklenmez.",
+        filesSelected: "Seçilen dosyalar ({count})",
+        filesClear: "Seçimi temizle",
+        notice: "Bu form henüz bir gönderim altyapısına bağlı değil; girdiğiniz bilgiler ve dosyalar şu an hiçbir yere iletilmez. Bize ulaşmak için sayfanın altındaki iletişim kanallarını kullanabilirsiniz.",
+        submit: "Projeyi Gönder",
+        submitting: "Gönderiliyor...",
+        feedback: {
+          error: "Lütfen işaretli alanları kontrol edin.",
+          notSent: "Bilgileriniz gönderilmedi: bu form henüz bir gönderim altyapısına bağlı değil. Lütfen aşağıdaki iletişim kanallarından bize ulaşın.",
+          success: "Teşekkürler, bilgileriniz iletildi.",
+          sendFailed: "Gönderim başarısız oldu; bilgileriniz iletilemedi. Lütfen daha sonra tekrar deneyin veya iletişim kanallarımızdan bize ulaşın."
+        },
+        errors: {
+          fullNameRequired: "Adınızı ve soyadınızı girin.",
+          emailRequired: "E-posta adresinizi girin.",
+          emailInvalid: "Geçerli bir e-posta adresi girin.",
+          summaryRequired: "Projenizi ve işletmenizi kısaca anlatın.",
+          summaryTooShort: "Biraz daha ayrıntı yazar mısınız? (en az 10 karakter)"
+        },
+        footnote: "Bilgileri ne kadar açık paylaşırsanız, ihtiyacınızı ve proje kapsamını o kadar doğru anlayabilir; size uygun çözümü ve sonraki adımları daha hızlı netleştirebiliriz."
       },
-      ctaHeading: "Projenizi şimdi paylaşmak ister misiniz?",
-      ctaLede: "Soru Sor formunu kullanabilir ya da iletişim kanallarımızdan bize yazabilirsiniz.",
-      ctaAsk: "Soru Sor formuna gidin",
-      ctaContact: "İletişim kanalları"
+      works: {
+        heading: "Örnek çalışmalarımıza göz atın",
+        lede: "Farklı işletmeler için hazırladığımız konseptleri inceleyerek web siteniz için fikir edinebilirsiniz.",
+        link: "Çalışmalarımızı inceleyin"
+      }
     }
   },
 

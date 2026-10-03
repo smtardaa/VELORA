@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VELORA — Web Ajansı</title>
-  <meta name="description" content="VELORA, markalar için sade, hızlı ve etkili web deneyimleri tasarlayan bir web ajansıdır." />
+  <meta name="description"
+    content="VELORA, markalar için sade, hızlı ve etkili web deneyimleri tasarlayan bir web ajansıdır." />
   <meta name="theme-color" content="#ffffff" />
 
   <link rel="icon" type="image/png" href="assets/Velora First logo.png" />
@@ -14,6 +16,7 @@
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/responsive.css" />
 </head>
+
 <body>
 
   <a class="visually-hidden" href="#main-content" data-i18n="skipLink">İçeriğe geç</a>
@@ -21,19 +24,26 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="#anasayfa" data-i18n-aria-label="header.brandAriaLabel" aria-label="VELORA ana sayfa">
-        <img class="brand-logo" data-logo-img data-i18n-alt="misc.logoAlt" src="assets/Velora Second logo.png" alt="VELORA logosu" width="34" height="36" />
+        <img class="brand-logo" data-logo-img data-i18n-alt="misc.logoAlt" src="assets/Velora Second logo.png"
+          alt="VELORA logosu" width="34" height="36" />
       </a>
 
       <nav class="main-nav" data-i18n-aria-label="header.mainNavAriaLabel" aria-label="Ana menü">
         <ul class="nav-links" id="nav-links">
           <li><a href="#anasayfa" data-i18n="header.nav.home">Ana Sayfa</a></li>
           <li class="nav-dropdown">
-            <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="works-dropdown-menu"><span data-i18n="header.nav.works">Çalışmalarımız</span>
-              <svg class="nav-dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false"
+              aria-controls="works-dropdown-menu"><span data-i18n="header.nav.works">Çalışmalarımız</span>
+              <svg class="nav-dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
             </button>
             <ul class="nav-dropdown-menu" id="works-dropdown-menu">
-              <li><a href="#calismalarimiz" data-i18n="header.worksDropdown.viewHomeSection">Çalışmalarımızı görün</a></li>
-              <li><a href="calismalarimiz.html" data-i18n="header.worksDropdown.viewAll">Tüm çalışmalarımızı inceleyin</a></li>
+              <li><a href="#calismalarimiz" data-i18n="header.worksDropdown.viewHomeSection">Çalışmalarımızı görün</a>
+              </li>
+              <li><a href="calismalarimiz.html" data-i18n="header.worksDropdown.viewAll">Tüm çalışmalarımızı
+                  inceleyin</a></li>
             </ul>
           </li>
           <li><a href="#paketler" data-i18n="header.nav.packages">Paketlerimiz</a></li>
@@ -46,24 +56,40 @@
       </nav>
 
       <div class="header-actions">
-        <button class="icon-btn" id="search-trigger" type="button" data-i18n-aria-label="header.searchAriaLabel" aria-label="Sitede ara">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <button class="icon-btn" id="search-trigger" type="button" data-i18n-aria-label="header.searchAriaLabel"
+          aria-label="Sitede ara">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
         </button>
         <div class="lang-switch">
-          <button class="lang-switch-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Dil seçimi: Türkçe">
+          <button class="lang-switch-trigger" type="button" aria-haspopup="listbox" aria-expanded="false"
+            aria-label="Dil seçimi: Türkçe">
             <span class="lang-switch-code">TR</span>
-            <svg class="lang-switch-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            <svg class="lang-switch-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
           </button>
           <ul class="lang-switch-menu" role="listbox">
-            <li class="lang-switch-option is-selected" role="option" aria-selected="true" tabindex="0" data-lang="tr">Türkçe — TR</li>
-            <li class="lang-switch-option" role="option" aria-selected="false" tabindex="0" data-lang="en">English — EN</li>
-            <li class="lang-switch-option" role="option" aria-selected="false" tabindex="0" data-lang="de">Deutsch — DE</li>
-            <li class="lang-switch-option" role="option" aria-selected="false" tabindex="0" data-lang="fr">Français — FR</li>
-            <li class="lang-switch-option" role="option" aria-selected="false" tabindex="0" data-lang="it">Italiano — IT</li>
+            <li class="lang-switch-option is-selected" role="option" aria-selected="true" tabindex="0" data-lang="tr">
+              Türkçe — TR</li>
+            <li class="lang-switch-option" role="option" aria-selected="false" tabindex="0" data-lang="en">English — EN
+            </li>
+            <li class="lang-switch-option" role="option" aria-selected="false" tabindex="0" data-lang="de">Deutsch — DE
+            </li>
+            <li class="lang-switch-option" role="option" aria-selected="false" tabindex="0" data-lang="fr">Français — FR
+            </li>
+            <li class="lang-switch-option" role="option" aria-selected="false" tabindex="0" data-lang="it">Italiano — IT
+            </li>
           </ul>
         </div>
-        <button class="icon-btn menu-toggle" type="button" data-i18n-aria-label="header.menuToggleAriaLabel" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="nav-links">
-          <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <button class="icon-btn menu-toggle" type="button" data-i18n-aria-label="header.menuToggleAriaLabel"
+          aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="nav-links">
+          <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round">
             <line class="icon-line-1" x1="4" y1="7" x2="20" y2="7" />
             <line class="icon-line-2" x1="4" y1="12" x2="20" y2="12" />
             <line class="icon-line-3" x1="4" y1="17" x2="20" y2="17" />
@@ -93,27 +119,40 @@
         <div class="section-header center">
           <span class="eyebrow" data-i18n="works.eyebrow">Çalışmalarımız</span>
           <h2 data-i18n="works.heading">Örnek çalışmalarımızdan bazıları</h2>
-          <p class="lede" style="margin-inline:auto" data-i18n="works.lede">Farklı sektörlerden markalar için tasarladığımız web sitelerinden birkaç örnek.</p>
+          <p class="lede" style="margin-inline:auto" data-i18n="works.lede">Farklı sektörlerden markalar için
+            tasarladığımız web sitelerinden birkaç örnek.</p>
           <!-- Metin yalnızca iç <span>'de (data-i18n) tutulur; böylece dil
                değişiminde ok ikonu silinmez ve hover alt çizgisi yalnızca
                metin genişliğinde kalır (bkz. css/main.css > .arrow-link). -->
           <a class="arrow-link works-view-all-link" href="calismalarimiz.html">
             <span class="arrow-link-label" data-i18n="works.viewAllLink">Tüm çalışmalarımızı inceleyin</span>
-            <svg class="arrow-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            <svg class="arrow-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M5 12h14" />
+              <path d="m13 6 6 6-6 6" />
+            </svg>
           </a>
         </div>
 
         <div class="works-slider" id="works-slider">
-          <button class="slider-arrow works-prev" type="button" data-i18n-aria-label="works.prevAriaLabel" aria-label="Önceki çalışma">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
+          <button class="slider-arrow works-prev" type="button" data-i18n-aria-label="works.prevAriaLabel"
+            aria-label="Önceki çalışma">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m15 5-7 7 7 7" />
+            </svg>
           </button>
 
           <div class="works-viewport">
             <div class="works-track" id="works-track"></div>
           </div>
 
-          <button class="slider-arrow works-next" type="button" data-i18n-aria-label="works.nextAriaLabel" aria-label="Sonraki çalışma">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+          <button class="slider-arrow works-next" type="button" data-i18n-aria-label="works.nextAriaLabel"
+            aria-label="Sonraki çalışma">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m9 5 7 7-7 7" />
+            </svg>
           </button>
         </div>
       </div>
@@ -125,21 +164,30 @@
         <div class="section-header center">
           <span class="eyebrow" data-i18n="packages.eyebrow">Paketlerimiz</span>
           <h2 data-i18n="packages.heading">İhtiyacınıza uygun paketler</h2>
-          <p class="lede" style="margin-inline:auto" data-i18n="packages.lede">Size en uygun paketi birlikte belirleyelim; net bir teklif için bize ulaşmanız yeterli.</p>
+          <p class="lede" style="margin-inline:auto" data-i18n="packages.lede">Size en uygun paketi birlikte
+            belirleyelim; net bir teklif için bize ulaşmanız yeterli.</p>
           <span class="delivery-note" data-i18n="packages.deliveryNote">Tüm paketlerde teslim süresi: 5 iş günü</span>
         </div>
 
         <div class="packages-slider" id="packages-slider">
-          <button class="slider-arrow slider-prev" type="button" data-i18n-aria-label="packages.prevAriaLabel" aria-label="Önceki paketler">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
+          <button class="slider-arrow slider-prev" type="button" data-i18n-aria-label="packages.prevAriaLabel"
+            aria-label="Önceki paketler">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m15 5-7 7 7 7" />
+            </svg>
           </button>
 
           <div class="packages-viewport">
             <div class="packages-track" id="packages-track"></div>
           </div>
 
-          <button class="slider-arrow slider-next" type="button" data-i18n-aria-label="packages.nextAriaLabel" aria-label="Sonraki paketler">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+          <button class="slider-arrow slider-next" type="button" data-i18n-aria-label="packages.nextAriaLabel"
+            aria-label="Sonraki paketler">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m9 5 7 7-7 7" />
+            </svg>
           </button>
         </div>
 
@@ -156,7 +204,11 @@
           <h2 class="about-headline" data-i18n="about.headline">Dijital dünyadaki ilk izleniminiz, bir kapıdır.</h2>
           <a class="arrow-link about-more-link" href="hakkimizda.html">
             <span class="arrow-link-label" data-i18n="about.moreLink">Hakkımızda daha fazla bilgi edinin</span>
-            <svg class="arrow-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            <svg class="arrow-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M5 12h14" />
+              <path d="m13 6 6 6-6 6" />
+            </svg>
           </a>
         </div>
 
@@ -169,7 +221,8 @@
         <div class="section-header center">
           <span class="eyebrow" data-i18n="form.eyebrow">Soru Sor</span>
           <h2 data-i18n="form.heading">Aklınıza takılan bir şey mi var?</h2>
-          <p class="lede" style="margin-inline:auto" data-i18n="form.lede">Hesap oluşturmanıza gerek yok. Sorunuzu yazın, size dönüş yapalım.</p>
+          <p class="lede" style="margin-inline:auto" data-i18n="form.lede">Hesap oluşturmanıza gerek yok. Sorunuzu
+            yazın, size dönüş yapalım.</p>
         </div>
 
         <form class="form-card" id="soru-form" novalidate>
@@ -194,20 +247,24 @@
 
           <div class="form-row">
             <div class="field" data-field="sirket">
-              <label for="sirket"><span data-i18n="form.labels.company">Şirket / Marka</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+              <label for="sirket"><span data-i18n="form.labels.company">Şirket / Marka</span> <span
+                  class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
               <input type="text" id="sirket" name="sirket" autocomplete="organization" />
               <span class="field-error" aria-live="polite"></span>
             </div>
             <div class="field" data-field="web-sitesi">
-              <label for="web-sitesi"><span data-i18n="form.labels.previousSite">Varsa Önceki Web Sitesinin Bağlantısı</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
-              <input type="url" id="web-sitesi" name="web-sitesi" autocomplete="url" data-i18n-placeholder="form.placeholders.previousSite" placeholder="https://..." />
+              <label for="web-sitesi"><span data-i18n="form.labels.previousSite">Varsa Önceki Web Sitesinin
+                  Bağlantısı</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+              <input type="url" id="web-sitesi" name="web-sitesi" autocomplete="url"
+                data-i18n-placeholder="form.placeholders.previousSite" placeholder="https://..." />
               <span class="field-error" aria-live="polite"></span>
             </div>
           </div>
 
           <div class="form-row">
             <div class="field" data-field="butce">
-              <label for="butce"><span data-i18n="form.labels.budget">Bütçe</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+              <label for="butce"><span data-i18n="form.labels.budget">Bütçe</span> <span class="field-optional"
+                  data-i18n="form.optionalTag">(opsiyonel)</span></label>
               <select id="butce" name="butce">
                 <option value="" selected data-i18n="form.selectPlaceholder">Seçiniz</option>
                 <option value="500-1000" data-i18n="form.budgetOptions.0">$500 – $1,000</option>
@@ -218,7 +275,8 @@
               <span class="field-error" aria-live="polite"></span>
             </div>
             <div class="field" data-field="ihtiyac">
-              <label for="ihtiyac"><span data-i18n="form.labels.needs">İhtiyacınız ve İstekleriniz</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+              <label for="ihtiyac"><span data-i18n="form.labels.needs">İhtiyacınız ve İstekleriniz</span> <span
+                  class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
               <select id="ihtiyac" name="ihtiyac">
                 <option value="" selected data-i18n="form.selectPlaceholder">Seçiniz</option>
                 <option value="yeni-site" data-i18n="form.needsOptions.newSite">Yeni web sitesi</option>
@@ -277,8 +335,10 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-inner">
-        <a class="footer-brand" href="#anasayfa" data-i18n-aria-label="header.brandAriaLabel" aria-label="VELORA ana sayfa">
-          <img class="footer-logo" data-logo-img data-i18n-alt="misc.logoAlt" src="assets/Velora Second logo.png" alt="VELORA logosu" width="30" height="32" />
+        <a class="footer-brand" href="#anasayfa" data-i18n-aria-label="header.brandAriaLabel"
+          aria-label="VELORA ana sayfa">
+          <img class="footer-logo" data-logo-img data-i18n-alt="misc.logoAlt" src="assets/Velora Second logo.png"
+            alt="VELORA logosu" width="30" height="32" />
         </a>
 
         <nav class="footer-links" data-i18n-aria-label="footer.altMenuAriaLabel" aria-label="Alt menü">
@@ -295,19 +355,29 @@
       </div>
 
       <div class="footer-bottom">
-        <span>&copy; <span id="current-year"></span> VELORA. <span data-i18n="footer.rightsReserved">Tüm hakları saklıdır.</span></span>
+        <span>&copy; <span id="current-year"></span> VELORA. <span data-i18n="footer.rightsReserved">Tüm hakları
+            saklıdır.</span></span>
       </div>
     </div>
   </footer>
 
   <!-- Arama -->
   <div class="search-overlay" id="search-overlay">
-    <div class="search-panel" role="dialog" aria-modal="true" data-i18n-aria-label="search.dialogAriaLabel" aria-label="Site içi arama">
+    <div class="search-panel" role="dialog" aria-modal="true" data-i18n-aria-label="search.dialogAriaLabel"
+      aria-label="Site içi arama">
       <div class="search-input-row">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" id="search-input" data-i18n-placeholder="search.placeholder" placeholder="Paket veya soru arayın..." data-i18n-aria-label="search.inputAriaLabel" aria-label="Arama" />
-        <button class="icon-btn" id="search-close" type="button" data-i18n-aria-label="search.closeAriaLabel" aria-label="Aramayı kapat">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m5 5 14 14M19 5 5 19"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+          stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m21 21-4.3-4.3" />
+        </svg>
+        <input type="text" id="search-input" data-i18n-placeholder="search.placeholder"
+          placeholder="Paket veya soru arayın..." data-i18n-aria-label="search.inputAriaLabel" aria-label="Arama" />
+        <button class="icon-btn" id="search-close" type="button" data-i18n-aria-label="search.closeAriaLabel"
+          aria-label="Aramayı kapat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <path d="m5 5 14 14M19 5 5 19" />
+          </svg>
         </button>
       </div>
       <p class="search-hint" data-i18n="search.hint">Paketler ve SSS içinde arama yapabilirsiniz.</p>
@@ -318,8 +388,11 @@
   <!-- Paket İletişim Popup'ı -->
   <div class="package-modal-overlay" id="package-modal-overlay">
     <div class="package-modal-panel" role="dialog" aria-modal="true" aria-labelledby="package-modal-title">
-      <button class="icon-btn package-modal-close" id="package-modal-close" type="button" data-i18n-aria-label="packageModal.closeAriaLabel" aria-label="Popup'ı kapat">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m5 5 14 14M19 5 5 19"/></svg>
+      <button class="icon-btn package-modal-close" id="package-modal-close" type="button"
+        data-i18n-aria-label="packageModal.closeAriaLabel" aria-label="Popup'ı kapat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="m5 5 14 14M19 5 5 19" />
+        </svg>
       </button>
       <h3 class="package-modal-title" id="package-modal-title"></h3>
       <div class="package-modal-channels" id="package-modal-channels"></div>
@@ -328,4 +401,5 @@
 
   <script type="module" src="js/main.js"></script>
 </body>
+
 </html>

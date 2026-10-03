@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VELORA — Projenizi Anlatın</title>
-  <meta name="description" content="Projenizi VELORA ile paylaşın." />
+  <meta name="description" content="Projenizi ve işletmenizi VELORA ile paylaşın." />
   <meta name="theme-color" content="#ffffff" />
 
   <link rel="icon" type="image/png" href="assets/Velora First logo.png" />
@@ -82,46 +82,155 @@
 
   <main id="main-content">
 
-    <section class="page-section" id="projectBrief-giris">
+    <!-- 1) Proje anlatım formu. Görsel yaklaşım ana sayfadaki "Soru Sor"
+         formuyla aynı (.form-card / .form-row / .field). Davranış:
+         components/projectBriefForm.js — form HENÜZ bir gönderim
+         altyapısına bağlı değildir; bkz. o dosyanın başındaki not. -->
+    <section class="page-section" id="proje-formu">
       <div class="container">
         <div class="section-header center">
           <span class="eyebrow" data-i18n="pages.projectBrief.eyebrow">Projenizi Anlatın</span>
           <h1 class="page-title" data-i18n="pages.projectBrief.heading">Projenizi anlatın</h1>
-          <p class="lede" data-i18n="pages.projectBrief.lede">Projenizin ayrıntılarını paylaşabileceğiniz bu sayfa hazırlanıyor. Bu arada Soru Sor formundan veya iletişim kanallarımızdan bize ulaşabilirsiniz.</p>
+          <p class="lede" data-i18n="pages.projectBrief.lede">İşletmenizi ve web sitesinden beklentilerinizi aşağıdaki formla paylaşın; ihtiyacınızı birlikte netleştirelim.</p>
         </div>
 
-        <!-- Projenizi Anlatın sayfası — şimdilik nötr bir içerik iskeleti.
-             İÇERİK ALANLARI: her blok başlık + metinden oluşur. Gerçek içerik
-             geldiğinde metinler data/i18n/*.js > pages.projectBrief altından (5 dilde)
-             güncellenir; yeni blok eklemek için aşağıdaki <article> kopyalanıp
-             yeni bir anahtar verilir. Şimdilik doğrulanmamış hiçbir bilgi
-             (hikâye, deneyim, fiyat, süre vb.) eklenmedi. -->
-        <div class="page-blocks">
-          <article class="page-block" aria-labelledby="projectBrief-project">
-            <h2 class="page-block-title" id="projectBrief-project" data-i18n="pages.projectBrief.sections.project">Projeniz hakkında</h2>
-            <p data-i18n="pages.placeholder">Bu bölümün içeriği yakında eklenecek.</p>
-          </article>
-          <article class="page-block" aria-labelledby="projectBrief-goals">
-            <h2 class="page-block-title" id="projectBrief-goals" data-i18n="pages.projectBrief.sections.goals">Hedefleriniz ve ihtiyaçlarınız</h2>
-            <p data-i18n="pages.placeholder">Bu bölümün içeriği yakında eklenecek.</p>
-          </article>
-          <article class="page-block" aria-labelledby="projectBrief-scope">
-            <h2 class="page-block-title" id="projectBrief-scope" data-i18n="pages.projectBrief.sections.scope">Kapsam ve zamanlama</h2>
-            <p data-i18n="pages.placeholder">Bu bölümün içeriği yakında eklenecek.</p>
-          </article>
-        </div>
+        <form class="form-card brief-form" id="project-brief-form" novalidate>
+          <p class="form-required-note" data-i18n="pages.projectBrief.form.requiredNote">* ile işaretli alanlar zorunludur.</p>
+
+          <div class="form-row">
+            <div class="field" data-field="fullName">
+              <label for="brief-full-name"><span data-i18n="pages.projectBrief.form.labels.fullName">Ad Soyad</span> <span class="field-required" aria-hidden="true">*</span></label>
+              <input type="text" id="brief-full-name" name="fullName" autocomplete="name" required aria-required="true" />
+              <span class="field-error" aria-live="polite"></span>
+            </div>
+            <div class="field" data-field="email">
+              <label for="brief-email"><span data-i18n="pages.projectBrief.form.labels.email">E-posta</span> <span class="field-required" aria-hidden="true">*</span></label>
+              <input type="email" id="brief-email" name="email" autocomplete="email" required aria-required="true" />
+              <span class="field-error" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="field" data-field="businessName">
+            <label for="brief-business-name"><span data-i18n="pages.projectBrief.form.labels.businessName">İşletme / Marka adı</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+            <input type="text" id="brief-business-name" name="businessName" autocomplete="organization" />
+            <span class="field-error" aria-live="polite"></span>
+          </div>
+
+          <!-- İşletme türü ve ihtiyaç: her sütunda seçim alanı + "Diğer"
+               seçilince hemen altında açılan metin alanı. -->
+          <div class="form-row">
+            <div class="field-group">
+              <div class="field" data-field="businessType">
+                <label for="brief-business-type"><span data-i18n="pages.projectBrief.form.labels.businessType">İşletme türü</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+                <select id="brief-business-type" name="businessType">
+                  <option value="" selected data-i18n="pages.projectBrief.form.selectPlaceholder">Seçiniz</option>
+                <option value="menBarber" data-i18n="pages.projectBrief.form.businessTypes.menBarber">Erkek kuaförü</option>
+                <option value="womenHairdresser" data-i18n="pages.projectBrief.form.businessTypes.womenHairdresser">Kadın kuaförü</option>
+                <option value="beautySalon" data-i18n="pages.projectBrief.form.businessTypes.beautySalon">Güzellik salonu</option>
+                <option value="nailStudio" data-i18n="pages.projectBrief.form.businessTypes.nailStudio">Tırnak stüdyosu</option>
+                <option value="lawFirm" data-i18n="pages.projectBrief.form.businessTypes.lawFirm">Hukuk bürosu</option>
+                <option value="independentLawyer" data-i18n="pages.projectBrief.form.businessTypes.independentLawyer">Bağımsız avukat</option>
+                <option value="accountant" data-i18n="pages.projectBrief.form.businessTypes.accountant">Mali müşavir</option>
+                <option value="other" data-i18n="pages.projectBrief.form.businessTypes.other">Diğer</option>
+                </select>
+                <span class="field-error" aria-live="polite"></span>
+              </div>
+              <div class="field is-hidden" data-field="businessTypeOther" id="brief-business-type-other-wrap">
+                <label for="brief-business-type-other" data-i18n="pages.projectBrief.form.labels.businessTypeOther">İşletme türünüzü yazın</label>
+                <input type="text" id="brief-business-type-other" name="businessTypeOther" data-i18n-placeholder="pages.projectBrief.form.placeholders.businessTypeOther" placeholder="İşletme türünüz" disabled />
+                <span class="field-error" aria-live="polite"></span>
+              </div>
+            </div>
+            <div class="field-group">
+              <div class="field" data-field="need">
+                <label for="brief-need"><span data-i18n="pages.projectBrief.form.labels.need">İhtiyaç</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+                <select id="brief-need" name="need">
+                  <option value="" selected data-i18n="pages.projectBrief.form.selectPlaceholder">Seçiniz</option>
+                <option value="newSite" data-i18n="pages.projectBrief.form.needs.newSite">Yeni web sitesi</option>
+                <option value="redesign" data-i18n="pages.projectBrief.form.needs.redesign">Mevcut web sitesini yenileme</option>
+                <option value="booking" data-i18n="pages.projectBrief.form.needs.booking">Rezervasyon / menü</option>
+                <option value="ecommerce" data-i18n="pages.projectBrief.form.needs.ecommerce">E-ticaret</option>
+                <option value="other" data-i18n="pages.projectBrief.form.needs.other">Diğer</option>
+                </select>
+                <span class="field-error" aria-live="polite"></span>
+              </div>
+              <div class="field is-hidden" data-field="needOther" id="brief-need-other-wrap">
+                <label for="brief-need-other" data-i18n="pages.projectBrief.form.labels.needOther">İhtiyacınızı yazın</label>
+                <input type="text" id="brief-need-other" name="needOther" data-i18n-placeholder="pages.projectBrief.form.placeholders.needOther" placeholder="İhtiyacınız" disabled />
+                <span class="field-error" aria-live="polite"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="field" data-field="website">
+            <label for="brief-website"><span data-i18n="pages.projectBrief.form.labels.website">Mevcut web sitesi bağlantısı</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+            <input type="url" id="brief-website" name="website" autocomplete="url" inputmode="url" data-i18n-placeholder="pages.projectBrief.form.placeholders.website" placeholder="https://..." />
+            <span class="field-error" aria-live="polite"></span>
+          </div>
+
+          <div class="field" data-field="projectSummary">
+            <label for="brief-summary"><span data-i18n="pages.projectBrief.form.labels.summary">Projenizi ve işletmenizi kısaca anlatın</span> <span class="field-required" aria-hidden="true">*</span></label>
+            <textarea id="brief-summary" name="projectSummary" required aria-required="true" data-i18n-placeholder="pages.projectBrief.form.placeholders.summary" placeholder="İşletmeniz ne yapıyor, web sitesiyle neyi amaçlıyorsunuz?"></textarea>
+            <span class="field-error" aria-live="polite"></span>
+          </div>
+
+          <div class="field" data-field="details">
+            <label for="brief-details"><span data-i18n="pages.projectBrief.form.labels.details">Aklınızdaki diğer detaylar</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+            <textarea id="brief-details" name="details" class="textarea-large" data-i18n-placeholder="pages.projectBrief.form.placeholders.details" placeholder="Örneğin: renk tercihleriniz, yeni bir logoya ihtiyacınız olup olmadığı, beğendiğiniz örnek siteler, olmasını istediğiniz sayfalar ve özellikler ya da önemli gördüğünüz diğer ayrıntılar."></textarea>
+            <span class="field-error" aria-live="polite"></span>
+          </div>
+
+          <!-- Proje dosyaları: çoklu seçim. Tür/boyut sınırı bilinçli olarak
+               uygulanmadı (gerçek gönderim altyapısı henüz seçilmedi; sınırlar
+               ona göre belirlenmeli). Seçilen dosyaların adları aşağıdaki
+               listede gösterilir. -->
+          <div class="field" data-field="files">
+            <label for="brief-files"><span data-i18n="pages.projectBrief.form.labels.files">Proje dosyaları</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+            <!-- Yerel dosya girdisi erişilebilir biçimde (görsel olarak) gizlenir
+                 ama odaklanabilir kalır; görünen düğme/etiket ve durum metni
+                 sitenin diline göre çevrilir (tarayıcının kendi "Choose
+                 Files" metni yerine). -->
+            <div class="file-picker">
+              <input type="file" id="brief-files" name="files" class="file-picker-input" multiple aria-describedby="brief-files-status brief-files-help brief-files-pending" />
+              <label for="brief-files" class="file-picker-button" data-i18n="pages.projectBrief.form.chooseFiles">Dosya seç</label>
+              <span class="file-picker-status" id="brief-files-status" data-i18n="pages.projectBrief.form.noFiles">Henüz dosya seçilmedi</span>
+            </div>
+            <p class="field-help" id="brief-files-help" data-i18n="pages.projectBrief.form.filesHelp">Mevcut web sitenizin dosyaları, logonuz, görseller veya ilgili dokümanlar gibi birden fazla dosya seçebilirsiniz.</p>
+            <p class="field-help field-help-pending" id="brief-files-pending" data-pending-notice data-i18n="pages.projectBrief.form.filesPending">Dosya gönderimi henüz etkin değil: seçtiğiniz dosyalar şu an hiçbir yere yüklenmez.</p>
+            <div class="file-list" id="brief-file-list" aria-live="polite" hidden></div>
+          </div>
+
+          <p class="form-pending-notice" data-pending-notice data-i18n="pages.projectBrief.form.notice">Bu form henüz bir gönderim altyapısına bağlı değil; girdiğiniz bilgiler ve dosyalar şu an hiçbir yere iletilmez. Bize ulaşmak için sayfanın altındaki iletişim kanallarını kullanabilirsiniz.</p>
+
+          <button class="btn btn-primary btn-block" type="submit" data-i18n="pages.projectBrief.form.submit">Projeyi Gönder</button>
+          <div class="form-feedback" role="status" aria-live="polite"></div>
+        </form>
+
+        <p class="brief-footnote" data-i18n="pages.projectBrief.form.footnote">Bilgileri ne kadar açık paylaşırsanız, ihtiyacınızı ve proje kapsamını o kadar doğru anlayabilir; size uygun çözümü ve sonraki adımları daha hızlı netleştirebiliriz.</p>
       </div>
     </section>
 
-    <section class="section-invert page-cta" id="projectBrief-iletisim">
+    <!-- 2) Çalışmalar yönlendirmesi + iletişim. Çalışmalar konsept/demo
+         projelerdir (açıklama metni bunu "konseptler" olarak belirtir).
+         İletişim kanalları ana sayfadakiyle aynı kaynaktan
+         (data/contact.js) components/contact.js ile üretilir. -->
+    <section class="section-invert brief-continue" id="calismalar-ve-iletisim">
       <div class="container">
-        <div class="section-header center">
-          <h2 data-i18n="pages.projectBrief.ctaHeading">Projenizi şimdi paylaşmak ister misiniz?</h2>
-          <p class="lede" data-i18n="pages.projectBrief.ctaLede">Soru Sor formunu kullanabilir ya da iletişim kanallarımızdan bize yazabilirsiniz.</p>
+        <div class="section-header center brief-works">
+          <h2 data-i18n="pages.projectBrief.works.heading">Örnek çalışmalarımıza göz atın</h2>
+          <p class="lede" data-i18n="pages.projectBrief.works.lede">Farklı işletmeler için hazırladığımız konseptleri inceleyerek web siteniz için fikir edinebilirsiniz.</p>
+          <a class="arrow-link brief-works-link" href="calismalarimiz.html">
+            <span class="arrow-link-label" data-i18n="pages.projectBrief.works.link">Çalışmalarımızı inceleyin</span>
+            <svg class="arrow-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
         </div>
-        <div class="page-cta-actions">
-          <a class="btn btn-primary" href="index.html#soru-sor" data-i18n="pages.projectBrief.ctaAsk">Soru Sor formuna gidin</a>
-          <a class="btn btn-secondary" href="index.html#iletisim" data-i18n="pages.projectBrief.ctaContact">İletişim kanalları</a>
+
+        <div class="brief-contact" id="iletisim-kanallari">
+          <div class="section-header center">
+            <span class="eyebrow" data-i18n="contact.eyebrow">İletişim</span>
+            <h2 data-i18n="contact.heading">Bize ulaşın</h2>
+          </div>
+          <div class="grid contact-grid" id="iletisim-grid"></div>
         </div>
       </div>
     </section>
@@ -169,6 +278,6 @@
     </div>
   </div>
 
-  <script type="module" src="js/staticPage.js"></script>
+  <script type="module" src="js/projectBriefPage.js"></script>
 </body>
 </html>

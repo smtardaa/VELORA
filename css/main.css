@@ -1756,6 +1756,207 @@ p {
   gap: var(--space-sm);
 }
 
+/* ---------- Projenizi Anlatın formu (projenizi-anlatin.html) ----------
+   Ana sayfadaki "Soru Sor" formunun bileşenlerini (.form-card / .form-row /
+   .field) aynen kullanır; burada yalnızca bu forma özgü ekler var. */
+
+.brief-form {
+  /* Alan sayısı Soru Sor formundan fazla olduğundan bir miktar daha geniş. */
+  max-width: 720px;
+}
+
+.form-required-note {
+  font-size: 0.82rem;
+  margin-bottom: var(--space-md);
+}
+
+.field-required {
+  color: var(--color-text);
+  font-weight: 600;
+  margin-left: 0.1rem;
+}
+
+/* Seçim alanı + hemen altında açılan "Diğer" metin alanı bir sütunda. */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.field textarea.textarea-large {
+  min-height: 180px;
+}
+
+.field-help {
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.field-help-pending {
+  color: var(--color-text);
+}
+
+/* Dosya seçici: yerel <input type="file"> korunur (klavye ve ekran okuyucu
+   desteği için odaklanabilir kalır) ama görsel olarak gizlenir; yerine
+   sitenin diline çevrilen bir düğme (label) ve durum metni gösterilir. */
+.file-picker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.9rem;
+  padding: 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg);
+}
+
+.field .file-picker-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.field .file-picker-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.field .file-picker-button:hover {
+  background-color: var(--color-bg-muted);
+}
+
+.field .file-picker-input:focus-visible + .file-picker-button {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.file-picker-status {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.file-list {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg);
+  padding: 0.75rem 1rem;
+}
+
+.file-list[hidden] {
+  display: none;
+}
+
+.file-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: 0.5rem;
+}
+
+.file-list-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.file-list-clear {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  padding: 0.2rem 0;
+}
+
+.file-list-clear:hover {
+  color: var(--color-text);
+}
+
+.file-list-clear:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.file-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.file-list-item {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font-size: 0.85rem;
+}
+
+.file-list-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.file-list-size {
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+}
+
+/* Gönderim altyapısı olmadığını açıkça belirten not (gönder düğmesinin
+   hemen üstünde) ve buna karşılık gelen nötr geri bildirim stili. */
+.form-pending-notice {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  padding: 0.8rem 1rem;
+  margin-bottom: var(--space-md);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.form-pending-notice[hidden],
+.field-help-pending[hidden] {
+  display: none;
+}
+
+.form-feedback.is-notice {
+  display: block;
+  background-color: var(--color-bg-muted);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.brief-footnote {
+  max-width: 720px;
+  margin: var(--space-md) auto 0;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* İkinci bölüm: çalışmalar yönlendirmesi + iletişim kanalları. */
+.brief-works {
+  margin-bottom: var(--space-2xl);
+}
+
+.brief-works-link {
+  margin-top: var(--space-md);
+}
+
 /* ---------- Yardımcı sınıflar ---------- */
 
 .text-center {

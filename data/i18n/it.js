@@ -352,11 +352,16 @@ export const it = {
       metaDescription: "Scopri di più su VELORA.",
       eyebrow: "Chi siamo",
       heading: "Chi è VELORA",
-      lede: "Questa pagina è in preparazione per condividere informazioni più dettagliate su VELORA. I contenuti saranno aggiunti a breve.",
+      lede: "VELORA si propone di progettare siti web semplici e facili da usare, che aiutino le attività a presentarsi online in modo chiaro e corretto.",
       sections: {
-        who: "Chi siamo",
-        approach: "Come lavoriamo",
-        values: "Ciò a cui teniamo"
+        who: "Cosa facciamo",
+        approach: "Cosa conta per noi nel design",
+        values: "Il nostro contributo alla tua attività"
+      },
+      bodies: {
+        who: "VELORA punta a offrire alle attività servizi di progettazione e sviluppo di siti web. Questo approccio si basa su un'esperienza nella progettazione e nello sviluppo web giunta ormai al terzo anno. L'obiettivo è che ogni attività abbia una propria vetrina digitale, ordinata e capace di trasmettere fiducia.",
+        approach: "Quando progettiamo un sito web, cerchiamo prima di capire cosa un'attività vuole comunicare e a chi. Semplicità, facilità per i visitatori di trovare ciò che cercano e una struttura comoda da usare su ogni dispositivo sono la base del design. Evitiamo il sovraccarico inutile e lasciamo spazio ai contenuti.",
+        values: "Il nostro obiettivo è rendere la prima impressione digitale della tua attività chiara e coerente. Un sito che mostra chiaramente i tuoi servizi, la tua identità e come contattarti aiuta i visitatori a conoscerti più facilmente."
       },
       ctaHeading: "Hai una domanda?",
       ctaLede: "Puoi contattarci tramite i nostri canali di contatto o il modulo per le domande.",
@@ -365,19 +370,80 @@ export const it = {
     },
     projectBrief: {
       metaTitle: "VELORA — Raccontaci il tuo progetto",
-      metaDescription: "Condividi il tuo progetto con VELORA.",
+      metaDescription: "Condividi il tuo progetto e la tua attività con VELORA.",
       eyebrow: "Il tuo progetto",
       heading: "Raccontaci il tuo progetto",
-      lede: "Questa pagina, in cui potrai condividere i dettagli del tuo progetto, è in preparazione. Nel frattempo puoi contattarci tramite il modulo per le domande o i nostri canali di contatto.",
-      sections: {
-        project: "Il tuo progetto",
-        goals: "Obiettivi ed esigenze",
-        scope: "Ambito e tempistiche"
+      lede: "Presenta la tua attività e ciò che ti aspetti dal sito web con il modulo qui sotto; definiremo insieme le tue esigenze.",
+      form: {
+        requiredNote: "I campi contrassegnati con * sono obbligatori.",
+        labels: {
+          fullName: "Nome e cognome",
+          email: "E-mail",
+          businessName: "Nome dell'attività / del marchio",
+          businessType: "Tipo di attività",
+          businessTypeOther: "Indica il tipo di attività",
+          need: "Esigenza",
+          needOther: "Descrivi la tua esigenza",
+          website: "Link al sito web attuale",
+          summary: "Descrivi brevemente il tuo progetto e la tua attività",
+          details: "Altri dettagli che hai in mente",
+          files: "File del progetto"
+        },
+        placeholders: {
+          website: "https://...",
+          summary: "Di cosa si occupa la tua attività e cosa vuoi ottenere con il sito web?",
+          details: "Ad esempio: le tue preferenze di colore, se ti serve un nuovo logo, siti di esempio che ti piacciono, le pagine e le funzionalità desiderate o altri dettagli che ritieni importanti.",
+          businessTypeOther: "Il tuo tipo di attività",
+          needOther: "La tua esigenza"
+        },
+        selectPlaceholder: "Seleziona",
+        businessTypes: {
+          menBarber: "Barbiere",
+          womenHairdresser: "Parrucchiere donna",
+          beautySalon: "Centro estetico",
+          nailStudio: "Nail studio",
+          lawFirm: "Studio legale",
+          independentLawyer: "Avvocato indipendente",
+          accountant: "Commercialista",
+          other: "Altro"
+        },
+        needs: {
+          newSite: "Nuovo sito web",
+          redesign: "Rinnovo del sito esistente",
+          booking: "Prenotazioni / menù",
+          ecommerce: "E-commerce",
+          other: "Altro"
+        },
+        chooseFiles: "Scegli i file",
+        noFiles: "Nessun file selezionato",
+        filesCount: "{count} file selezionati",
+        filesHelp: "Puoi selezionare più file, ad esempio i file del tuo sito attuale, il logo, immagini o documenti correlati.",
+        filesPending: "L'invio dei file non è ancora attivo: i file selezionati al momento non vengono caricati da nessuna parte.",
+        filesSelected: "File selezionati ({count})",
+        filesClear: "Cancella selezione",
+        notice: "Questo modulo non è ancora collegato a un servizio di invio; le informazioni e i file inseriti al momento non vengono inviati da nessuna parte. Per contattarci, usa i canali di contatto in fondo a questa pagina.",
+        submit: "Invia il progetto",
+        submitting: "Invio in corso...",
+        feedback: {
+          error: "Controlla i campi evidenziati.",
+          notSent: "Le tue informazioni non sono state inviate: questo modulo non è ancora collegato a un servizio di invio. Contattaci tramite i canali di contatto qui sotto.",
+          success: "Grazie, le tue informazioni sono state inviate.",
+          sendFailed: "Invio non riuscito; le tue informazioni non sono state inviate. Riprova più tardi o contattaci tramite i nostri canali di contatto."
+        },
+        errors: {
+          fullNameRequired: "Inserisci nome e cognome.",
+          emailRequired: "Inserisci il tuo indirizzo e-mail.",
+          emailInvalid: "Inserisci un indirizzo e-mail valido.",
+          summaryRequired: "Descrivi brevemente il tuo progetto e la tua attività.",
+          summaryTooShort: "Puoi aggiungere qualche dettaglio in più? (almeno 10 caratteri)"
+        },
+        footnote: "Più condividi le informazioni in modo chiaro, più accuratamente possiamo comprendere le tue esigenze e l'ambito del progetto, e più rapidamente possiamo definire la soluzione adatta e i passi successivi."
       },
-      ctaHeading: "Vuoi condividere il tuo progetto adesso?",
-      ctaLede: "Usa il modulo per le domande oppure scrivici tramite i nostri canali di contatto.",
-      ctaAsk: "Vai al modulo",
-      ctaContact: "Canali di contatto"
+      works: {
+        heading: "Dai un'occhiata ai nostri lavori di esempio",
+        lede: "Sfoglia i concept che abbiamo preparato per diverse attività e trova idee per il tuo sito web.",
+        link: "Scopri i nostri lavori"
+      }
     }
   },
 

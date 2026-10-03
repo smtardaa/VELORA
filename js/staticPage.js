@@ -1,17 +1,16 @@
-// js/worksPage.js — calismalarimiz.html sayfasının giriş noktası.
+// js/staticPage.js — içerik ağırlıklı, sade alt sayfaların ortak giriş
+// noktası (şu an: hakkimizda.html, projenizi-anlatin.html).
 //
-// js/main.js'teki ana sayfa bootstrap'ından bilinçli olarak ayrı
-// tutulur: bu sayfada paket/proje slider'ı, soru formu ve paket
-// iletişim popup'ı yoktur; yalnızca bu sayfanın gerçekten kullandığı
-// ortak bileşenler (header, footer, dil sistemi, arama ve yeni proje
-// detay listesi) başlatılır. Header/footer/i18n/arama mantığının
-// kendisi index.html ile birebir aynı bileşenlerden (components/*,
-// js/i18n.js) gelir — burada kopyalanmaz.
+// Bu sayfalarda slider, form veya popup yoktur; yalnızca tüm sayfalarda
+// ortak olan bileşenler başlatılır: dil sistemi, header (hamburger menü,
+// dropdown, dil seçici, aktif sayfa vurgusu), footer sosyal ikonları ve
+// site içi arama. Header/footer/i18n/arama mantığı index.html ve
+// calismalarimiz.html ile birebir aynı bileşenlerden gelir — burada
+// kopyalanmaz. Sayfa metinleri data/i18n/*.js > pages.* altındadır.
 
 import { logoConfig } from "../data/site-config.js";
 import { initHeader } from "../components/header.js";
 import { renderFooterSocial } from "../components/contact.js";
-import { renderWorksDetail } from "../components/worksDetail.js";
 import { initSearch } from "../components/search.js";
 import { initI18n, onLanguageChange } from "./i18n.js";
 import { qs, setYear, applyInitialScrollPosition } from "./utils.js";
@@ -30,13 +29,8 @@ function init() {
   initHeader();
 
   const footerSocial = qs("#footer-social");
-  const worksDetailList = qs("#works-detail-list");
-
   renderFooterSocial(footerSocial);
-  renderWorksDetail(worksDetailList);
-
   onLanguageChange(() => renderFooterSocial(footerSocial));
-  onLanguageChange(() => renderWorksDetail(worksDetailList));
 
   initSearch({
     trigger: qs("#search-trigger"),
@@ -47,9 +41,6 @@ function init() {
   });
 
   setYear();
-
-  // Dinamik içerik render edildikten sonra: hash yoksa en üstten başla,
-  // hash varsa hedefe git (bkz. js/utils.js).
   applyInitialScrollPosition();
 }
 

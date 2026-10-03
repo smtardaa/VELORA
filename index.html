@@ -27,12 +27,21 @@
       <nav class="main-nav" data-i18n-aria-label="header.mainNavAriaLabel" aria-label="Ana menü">
         <ul class="nav-links" id="nav-links">
           <li><a href="#anasayfa" data-i18n="header.nav.home">Ana Sayfa</a></li>
-          <li><a href="#calismalarimiz" data-i18n="header.nav.works">Çalışmalarımız</a></li>
+          <li class="nav-dropdown">
+            <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="works-dropdown-menu"><span data-i18n="header.nav.works">Çalışmalarımız</span>
+              <svg class="nav-dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <ul class="nav-dropdown-menu" id="works-dropdown-menu">
+              <li><a href="#calismalarimiz" data-i18n="header.worksDropdown.viewHomeSection">Çalışmalarımızı görün</a></li>
+              <li><a href="calismalarimiz.html" data-i18n="header.worksDropdown.viewAll">Tüm çalışmalarımızı inceleyin</a></li>
+            </ul>
+          </li>
           <li><a href="#paketler" data-i18n="header.nav.packages">Paketlerimiz</a></li>
-          <li><a href="#hakkinda" data-i18n="header.nav.about">Hakkında</a></li>
+          <li><a href="hakkimizda.html" data-i18n="header.nav.about">Hakkımızda</a></li>
           <li><a href="#soru-sor" data-i18n="header.nav.ask">Soru Sor</a></li>
           <li><a href="#sss" data-i18n="header.nav.faq">SSS</a></li>
           <li><a href="#iletisim" data-i18n="header.nav.contact">İletişim</a></li>
+          <li><a href="projenizi-anlatin.html" data-i18n="header.nav.projectBrief">Projenizi Anlatın</a></li>
         </ul>
       </nav>
 
@@ -70,7 +79,6 @@
     <section id="anasayfa" class="hero section-invert">
       <div class="hero-inner">
         <h1>VELORA</h1>
-        <p class="lede" data-i18n="hero.description">İşletmenizi dijital dünyada daha görünür hale getiren sade ve etkili web deneyimleri.</p>
         <div class="hero-actions">
           <a class="btn btn-secondary" href="#paketler" data-i18n="hero.cta.packages">Paketleri İncele</a>
           <a class="btn btn-secondary" href="#iletisim" data-i18n="hero.cta.contact">Hemen İletişime Geç</a>
@@ -86,6 +94,13 @@
           <span class="eyebrow" data-i18n="works.eyebrow">Çalışmalarımız</span>
           <h2 data-i18n="works.heading">Örnek çalışmalarımızdan bazıları</h2>
           <p class="lede" style="margin-inline:auto" data-i18n="works.lede">Farklı sektörlerden markalar için tasarladığımız web sitelerinden birkaç örnek.</p>
+          <!-- Metin yalnızca iç <span>'de (data-i18n) tutulur; böylece dil
+               değişiminde ok ikonu silinmez ve hover alt çizgisi yalnızca
+               metin genişliğinde kalır (bkz. css/main.css > .arrow-link). -->
+          <a class="arrow-link works-view-all-link" href="calismalarimiz.html">
+            <span class="arrow-link-label" data-i18n="works.viewAllLink">Tüm çalışmalarımızı inceleyin</span>
+            <svg class="arrow-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
         </div>
 
         <div class="works-slider" id="works-slider">
@@ -111,7 +126,7 @@
           <span class="eyebrow" data-i18n="packages.eyebrow">Paketlerimiz</span>
           <h2 data-i18n="packages.heading">İhtiyacınıza uygun paketler</h2>
           <p class="lede" style="margin-inline:auto" data-i18n="packages.lede">Size en uygun paketi birlikte belirleyelim; net bir teklif için bize ulaşmanız yeterli.</p>
-          <span class="delivery-note" data-i18n="packages.deliveryNote">Tüm paketlerde teslim süresi: 3 iş günü</span>
+          <span class="delivery-note" data-i18n="packages.deliveryNote">Tüm paketlerde teslim süresi: 5 iş günü</span>
         </div>
 
         <div class="packages-slider" id="packages-slider">
@@ -139,25 +154,10 @@
         <div class="about-intro">
           <span class="eyebrow" data-i18n="about.eyebrow">VELORA</span>
           <h2 class="about-headline" data-i18n="about.headline">Dijital dünyadaki ilk izleniminiz, bir kapıdır.</h2>
-
-        </div>
-
-        <div class="about-pillars">
-          <div class="about-pillar">
-            <span class="about-pillar-index">01</span>
-            <h3 class="about-pillar-title" data-i18n="about.pillars.simple.title">Sade olanı, etkili hale getiriyoruz.</h3>
-            <p data-i18n="about.pillars.simple.body">VELORA'da tasarımın daha fazla detay eklemekten değil, doğru olanı doğru yerde kullanmaktan geçtiğine inanıyoruz. Bu yüzden oluşturduğumuz web deneyimleri; gereksiz kalabalıktan uzak, anlaşılır, hızlı, mobil uyumlu ve işletmenin karakterini yansıtan bir yapıya sahip. Her bölümün bir amacı, her detayın bir nedeni olmalı.</p>
-          </div>
-          <div class="about-pillar">
-            <span class="about-pillar-index">02</span>
-            <h3 class="about-pillar-title" data-i18n="about.pillars.experience.title">Tasarım ve teknoloji, tek bir deneyim.</h3>
-            <p data-i18n="about.pillars.experience.body">Bir web sitesinin yalnızca güzel görünmesi yeterli değil. İnsanların sizi birkaç saniye içinde anlayabilmesi, ihtiyaç duyduğu bilgiye kolayca ulaşabilmesi ve sizinle iletişime geçebilmesi gerekiyor. Bu nedenle tasarımı, kullanılabilirliği ve teknolojiyi birbirinden ayrı düşünmüyoruz. Ortaya yalnızca bir web sitesi değil, işletmenizin dijital dünyadaki yüzünü çıkarıyoruz.</p>
-          </div>
-          <div class="about-pillar">
-            <span class="about-pillar-index">03</span>
-            <h3 class="about-pillar-title" data-i18n="about.pillars.growth.title">Büyümek isteyen işletmeler için.</h3>
-            <p data-i18n="about.pillars.growth.body">VELORA; markasını daha güçlü göstermek, dijital dünyada daha görünür olmak ve müşterileriyle daha iyi bir ilk temas kurmak isteyen işletmelerle çalışır. İster yeni bir dijital başlangıç yapıyor olun, ister mevcut web sitenizi yeniden düşünmek isteyin, amacımız aynı: işletmenizi doğru anlatan, güven veren ve insanları bir sonraki adıma taşıyan bir dijital deneyim oluşturmak.</p>
-          </div>
+          <a class="arrow-link about-more-link" href="hakkimizda.html">
+            <span class="arrow-link-label" data-i18n="about.moreLink">Hakkımızda daha fazla bilgi edinin</span>
+            <svg class="arrow-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
         </div>
 
       </div>
@@ -285,7 +285,7 @@
           <a href="#anasayfa" data-i18n="footer.links.home">Ana Sayfa</a>
           <a href="#paketler" data-i18n="footer.links.packages">Paketler</a>
           <a href="#calismalarimiz" data-i18n="footer.links.works">Çalışmalarımız</a>
-          <a href="#hakkinda" data-i18n="footer.links.about">Hakkında</a>
+          <a href="hakkimizda.html" data-i18n="footer.links.about">Hakkımızda</a>
           <a href="#iletisim" data-i18n="footer.links.contact">İletişim</a>
           <a href="#sss" data-i18n="footer.links.faq">SSS</a>
           <a href="#soru-sor" data-i18n="footer.links.ask">Soru Sorma</a>

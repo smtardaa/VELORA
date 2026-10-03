@@ -23,7 +23,13 @@ export const tr = {
       about: "Hakkımızda",
       ask: "Soru Sor",
       faq: "SSS",
-      contact: "İletişim"
+      contact: "İletişim",
+      projectBrief: "Projenizi Anlatın"
+    },
+    // Header'daki "Çalışmalarımız" artık bir dropdown; iki seçeneğin metni.
+    worksDropdown: {
+      viewHomeSection: "Çalışmalarımızı görün",
+      viewAll: "Tüm çalışmalarımızı inceleyin"
     }
   },
 
@@ -32,8 +38,6 @@ export const tr = {
   },
 
   hero: {
-    description:
-      "İşletmenizi dijital dünyada daha görünür hale getiren sade ve etkili web deneyimleri.",
     cta: {
       packages: "Paketleri İncele",
       contact: "Hemen İletişime Geç",
@@ -43,6 +47,10 @@ export const tr = {
 
   works: {
     eyebrow: "Çalışmalarımız",
+    // Ana sayfadaki Çalışmalarımız bölümünün eyebrow'u altında gösterilen,
+    // calismalarimiz.html'e giden bağlantı (header dropdown'undaki aynı
+    // isimli seçenekten bilinçli olarak ayrı bir anahtardır).
+    viewAllLink: "Tüm çalışmalarımızı inceleyin",
     heading: "Örnek çalışmalarımızdan bazıları",
     lede: "Farklı sektörlerden markalar için tasarladığımız web sitelerinden birkaç örnek.",
     prevAriaLabel: "Önceki çalışma",
@@ -63,7 +71,7 @@ export const tr = {
     // gerçek bir müşteri işini, doğrulanmış sonucu veya fiilen kullanılmış
     // teknolojiyi temsil etmez — techNote alanları bilinçli olarak "önerilen
     // yaklaşım" diliyle yazılmıştır. pricingNote, data/packages.js >
-    // sharedDeliveryNote ile aynı gerçek teslim süresine (3 iş günü) atıfta
+    // sharedDeliveryNote ile aynı gerçek teslim süresine (5 iş günü) atıfta
     // bulunur; proje bazlı uydurma fiyat/süre eklenmemiştir.
     detail: {
       metaTitle: "VELORA — Çalışmalarımız",
@@ -79,7 +87,7 @@ export const tr = {
         pricing: "Fiyatlandırma ve süre hakkında bilgi"
       },
       pricingNote:
-        "Fiyat ve teslim süresi, kapsam netleştikten sonra size özel olarak belirlenir. Referans olarak paketlerimizde standart teslim süresi 3 iş günüdür; net bir teklif için bizimle iletişime geçmeniz yeterli.",
+        "Fiyat ve teslim süresi, kapsam netleştikten sonra size özel olarak belirlenir. Referans olarak paketlerimizde standart teslim süresi 5 iş günüdür; net bir teklif için bizimle iletişime geçmeniz yeterli.",
       filter: {
         heading: "Kendinize uygun siteyi bulup inceleyin",
         lede: "Aşağıdaki alan, ileride sektöre göre filtreleme yapılabileceğini gösteren bir tasarım örneğidir; şu an herhangi bir seçim yapmaz ve çalışma listesini filtrelemez.",
@@ -170,7 +178,7 @@ export const tr = {
     eyebrow: "Paketlerimiz",
     heading: "İhtiyacınıza uygun paketler",
     lede: "Size en uygun paketi birlikte belirleyelim; net bir teklif için bize ulaşmanız yeterli.",
-    deliveryNote: "Tüm paketlerde teslim süresi: 3 iş günü",
+    deliveryNote: "Tüm paketlerde teslim süresi: 5 iş günü",
     prevAriaLabel: "Önceki paketler",
     nextAriaLabel: "Sonraki paketler",
     dotAriaLabel: "Paket grubu {n}",
@@ -192,6 +200,15 @@ export const tr = {
         description: "Kapsamı size özel planlanan, esnek ve genişletilebilir çözüm.",
         features: ["İhtiyaca özel kapsam", "Esnek sayfa/özellik seçimi", "Öncelikli danışmanlık"],
         cta: "İletişime Geç"
+      },
+      // Sabit fiyat/kapsamlı bir paket DEĞİLDİR; kasıtlı olarak "features"
+      // listesi yoktur (bkz. components/packages.js > renderCard) ve
+      // butonu popup açmak yerine proje anlatım sayfasına
+      // (projenizi-anlatin.html) bağlanır.
+      "proje-anlatin": {
+        name: "Kendi projenizi anlatın / Fiyat alın",
+        description: "Projenizin kapsamını paylaşın, size uygun çözümü ve fiyatı birlikte belirleyelim.",
+        cta: "Hemen anlatın"
       }
     }
   },
@@ -204,20 +221,8 @@ export const tr = {
   about: {
     eyebrow: "VELORA",
     headline: "Dijital dünyadaki ilk izleniminiz, bir kapıdır.",
-    pillars: {
-      simple: {
-        title: "Sade olanı, etkili hale getiriyoruz.",
-        body: "VELORA'da tasarımın daha fazla detay eklemekten değil, doğru olanı doğru yerde kullanmaktan geçtiğine inanıyoruz. Bu yüzden oluşturduğumuz web deneyimleri; gereksiz kalabalıktan uzak, anlaşılır, hızlı, mobil uyumlu ve işletmenin karakterini yansıtan bir yapıya sahip. Her bölümün bir amacı, her detayın bir nedeni olmalı."
-      },
-      experience: {
-        title: "Tasarım ve teknoloji, tek bir deneyim.",
-        body: "Bir web sitesinin yalnızca güzel görünmesi yeterli değil. İnsanların sizi birkaç saniye içinde anlayabilmesi, ihtiyaç duyduğu bilgiye kolayca ulaşabilmesi ve sizinle iletişime geçebilmesi gerekiyor. Bu nedenle tasarımı, kullanılabilirliği ve teknolojiyi birbirinden ayrı düşünmüyoruz. Ortaya yalnızca bir web sitesi değil, işletmenizin dijital dünyadaki yüzünü çıkarıyoruz."
-      },
-      growth: {
-        title: "Büyümek isteyen işletmeler için.",
-        body: "VELORA; markasını daha güçlü göstermek, dijital dünyada daha görünür olmak ve müşterileriyle daha iyi bir ilk temas kurmak isteyen işletmelerle çalışır. İster yeni bir dijital başlangıç yapıyor olun, ister mevcut web sitenizi yeniden düşünmek isteyin, amacımız aynı: işletmenizi doğru anlatan, güven veren ve insanları bir sonraki adıma taşıyan bir dijital deneyim oluşturmak."
-      }
-    }
+    // Hakkımızda bölümünün altındaki, hakkimizda.html'e giden bağlantı.
+    moreLink: "Hakkımızda daha fazla bilgi edinin"
   },
 
   form: {
@@ -323,6 +328,10 @@ export const tr = {
   contact: {
     eyebrow: "İletişim",
     heading: "Bize ulaşın",
+    // Gerçek LinkedIn/GitHub bağlantıları eklenene kadar bu iki kanal
+    // pasif (tıklanamaz) gösterilir; bkz. components/contact.js ve
+    // data/contact.js.
+    pendingLabel: "Yakında eklenecek",
     channels: {
       email: "E-posta",
       phone: "Telefon",
@@ -330,7 +339,9 @@ export const tr = {
       instagram: "Instagram",
       facebook: "Facebook",
       tiktok: "TikTok",
-      telegram: "Telegram"
+      telegram: "Telegram",
+      linkedin: "LinkedIn",
+      github: "GitHub"
     }
   },
 
@@ -358,6 +369,46 @@ export const tr = {
     tags: {
       package: "Paket",
       faq: "SSS"
+    }
+  },
+
+  // Ayrı sayfalar (hakkimizda.html, projenizi-anlatin.html) için içerik.
+  // Şimdilik yalnızca başlık + nötr bir içerik iskeleti vardır; gerçek
+  // içerik geldiğinde ilgili metinler buradan (ve diğer 4 dilde aynı
+  // anahtarlardan) güncellenmelidir. Doğrulanmamış bilgi eklenmedi.
+  pages: {
+    placeholder: "Bu bölümün içeriği yakında eklenecek.",
+    about: {
+      metaTitle: "VELORA — Hakkımızda",
+      metaDescription: "VELORA hakkında daha fazla bilgi edinin.",
+      eyebrow: "Hakkımızda",
+      heading: "VELORA hakkında",
+      lede: "Bu sayfa, VELORA hakkında daha ayrıntılı bilgileri paylaşmak için hazırlanıyor. İçerik yakında eklenecek.",
+      sections: {
+        who: "Biz kimiz",
+        approach: "Nasıl çalışıyoruz",
+        values: "Neye önem veriyoruz"
+      },
+      ctaHeading: "Sorularınız mı var?",
+      ctaLede: "Bize iletişim kanallarımızdan veya Soru Sor formundan ulaşabilirsiniz.",
+      ctaContact: "İletişime geçin",
+      ctaPackages: "Paketleri inceleyin"
+    },
+    projectBrief: {
+      metaTitle: "VELORA — Projenizi Anlatın",
+      metaDescription: "Projenizi VELORA ile paylaşın.",
+      eyebrow: "Projenizi Anlatın",
+      heading: "Projenizi anlatın",
+      lede: "Projenizin ayrıntılarını paylaşabileceğiniz bu sayfa hazırlanıyor. Bu arada Soru Sor formundan veya iletişim kanallarımızdan bize ulaşabilirsiniz.",
+      sections: {
+        project: "Projeniz hakkında",
+        goals: "Hedefleriniz ve ihtiyaçlarınız",
+        scope: "Kapsam ve zamanlama"
+      },
+      ctaHeading: "Projenizi şimdi paylaşmak ister misiniz?",
+      ctaLede: "Soru Sor formunu kullanabilir ya da iletişim kanallarımızdan bize yazabilirsiniz.",
+      ctaAsk: "Soru Sor formuna gidin",
+      ctaContact: "İletişim kanalları"
     }
   },
 

@@ -21,7 +21,12 @@ export const it = {
       about: "Chi siamo",
       ask: "Fai una domanda",
       faq: "FAQ",
-      contact: "Contatti"
+      contact: "Contatti",
+      projectBrief: "Raccontaci il tuo progetto"
+    },
+    worksDropdown: {
+      viewHomeSection: "Guarda i nostri lavori",
+      viewAll: "Scopri tutti i nostri lavori"
     }
   },
 
@@ -30,8 +35,6 @@ export const it = {
   },
 
   hero: {
-    description:
-      "Esperienze web essenziali ed efficaci che rendono la tua attività più visibile online.",
     cta: {
       packages: "Scopri i pacchetti",
       contact: "Contattaci subito",
@@ -41,6 +44,7 @@ export const it = {
 
   works: {
     eyebrow: "I nostri lavori",
+    viewAllLink: "Scopri tutti i nostri lavori",
     heading: "Alcuni dei nostri progetti recenti",
     lede: "Una selezione di siti che abbiamo realizzato per brand di settori diversi.",
     prevAriaLabel: "Progetto precedente",
@@ -69,7 +73,7 @@ export const it = {
         pricing: "Informazioni su prezzo e tempistiche"
       },
       pricingNote:
-        "Prezzo e tempistiche vengono definiti su misura una volta chiarito l'ambito del progetto. Come riferimento, i tempi di consegna standard dei nostri pacchetti sono di 3 giorni lavorativi; per un preventivo chiaro basta contattarci.",
+        "Prezzo e tempistiche vengono definiti su misura una volta chiarito l'ambito del progetto. Come riferimento, i tempi di consegna standard dei nostri pacchetti sono di 5 giorni lavorativi; per un preventivo chiaro basta contattarci.",
       filter: {
         heading: "Trova e scopri il sito più adatto a te",
         lede: "L'area qui sotto è un esempio di design che mostra come potrebbe funzionare in futuro un filtro per settore; al momento non effettua alcuna selezione e non filtra l'elenco dei lavori.",
@@ -155,7 +159,7 @@ export const it = {
     eyebrow: "I nostri pacchetti",
     heading: "Pacchetti su misura per le tue esigenze",
     lede: "Scegliamo insieme il pacchetto più adatto: bastano poche informazioni e ti prepariamo un preventivo chiaro.",
-    deliveryNote: "Tempi di consegna per tutti i pacchetti: 3 giorni lavorativi",
+    deliveryNote: "Tempi di consegna per tutti i pacchetti: 5 giorni lavorativi",
     prevAriaLabel: "Pacchetti precedenti",
     nextAriaLabel: "Pacchetti successivi",
     dotAriaLabel: "Gruppo di pacchetti {n}",
@@ -177,6 +181,11 @@ export const it = {
         description: "Una soluzione flessibile ed espandibile, pianificata su misura per le tue esigenze.",
         features: ["Ambito su misura per le tue esigenze", "Pagine e funzionalità flessibili", "Consulenza prioritaria"],
         cta: "Contattaci"
+      },
+      "proje-anlatin": {
+        name: "Raccontaci il tuo progetto / Richiedi un preventivo",
+        description: "Condividi l'ambito del tuo progetto: insieme definiremo la soluzione e il prezzo più adatti.",
+        cta: "Raccontacelo ora"
       }
     }
   },
@@ -189,20 +198,7 @@ export const it = {
   about: {
     eyebrow: "VELORA",
     headline: "La tua prima impressione nel mondo digitale è una porta.",
-    pillars: {
-      simple: {
-        title: "Rendiamo l'essenziale efficace.",
-        body: "In VELORA crediamo che un buon design non significhi aggiungere più dettagli, ma usare l'elemento giusto al posto giusto. Per questo le esperienze web che creiamo evitano il superfluo: chiare, veloci, ottimizzate per il mobile e fedeli al carattere della tua azienda. Ogni sezione deve avere uno scopo, ogni dettaglio una ragione."
-      },
-      experience: {
-        title: "Design e tecnologia, un'unica esperienza.",
-        body: "Non basta che un sito web sia bello da vedere. Le persone devono capirti in pochi secondi, trovare facilmente le informazioni di cui hanno bisogno e poterti contattare. Per questo non consideriamo mai design, usabilità e tecnologia come elementi separati. Quello che realizziamo non è solo un sito web, ma il volto digitale della tua azienda."
-      },
-      growth: {
-        title: "Per le aziende che vogliono crescere.",
-        body: "VELORA lavora con aziende che vogliono rafforzare il proprio brand, essere più visibili nel mondo digitale e creare un primo contatto migliore con i propri clienti. Che tu stia muovendo i primi passi nel digitale o voglia ripensare il tuo sito attuale, il nostro obiettivo resta lo stesso: creare un'esperienza digitale che racconti la tua azienda in modo autentico, generi fiducia e porti le persone al passo successivo."
-      }
-    }
+    moreLink: "Scopri di più su di noi"
   },
 
   form: {
@@ -308,6 +304,7 @@ export const it = {
   contact: {
     eyebrow: "Contatti",
     heading: "Contattaci",
+    pendingLabel: "Disponibile a breve",
     channels: {
       email: "Email",
       phone: "Telefono",
@@ -315,7 +312,9 @@ export const it = {
       instagram: "Instagram",
       facebook: "Facebook",
       tiktok: "TikTok",
-      telegram: "Telegram"
+      telegram: "Telegram",
+      linkedin: "LinkedIn",
+      github: "GitHub"
     }
   },
 
@@ -343,6 +342,42 @@ export const it = {
     tags: {
       package: "Pacchetto",
       faq: "FAQ"
+    }
+  },
+
+  pages: {
+    placeholder: "Il contenuto di questa sezione sarà aggiunto a breve.",
+    about: {
+      metaTitle: "VELORA — Chi siamo",
+      metaDescription: "Scopri di più su VELORA.",
+      eyebrow: "Chi siamo",
+      heading: "Chi è VELORA",
+      lede: "Questa pagina è in preparazione per condividere informazioni più dettagliate su VELORA. I contenuti saranno aggiunti a breve.",
+      sections: {
+        who: "Chi siamo",
+        approach: "Come lavoriamo",
+        values: "Ciò a cui teniamo"
+      },
+      ctaHeading: "Hai una domanda?",
+      ctaLede: "Puoi contattarci tramite i nostri canali di contatto o il modulo per le domande.",
+      ctaContact: "Contattaci",
+      ctaPackages: "Vedi i pacchetti"
+    },
+    projectBrief: {
+      metaTitle: "VELORA — Raccontaci il tuo progetto",
+      metaDescription: "Condividi il tuo progetto con VELORA.",
+      eyebrow: "Il tuo progetto",
+      heading: "Raccontaci il tuo progetto",
+      lede: "Questa pagina, in cui potrai condividere i dettagli del tuo progetto, è in preparazione. Nel frattempo puoi contattarci tramite il modulo per le domande o i nostri canali di contatto.",
+      sections: {
+        project: "Il tuo progetto",
+        goals: "Obiettivi ed esigenze",
+        scope: "Ambito e tempistiche"
+      },
+      ctaHeading: "Vuoi condividere il tuo progetto adesso?",
+      ctaLede: "Usa il modulo per le domande oppure scrivici tramite i nostri canali di contatto.",
+      ctaAsk: "Vai al modulo",
+      ctaContact: "Canali di contatto"
     }
   },
 

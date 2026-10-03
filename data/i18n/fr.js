@@ -21,7 +21,12 @@ export const fr = {
       about: "À propos",
       ask: "Poser une question",
       faq: "FAQ",
-      contact: "Contact"
+      contact: "Contact",
+      projectBrief: "Parlez-nous de votre projet"
+    },
+    worksDropdown: {
+      viewHomeSection: "Voir nos réalisations",
+      viewAll: "Découvrir toutes nos réalisations"
     }
   },
 
@@ -30,8 +35,6 @@ export const fr = {
   },
 
   hero: {
-    description:
-      "Des expériences web sobres et efficaces qui rendent votre entreprise plus visible en ligne.",
     cta: {
       packages: "Découvrir nos offres",
       contact: "Contactez-nous",
@@ -41,6 +44,7 @@ export const fr = {
 
   works: {
     eyebrow: "Nos réalisations",
+    viewAllLink: "Découvrir toutes nos réalisations",
     heading: "Quelques-uns de nos projets récents",
     lede: "Une sélection de sites que nous avons conçus pour des marques de secteurs variés.",
     prevAriaLabel: "Projet précédent",
@@ -69,7 +73,7 @@ export const fr = {
         pricing: "Informations sur le tarif et les délais"
       },
       pricingNote:
-        "Le tarif et le délai sont définis pour vous une fois le périmètre précisé. À titre de référence, le délai de livraison standard de nos offres est de 3 jours ouvrés ; contactez-nous pour obtenir un devis clair.",
+        "Le tarif et le délai sont définis pour vous une fois le périmètre précisé. À titre de référence, le délai de livraison standard de nos offres est de 5 jours ouvrés ; contactez-nous pour obtenir un devis clair.",
       filter: {
         heading: "Trouvez et découvrez le site qui vous correspond",
         lede: "La zone ci-dessous est un exemple de design illustrant un futur filtrage par secteur ; elle n'effectue actuellement aucune sélection et ne filtre pas la liste des réalisations.",
@@ -156,7 +160,7 @@ export const fr = {
     eyebrow: "Nos offres",
     heading: "Des offres adaptées à vos besoins",
     lede: "Définissons ensemble l'offre la plus adaptée ; contactez-nous et nous vous proposerons un devis clair.",
-    deliveryNote: "Délai de livraison pour toutes les offres : 3 jours ouvrés",
+    deliveryNote: "Délai de livraison pour toutes les offres : 5 jours ouvrés",
     prevAriaLabel: "Offres précédentes",
     nextAriaLabel: "Offres suivantes",
     dotAriaLabel: "Groupe d'offres {n}",
@@ -178,6 +182,11 @@ export const fr = {
         description: "Une solution flexible et évolutive, dont le périmètre est pensé spécialement pour vous.",
         features: ["Périmètre adapté à vos besoins", "Pages et fonctionnalités flexibles", "Accompagnement prioritaire"],
         cta: "Nous contacter"
+      },
+      "proje-anlatin": {
+        name: "Parlez-nous de votre projet / Obtenez un devis",
+        description: "Partagez le périmètre de votre projet, nous définirons ensemble la solution et le tarif adaptés.",
+        cta: "Nous en parler"
       }
     }
   },
@@ -190,20 +199,7 @@ export const fr = {
   about: {
     eyebrow: "VELORA",
     headline: "Votre première impression dans le monde numérique est une porte.",
-    pillars: {
-      simple: {
-        title: "Nous rendons le simple efficace.",
-        body: "Chez VELORA, nous pensons qu'un bon design ne consiste pas à ajouter plus de détails, mais à utiliser les bons éléments au bon endroit. C'est pourquoi les expériences web que nous créons évitent le superflu : claires, rapides, adaptées aux mobiles, et fidèles au caractère de votre entreprise. Chaque section doit avoir un objectif, chaque détail une raison d'être."
-      },
-      experience: {
-        title: "Design et technologie, une seule expérience.",
-        body: "Un site web ne suffit pas à être seulement beau. Les visiteurs doivent vous comprendre en quelques secondes, trouver facilement l'information qu'ils recherchent et pouvoir vous contacter. C'est pourquoi nous ne dissocions jamais le design, l'ergonomie et la technologie. Ce que nous créons n'est pas seulement un site web — c'est le visage numérique de votre entreprise."
-      },
-      growth: {
-        title: "Pour les entreprises qui veulent grandir.",
-        body: "VELORA travaille avec les entreprises qui souhaitent renforcer leur marque, gagner en visibilité dans le monde numérique et créer un meilleur premier contact avec leurs clients. Que vous fassiez vos premiers pas dans le numérique ou que vous souhaitiez repenser votre site actuel, notre objectif reste le même : créer une expérience numérique qui raconte fidèlement votre histoire, inspire confiance et incite les visiteurs à passer à l'étape suivante."
-      }
-    }
+    moreLink: "En savoir plus sur nous"
   },
 
   form: {
@@ -309,6 +305,7 @@ export const fr = {
   contact: {
     eyebrow: "Contact",
     heading: "Contactez-nous",
+    pendingLabel: "Bientôt disponible",
     channels: {
       email: "E-mail",
       phone: "Téléphone",
@@ -316,7 +313,9 @@ export const fr = {
       instagram: "Instagram",
       facebook: "Facebook",
       tiktok: "TikTok",
-      telegram: "Telegram"
+      telegram: "Telegram",
+      linkedin: "LinkedIn",
+      github: "GitHub"
     }
   },
 
@@ -344,6 +343,42 @@ export const fr = {
     tags: {
       package: "Offre",
       faq: "FAQ"
+    }
+  },
+
+  pages: {
+    placeholder: "Le contenu de cette section sera bientôt ajouté.",
+    about: {
+      metaTitle: "VELORA — À propos",
+      metaDescription: "En savoir plus sur VELORA.",
+      eyebrow: "À propos",
+      heading: "À propos de VELORA",
+      lede: "Cette page est en préparation afin de partager des informations plus détaillées sur VELORA. Le contenu sera bientôt ajouté.",
+      sections: {
+        who: "Qui nous sommes",
+        approach: "Notre façon de travailler",
+        values: "Ce qui compte pour nous"
+      },
+      ctaHeading: "Vous avez une question ?",
+      ctaLede: "Vous pouvez nous joindre via nos canaux de contact ou le formulaire de question.",
+      ctaContact: "Nous contacter",
+      ctaPackages: "Voir les offres"
+    },
+    projectBrief: {
+      metaTitle: "VELORA — Parlez-nous de votre projet",
+      metaDescription: "Partagez votre projet avec VELORA.",
+      eyebrow: "Votre projet",
+      heading: "Parlez-nous de votre projet",
+      lede: "Cette page, sur laquelle vous pourrez partager les détails de votre projet, est en préparation. En attendant, vous pouvez nous joindre via le formulaire de question ou nos canaux de contact.",
+      sections: {
+        project: "À propos de votre projet",
+        goals: "Vos objectifs et besoins",
+        scope: "Périmètre et calendrier"
+      },
+      ctaHeading: "Vous souhaitez partager votre projet dès maintenant ?",
+      ctaLede: "Utilisez le formulaire de question ou écrivez-nous via nos canaux de contact.",
+      ctaAsk: "Aller au formulaire",
+      ctaContact: "Canaux de contact"
     }
   },
 

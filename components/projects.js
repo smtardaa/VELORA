@@ -3,9 +3,12 @@
 //
 // Paketler slider'ından farkı:
 //  - Her hareket (otomatik veya manuel) yalnızca 1 kart kayar (grup değil).
-//  - Sayfa yüklendiğinde otomatik olarak, yavaş ve sabit hızda kendiliğinden
-//    ilerler; ok/swipe ile yapılan manuel hareket aynı state'i kullanır ve
-//    otomatik oynatmayı bozmaz.
+//  - YALNIZCA MASAÜSTÜNDE (>1024px) sayfa yüklendiğinde otomatik olarak,
+//    yavaş ve sabit hızda kendiliğinden ilerler (bkz. startAutoplay());
+//    tablet ve mobilde otomatik oynatma tamamen kapalıdır — kullanıcı
+//    yalnızca ok/dokunmatik swipe ile ilerletir. Ok ile yapılan manuel
+//    hareket (tüm viewport'larda) ve dokunmatik swipe (tüm viewport'larda)
+//    aynı state'i kullanır.
 //  - Sonsuzluk, görünen kart sayısı (K) kadar baştan/sondan klon ekleyip
 //    sınıra ulaşınca kullanıcı fark etmeden (animasyonsuz) gerçek konuma
 //    geri sarmakla sağlanır (classic infinite-carousel tekniği).
@@ -127,7 +130,12 @@ export function initProjectsSlider({ sliderEl, trackEl, prevBtn, nextBtn }) {
 
   function startAutoplay() {
     stopAutoplay();
-    if (!loopEnabled()) return;
+    // Otomatik oynatma yalnızca masaüstünde (tablet/mobil ile aynı eşik:
+    // getCardsPerView() > 1024px'de "3" döner) çalışır; tablet ve mobilde
+    // kullanıcı yalnızca dokunarak/swipe ile ilerletir (bkz. dosyanın
+    // başındaki not ve aşağıdaki touch olay dinleyicileri — bunlar her
+    // zaman etkindir, viewport'tan bağımsız).
+    if (!loopEnabled() || window.innerWidth <= 1024) return;
     autoplayTimer = setInterval(() => {
       if (document.hidden) return;
       goTo(1);

@@ -16,11 +16,6 @@
     --header-height: 72px;
   }
 
-  .about-pillars {
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
-  }
-
   /* İletişim kartları: 2 sütun (son sırada tek kart varsa ortalanır) */
   .contact-card {
     flex: 0 1 calc((100% - var(--space-md)) / 2);
@@ -28,6 +23,37 @@
 
   section {
     padding-block: var(--space-2xl);
+  }
+
+  /* Alt sayfaların (calismalarimiz.html, hakkimizda.html,
+     projenizi-anlatin.html) ilk bölümü: sabit header burada 72px'e
+     çıktığından, mobilde bölümün üst boşluğu (64px) header'dan kısa
+     kalıyor ve eyebrow başlığı header'ın altına ~5px giriyordu. Üst boşluk
+     header yüksekliği + nefes payı olarak hesaplanır. Ana sayfa hero'su
+     kendi dolgusunu kullandığından etkilenmez. */
+  main > section:first-child:not(.hero) {
+    padding-block-start: calc(var(--header-height) + var(--space-lg));
+  }
+}
+
+/* Yalnızca tablet (481–1024px): 4 paket kartı tek satıra sığmayınca her kart
+   ~130–190px'e kadar daralıyor, metinler kelime kelime alt alta düşüyor ve
+   "İletişime Geç" butonları iki satıra kırılıyordu. Tüm paketler yine aynı
+   anda ve tek sayfada görünür (components/packages.js'teki tablet davranışı
+   değişmez); yalnızca ızgara 2×2 düzenine geçer. Masaüstü ve mobil
+   etkilenmez. */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .packages-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Dar tablet / büyük telefon (481–640px): iki sütun bile ~130–190px'e
+   düştüğü için kartlar tek sütunda alt alta gösterilir (yine tümü aynı
+   anda görünür). */
+@media (min-width: 481px) and (max-width: 640px) {
+  .packages-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -77,6 +103,47 @@
      içindeki .icon-menu "is-open" sınıf ekleme/kaldırma mantığına
      dokunulmadı (menünün açılıp kapanma davranışı aynı), yalnızca bu
      sınıfa bağlı görsel dönüşüm kaldırıldı. */
+
+  /* "Çalışmalarımız" dropdown'u mobilde: masaüstündeki gibi kayan/taşan
+     bir panel yerine, dikey menünün içinde yer açan basit bir akordeon
+     (position:static + max-height geçişi). Tetikleyici, diğer üst
+     seviye nav bağlantılarıyla aynı tam genişlik/alt çizgili satır
+     görünümünü alır (bu, <button> olduğundan .nav-links a seçicisinden
+     miras alınmaz, burada açıkça eşlenir). */
+  .nav-dropdown-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 1.05rem;
+  }
+
+  .nav-dropdown-menu {
+    position: static;
+    min-width: 0;
+    max-height: 0;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    overflow: hidden;
+    transition: max-height var(--transition-base);
+  }
+
+  .nav-dropdown.is-open .nav-dropdown-menu {
+    max-height: 160px;
+  }
+
+  .nav-dropdown-menu li a {
+    padding-left: var(--space-md);
+    font-size: 0.98rem;
+  }
 }
 
 /* Tablet dikey / büyük telefon (<=768px) */
@@ -107,6 +174,11 @@
     order: -1;
     aspect-ratio: 16 / 10;
   }
+
+  /* Alt sayfa içerik blokları: tek sütun. */
+  .page-blocks {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Mobil (<=480px) */
@@ -118,14 +190,6 @@
 
   section {
     padding-block: var(--space-xl);
-  }
-
-  /* Hakkında bölümünün köşe taşları bloğu, diğer bölümlerin
-     padding-block küçülmesiyle aynı mantıkla, mobilde gereksiz
-     yükseklik oluşturmaması için sıkılaştırılır. */
-  .about-pillars {
-    margin-top: var(--space-xl);
-    padding-top: var(--space-lg);
   }
 
   /* 480px ve altında tek sütun: 3 buton alt alta, hepsi eşit (tam)
@@ -146,8 +210,15 @@
     white-space: nowrap;
   }
 
-  .card {
+  .card,
+  .page-block {
     padding: var(--space-md);
+  }
+
+  /* Alt sayfa çağrı butonları: dar ekranda alt alta, tam genişlikte. */
+  .page-cta-actions {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .brand-logo {

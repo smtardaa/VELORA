@@ -10,7 +10,7 @@ import { initQuestionForm } from "../components/questionForm.js";
 import { initSearch } from "../components/search.js";
 import { initPackageContactModal } from "../components/packageContactModal.js";
 import { initI18n, onLanguageChange } from "./i18n.js";
-import { qs, setYear } from "./utils.js";
+import { qs, setYear, applyInitialScrollPosition } from "./utils.js";
 
 function applyBrandConfig() {
   // Logo dosyası tek bir yerden (data/site-config.js > logoConfig.path)
@@ -83,6 +83,10 @@ function init() {
   });
 
   setYear();
+
+  // Dinamik içerik render edildikten sonra: hash yoksa en üstten başla,
+  // hash varsa hedefe git (bkz. js/utils.js).
+  applyInitialScrollPosition();
 }
 
 if (document.readyState === "loading") {

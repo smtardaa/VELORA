@@ -21,7 +21,12 @@ export const en = {
       about: "About",
       ask: "Ask a Question",
       faq: "FAQ",
-      contact: "Contact"
+      contact: "Contact",
+      projectBrief: "Tell Us About Your Project"
+    },
+    worksDropdown: {
+      viewHomeSection: "See Our Work",
+      viewAll: "Explore All of Our Work"
     }
   },
 
@@ -30,8 +35,6 @@ export const en = {
   },
 
   hero: {
-    description:
-      "Clean, effective web experiences that make your business more visible online.",
     cta: {
       packages: "Explore Packages",
       contact: "Get in Touch",
@@ -41,6 +44,7 @@ export const en = {
 
   works: {
     eyebrow: "Our Work",
+    viewAllLink: "Explore all of our work",
     heading: "A few of our recent projects",
     lede: "A selection of websites we've designed for brands across different industries.",
     prevAriaLabel: "Previous project",
@@ -69,7 +73,7 @@ export const en = {
         pricing: "Pricing and timeline information"
       },
       pricingNote:
-        "Pricing and timeline are worked out for you once the scope is clear. As a reference, the standard delivery time across our packages is 3 business days — just get in touch for a clear quote.",
+        "Pricing and timeline are worked out for you once the scope is clear. As a reference, the standard delivery time across our packages is 5 business days — just get in touch for a clear quote.",
       filter: {
         heading: "Find and explore the site that suits you",
         lede: "The area below is a design example showing how filtering by industry could work in the future; it doesn't currently make any selection and doesn't filter the list of work.",
@@ -156,7 +160,7 @@ export const en = {
     eyebrow: "Packages",
     heading: "Packages that fit your needs",
     lede: "Let's figure out the right package together — just reach out and we'll put together a clear quote.",
-    deliveryNote: "Delivery time for every package: 3 business days",
+    deliveryNote: "Delivery time for every package: 5 business days",
     prevAriaLabel: "Previous packages",
     nextAriaLabel: "Next packages",
     dotAriaLabel: "Package group {n}",
@@ -178,6 +182,11 @@ export const en = {
         description: "A flexible, scalable solution planned around your specific scope.",
         features: ["Scope tailored to your needs", "Flexible pages & features", "Priority consulting"],
         cta: "Get in Touch"
+      },
+      "proje-anlatin": {
+        name: "Tell Us About Your Project / Get a Quote",
+        description: "Share your project's scope and let's work out the right solution and price together.",
+        cta: "Tell Us Now"
       }
     }
   },
@@ -190,20 +199,7 @@ export const en = {
   about: {
     eyebrow: "VELORA",
     headline: "Your first impression in the digital world is a doorway.",
-    pillars: {
-      simple: {
-        title: "We make simple, effective.",
-        body: "At VELORA, we believe great design isn't about adding more detail — it's about using the right elements in the right place. That's why the web experiences we build skip the unnecessary clutter: clear, fast, mobile-friendly, and true to your business's character. Every section should have a purpose, and every detail a reason."
-      },
-      experience: {
-        title: "Design and technology, one experience.",
-        body: "A website isn't enough just to look good. People need to understand you within seconds, easily find the information they're looking for, and be able to reach you. That's why we never treat design, usability and technology as separate things. What we build isn't just a website — it's your business's face in the digital world."
-      },
-      growth: {
-        title: "For businesses ready to grow.",
-        body: "VELORA works with businesses that want to strengthen their brand, become more visible online, and make a better first impression with their customers. Whether you're starting fresh in the digital world or rethinking your existing website, our goal stays the same: to create a digital experience that tells your story accurately, builds trust, and moves people to take the next step."
-      }
-    }
+    moreLink: "Learn more about us"
   },
 
   form: {
@@ -309,6 +305,7 @@ export const en = {
   contact: {
     eyebrow: "Contact",
     heading: "Get in touch",
+    pendingLabel: "Coming soon",
     channels: {
       email: "Email",
       phone: "Phone",
@@ -316,7 +313,9 @@ export const en = {
       instagram: "Instagram",
       facebook: "Facebook",
       tiktok: "TikTok",
-      telegram: "Telegram"
+      telegram: "Telegram",
+      linkedin: "LinkedIn",
+      github: "GitHub"
     }
   },
 
@@ -344,6 +343,42 @@ export const en = {
     tags: {
       package: "Package",
       faq: "FAQ"
+    }
+  },
+
+  pages: {
+    placeholder: "Content for this section will be added soon.",
+    about: {
+      metaTitle: "VELORA — About Us",
+      metaDescription: "Learn more about VELORA.",
+      eyebrow: "About Us",
+      heading: "About VELORA",
+      lede: "This page is being prepared to share more detailed information about VELORA. Content will be added soon.",
+      sections: {
+        who: "Who we are",
+        approach: "How we work",
+        values: "What we care about"
+      },
+      ctaHeading: "Have a question?",
+      ctaLede: "You can reach us through our contact channels or the Ask a Question form.",
+      ctaContact: "Get in touch",
+      ctaPackages: "View packages"
+    },
+    projectBrief: {
+      metaTitle: "VELORA — Tell Us About Your Project",
+      metaDescription: "Share your project with VELORA.",
+      eyebrow: "Tell Us About Your Project",
+      heading: "Tell us about your project",
+      lede: "This page, where you will be able to share the details of your project, is being prepared. In the meantime, you can reach us through the Ask a Question form or our contact channels.",
+      sections: {
+        project: "About your project",
+        goals: "Your goals and needs",
+        scope: "Scope and timing"
+      },
+      ctaHeading: "Would you like to share your project now?",
+      ctaLede: "You can use the Ask a Question form or write to us through our contact channels.",
+      ctaAsk: "Go to the question form",
+      ctaContact: "Contact channels"
     }
   },
 

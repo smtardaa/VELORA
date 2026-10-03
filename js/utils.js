@@ -69,3 +69,42 @@ export function trapFocus(container) {
   container.addEventListener("keydown", handleKeydown);
   return () => container.removeEventListener("keydown", handleKeydown);
 }
+
+// applyInitialScrollPosition() — sayfa açılışındaki kaydırma konumunu
+// belirler. Her sayfa giriş noktası (js/main.js, js/worksPage.js,
+// js/staticPage.js) bunu dinamik içerik render edildikten SONRA çağırır.
+//  - URL'de hash yoksa: sayfa her zaman en üstten başlar (tarayıcının
+//    yenilemede eski kaydırma konumunu geri yüklemesi kapatılır).
+//  - URL'de geçerli bir hash varsa (ör. index.html#paketler,
+//    calismalarimiz.html#lumen-kahve): hedef öğeye gidilir. Hedef içerik
+//    JS ile sonradan üretildiği için (proje detayları, paketler vb.)
+//    tarayıcının kendi ilk kaydırması yanlış konumda kalabileceğinden,
+//    render sonrası ve bir sonraki karede konum tekrar hedefe hizalanır
+//    (scroll-margin-top değerleri korunur).
+export function applyInitialScrollPosition() {
+  if ("scrollRestoration" in window.history) {
+    window.history.scrollRestoration = "manual";
+  }
+
+  let id = window.location.hash.slice(1);
+  try {
+    id = decodeURIComponent(id);
+  } catch (error) {
+    // Hatalı kodlanmış hash: olduğu gibi kullanılır.
+  }
+  const target = id ? document.getElementById(id) : null;
+
+  const jump = () => {
+    try {
+      if (target) target.scrollIntoView({ block: "start", behavior: "instant" });
+      else window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    } catch (error) {
+      // "instant" desteklenmeyen eski tarayıcılar için sade yedek.
+      if (target) target.scrollIntoView(true);
+      else window.scrollTo(0, 0);
+    }
+  };
+
+  jump();
+  window.requestAnimationFrame(jump);
+}

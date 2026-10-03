@@ -1,16 +1,18 @@
-// components/packages.js — Paketler bölümü: toplamda yalnızca 3 paket
-// olduğu için "sonsuz kaydırma" yalnızca mobilde anlamlıdır.
+// components/packages.js — Paketler bölümü: toplam paket sayısı kadar
+// (sabit "3" değil, bkz. getCardsPerView()) kart aynı anda gösterilir;
+// "sonsuz kaydırma" yalnızca mobilde anlamlıdır.
 //
 // Davranış (kesin):
-//  - Desktop  (>1024px) : 3 kart aynı anda, düz bir ızgara gibi — ok,
-//    pagination ve swipe YOKTUR, tamamen statik görünür.
-//  - Tablet   (481-1024): 3 kart aynı anda görünmeye devam eder, ancak
-//    ok ve dokunmatik kaydırma kontrolleri görsel olarak etkin kalır
-//    (yalnızca 3 paket olduğundan gerçekte kaydırılacak ikinci bir
-//    sayfa yoktur; bu nedenle tıklama/kaydırma sessizce hiçbir şeyi
+//  - Desktop  (>1024px) : tüm paketler aynı anda, düz bir ızgara gibi —
+//    ok, pagination ve swipe YOKTUR, tamamen statik görünür (paket
+//    sayısı değiştiğinde de bu davranış korunur).
+//  - Tablet   (481-1024): tüm paketler aynı anda görünmeye devam eder,
+//    ancak ok ve dokunmatik kaydırma kontrolleri görsel olarak etkin
+//    kalır (yalnızca tek sayfa olduğundan gerçekte kaydırılacak ikinci
+//    bir sayfa yoktur; bu nedenle tıklama/kaydırma sessizce hiçbir şeyi
 //    değiştirmez, ancak arayüz devre dışı görünmez).
-//  - Mobile   (<=480px) : aynı anda 1 kart -> 1 / 2 / 3 / 1 / ... (3 grup,
-//    sonsuz); ok, swipe ve pagination noktaları tam işlevseldir.
+//  - Mobile   (<=480px) : aynı anda 1 kart -> 1 / 2 / 3 / 4 / 1 / ...
+//    (sonsuz); ok, swipe ve pagination noktaları tam işlevseldir.
 //
 // Sonsuzluk (mobilde), ilk ve son grubun birer "klon"unu track'in
 // başına/sonuna ekleyip sınıra ulaşınca (kullanıcı fark etmeden)
@@ -39,10 +41,10 @@ function getViewportTier() {
 }
 
 function getCardsPerView() {
-  // Tablet ve desktop'ta toplam paket sayısı (3) kadar sütun kullanılır,
-  // böylece 3 paket de her zaman aynı anda görünür; yalnızca mobilde
-  // tek kart gösterilir.
-  return getViewportTier() === "mobile" ? 1 : 3;
+  // Tablet ve desktop'ta toplam paket sayısı kadar sütun kullanılır
+  // (sabit "3" değil — paket sayısı değişse de her zaman tamamı aynı
+  // anda tek satırda görünür); yalnızca mobilde tek kart gösterilir.
+  return getViewportTier() === "mobile" ? 1 : packagesData.length;
 }
 
 function chunk(array, size) {
@@ -54,19 +56,35 @@ function chunk(array, size) {
 }
 
 function renderCard(pkg) {
+  // "proje-anlatin" gibi "ctaHref" alanı olan kartlar sabit fiyatlı/kapsamlı
+  // bir paket DEĞİLDİR: özellik listesi gösterilmez (data/i18n/*.js >
+  // packages.items.proje-anlatin kasıtlı olarak "features" içermez) ve
+  // butonu, diğer kartlardaki iletişim popup'ını açan <button> yerine,
+  // doğrudan ilgili sayfaya giden gerçek bir <a> bağlantısıdır.
+  const featuresMarkup =
+    pkg.features && pkg.features.length
+      ? `
+        <ul class="package-features">
+          ${pkg.features
+            .map((feature) => `<li>${icon("check")}<span>${escapeHtml(feature)}</span></li>`)
+            .join("")}
+        </ul>
+      `
+      : "";
+
+  const ctaMarkup = pkg.ctaHref
+    ? `<a class="btn btn-secondary btn-block package-contact-trigger-link" href="${escapeHtml(pkg.ctaHref)}">${escapeHtml(pkg.cta)}</a>`
+    : `<button type="button" class="btn ${pkg.highlighted ? "btn-primary" : "btn-secondary"} btn-block package-contact-trigger" data-package-name="${escapeHtml(pkg.name)}">
+        ${escapeHtml(pkg.cta)}
+      </button>`;
+
   return `
-    <article class="card package-card${pkg.highlighted ? " is-highlighted" : ""}">
+    <article class="card package-card${pkg.highlighted ? " is-highlighted" : ""}${pkg.ctaHref ? " package-card-cta" : ""}">
       ${pkg.badge ? `<span class="package-badge">${escapeHtml(pkg.badge)}</span>` : ""}
       <h3 class="package-name">${escapeHtml(pkg.name)}</h3>
       <p class="package-description">${escapeHtml(pkg.description)}</p>
-      <ul class="package-features">
-        ${pkg.features
-          .map((feature) => `<li>${icon("check")}<span>${escapeHtml(feature)}</span></li>`)
-          .join("")}
-      </ul>
-      <button type="button" class="btn ${pkg.highlighted ? "btn-primary" : "btn-secondary"} btn-block package-contact-trigger" data-package-name="${escapeHtml(pkg.name)}">
-        ${escapeHtml(pkg.cta)}
-      </button>
+      ${featuresMarkup}
+      ${ctaMarkup}
     </article>
   `;
 }

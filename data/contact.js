@@ -7,6 +7,32 @@
 // "showInFooter: true" olan kanallar footer'daki sosyal ikon satırında da
 // gösterilir.
 
+// ---------------------------------------------------------------------
+// LinkedIn / GitHub profil adresleri — TEK DÜZENLEME NOKTASI
+// ---------------------------------------------------------------------
+// Gerçek profil adresleri henüz verilmedi; bu yüzden alanlar BİLİNÇLİ
+// olarak boş bırakıldı ("#", ana sayfaya dönen sahte bir bağlantı veya
+// uydurma bir profil KULLANILMAZ).
+//
+// Alan boşken: kanal, İletişim bölümünde ve footer'da görsel olarak
+// yerinde durur ama tıklanabilir bir bağlantı gibi davranmaz —
+// components/contact.js onu href'siz bir <a role="link"
+// aria-disabled="true"> olarak çizer (tab sırasına girmez, tıklanamaz,
+// ekran okuyuculara "devre dışı bağlantı" olarak bildirilir) ve kartta
+// "Yakında eklenecek" yazar.
+//
+// Gerçek adres girildiğinde (ör. "https://www.linkedin.com/company/..."),
+// ek bir değişiklik gerekmeden normal, yeni sekmede açılan bir bağlantıya
+// dönüşür.
+export const socialProfileUrls = {
+  linkedin: "",
+  github: ""
+};
+
+// Not: whatsapp/instagram/facebook/tiktok/telegram kanalları ÖNCEDEN BERİ
+// "#" placeholder'ı kullanıyor; kullanıcı isteği doğrultusunda (var olan
+// sosyal bağlantılar değiştirilmesin diye) bu beşine dokunulmadı.
+
 export const contactChannels = [
   {
     id: "email",
@@ -60,6 +86,24 @@ export const contactChannels = [
     icon: "telegram",
     value: "@velorasupport",
     href: "#",
+    showInFooter: true
+  },
+  {
+    id: "linkedin",
+    name: "LinkedIn",
+    icon: "linkedin",
+    // Kartta gösterilecek kısa metin (ör. "/company/velora"). Boş
+    // bırakılırsa, adres girildiğinde adresin kendisi gösterilir.
+    value: "",
+    href: socialProfileUrls.linkedin,
+    showInFooter: true
+  },
+  {
+    id: "github",
+    name: "GitHub",
+    icon: "github",
+    value: "",
+    href: socialProfileUrls.github,
     showInFooter: true
   }
 ];

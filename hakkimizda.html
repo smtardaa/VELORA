@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="tr" data-i18n-meta-title="works.detail.metaTitle" data-i18n-meta-description="works.detail.metaDescription">
+<html lang="tr" data-i18n-meta-title="pages.about.metaTitle" data-i18n-meta-description="pages.about.metaDescription">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VELORA — Çalışmalarımız</title>
-  <meta name="description" content="VELORA'nın farklı sektörler için hazırladığı konsept web sitesi çalışmalarını inceleyin." />
+  <title>VELORA — Hakkımızda</title>
+  <meta name="description" content="VELORA hakkında daha fazla bilgi edinin." />
   <meta name="theme-color" content="#ffffff" />
 
   <link rel="icon" type="image/png" href="assets/Velora First logo.png" />
@@ -18,9 +18,10 @@
 
   <a class="visually-hidden" href="#main-content" data-i18n="skipLink">İçeriğe geç</a>
 
-  <!-- Ortak header: index.html ile birebir aynı görünüm/davranış. Yalnızca
-       başka sayfadaki bölümlere giden bağlantılar "index.html#..." ile
-       öneklenmiştir; "Çalışmalarımız" bu sayfaya kendine bağlanır. -->
+  <!-- Ortak header: index.html / calismalarimiz.html ile birebir aynı
+       görünüm ve davranış (components/header.js). Ana sayfadaki bölümlere
+       giden bağlantılar "index.html#..." ile öneklenmiştir; bulunulan
+       sayfanın nav bağlantısı otomatik olarak aktif görünür. -->
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="index.html#anasayfa" data-i18n-aria-label="header.brandAriaLabel" aria-label="VELORA ana sayfa">
@@ -30,10 +31,9 @@
       <nav class="main-nav" data-i18n-aria-label="header.mainNavAriaLabel" aria-label="Ana menü">
         <ul class="nav-links" id="nav-links">
           <li><a href="index.html#anasayfa" data-i18n="header.nav.home">Ana Sayfa</a></li>
-          <!-- index.html ile birebir aynı dropdown yapısı; yalnızca hedefler
-               bu sayfadan bakıldığında doğru yere gidecek şekilde ayarlandı
-               (ilk seçenek ana sayfaya gidip ilgili bölüme iner, ikinci
-               seçenek zaten bulunduğumuz bu sayfaya bağlanır). -->
+          <!-- index.html ile birebir aynı dropdown yapısı; ilk seçenek ana
+               sayfaya gidip ilgili bölüme iner, ikinci seçenek
+               calismalarimiz.html'e bağlanır. -->
           <li class="nav-dropdown">
             <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="works-dropdown-menu"><span data-i18n="header.nav.works">Çalışmalarımız</span>
               <svg class="nav-dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -82,45 +82,47 @@
 
   <main id="main-content">
 
-    <section id="calismalarimiz-detay">
+    <section class="page-section" id="about-giris">
       <div class="container">
-
-        <!-- Görünür başlık .section-header ile sitedeki diğer bölüm
-             başlıklarıyla aynı ağırlıkta (h2); sayfanın gerçek h1'i ekran
-             okuyucular/SEO için görsel olarak gizlenmiştir (visually-hidden),
-             böylece hem doğru başlık hiyerarşisi hem de ana site ile
-             tutarlı bir görünüm korunur. -->
-        <h1 class="visually-hidden" data-i18n="works.detail.metaTitle">VELORA — Çalışmalarımız</h1>
-
         <div class="section-header center">
-          <span class="eyebrow" data-i18n="works.eyebrow">Çalışmalarımız</span>
-          <h2 data-i18n="works.detail.pageHeading">Tüm çalışmalarımızı inceleyin</h2>
-          <p class="lede" style="margin-inline:auto" data-i18n="works.detail.pageLede">
-            Farklı sektörler için hazırladığımız konsept çalışmaları aşağıda bulabilirsiniz. Her biri, VELORA'nın tasarım yaklaşımını göstermek amacıyla hazırlanmış bir konsept/demo projesidir; gerçek bir müşteri işini veya doğrulanmış sonucu temsil etmez.
-          </p>
+          <span class="eyebrow" data-i18n="pages.about.eyebrow">Hakkımızda</span>
+          <h1 class="page-title" data-i18n="pages.about.heading">VELORA hakkında</h1>
+          <p class="lede" data-i18n="pages.about.lede">Bu sayfa, VELORA hakkında daha ayrıntılı bilgileri paylaşmak için hazırlanıyor. İçerik yakında eklenecek.</p>
         </div>
 
-        <!-- Görsel, pasif tercih alanı: yalnızca bir tasarım örneğidir.
-             Butonlar native "disabled" özniteliğiyle işaretlenmiştir; bu
-             sayede hem tab sırasından çıkarlar hem de ekran okuyuculara
-             devre dışı olarak bildirilirler. Hiçbir seçim/filtreleme
-             yapmazlar ve aşağıdaki çalışma listesini etkilemezler. -->
-        <div class="works-filter">
-          <h3 class="works-filter-heading" data-i18n="works.detail.filter.heading">Kendinize uygun siteyi bulup inceleyin</h3>
-
-
-          <div class="works-filter-chips" role="group" data-i18n-aria-label="works.detail.filter.heading" aria-label="Kendinize uygun siteyi bulup inceleyin">
-            <button type="button" class="works-filter-chip" disabled data-i18n="works.detail.filter.options.hairdresser">Kuaför</button>
-            <button type="button" class="works-filter-chip" disabled data-i18n="works.detail.filter.options.beauty">Güzellik &amp; Tırnak</button>
-            <button type="button" class="works-filter-chip" disabled data-i18n="works.detail.filter.options.legal">Hukuk</button>
-            <button type="button" class="works-filter-chip" disabled data-i18n="works.detail.filter.options.accounting">Mali Müşavirlik</button>
-          </div>
-
+        <!-- Hakkımızda sayfası — şimdilik nötr bir içerik iskeleti.
+             İÇERİK ALANLARI: her blok başlık + metinden oluşur. Gerçek içerik
+             geldiğinde metinler data/i18n/*.js > pages.about altından (5 dilde)
+             güncellenir; yeni blok eklemek için aşağıdaki <article> kopyalanıp
+             yeni bir anahtar verilir. Şimdilik doğrulanmamış hiçbir bilgi
+             (hikâye, deneyim, fiyat, süre vb.) eklenmedi. -->
+        <div class="page-blocks">
+          <article class="page-block" aria-labelledby="about-who">
+            <h2 class="page-block-title" id="about-who" data-i18n="pages.about.sections.who">Biz kimiz</h2>
+            <p data-i18n="pages.placeholder">Bu bölümün içeriği yakında eklenecek.</p>
+          </article>
+          <article class="page-block" aria-labelledby="about-approach">
+            <h2 class="page-block-title" id="about-approach" data-i18n="pages.about.sections.approach">Nasıl çalışıyoruz</h2>
+            <p data-i18n="pages.placeholder">Bu bölümün içeriği yakında eklenecek.</p>
+          </article>
+          <article class="page-block" aria-labelledby="about-values">
+            <h2 class="page-block-title" id="about-values" data-i18n="pages.about.sections.values">Neye önem veriyoruz</h2>
+            <p data-i18n="pages.placeholder">Bu bölümün içeriği yakında eklenecek.</p>
+          </article>
         </div>
+      </div>
+    </section>
 
-        <!-- 7 örnek/demo çalışma: bkz. components/worksDetail.js -->
-        <div class="work-detail-list" id="works-detail-list"></div>
-
+    <section class="section-invert page-cta" id="about-iletisim">
+      <div class="container">
+        <div class="section-header center">
+          <h2 data-i18n="pages.about.ctaHeading">Sorularınız mı var?</h2>
+          <p class="lede" data-i18n="pages.about.ctaLede">Bize iletişim kanallarımızdan veya Soru Sor formundan ulaşabilirsiniz.</p>
+        </div>
+        <div class="page-cta-actions">
+          <a class="btn btn-primary" href="index.html#iletisim" data-i18n="pages.about.ctaContact">İletişime geçin</a>
+          <a class="btn btn-secondary" href="index.html#paketler" data-i18n="pages.about.ctaPackages">Paketleri inceleyin</a>
+        </div>
       </div>
     </section>
 
@@ -167,6 +169,6 @@
     </div>
   </div>
 
-  <script type="module" src="js/worksPage.js"></script>
+  <script type="module" src="js/staticPage.js"></script>
 </body>
 </html>

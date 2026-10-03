@@ -50,6 +50,84 @@ section.section-invert,
   margin-bottom: var(--space-xs);
 }
 
+/* ---------- Oklu metin bağlantısı (.arrow-link) ----------
+   Ana sayfadaki "Tüm çalışmalarımızı inceleyin" ve "Hakkımızda daha fazla
+   bilgi edinin" bağlantılarının ortak görünümü:
+   - eyebrow/ikincil metinden daha koyu ve kalın (var(--color-text), 600),
+   - metnin sağında sağa bakan bir ok,
+   - hover ve klavye odağında, YALNIZCA metin genişliğinde (oka uzanmayan)
+     ve soldan sağa doğru oluşan bir alt çizgi.
+   Alt çizgi .arrow-link-label'ın ::after'ıdır; bu yüzden genişliği metinle
+   sınırlıdır. Hareket azaltma tercihinde (prefers-reduced-motion) çizgi
+   animasyonsuz görünür, ok da kaymaz. */
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text);
+  border-radius: 4px;
+}
+
+.arrow-link-label {
+  position: relative;
+}
+
+.arrow-link-label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1.5px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--transition-base);
+}
+
+.arrow-link:hover .arrow-link-label::after,
+.arrow-link:focus-visible .arrow-link-label::after {
+  transform: scaleX(1);
+}
+
+.arrow-link-icon {
+  width: 1.05em;
+  height: 1.05em;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.arrow-link:hover .arrow-link-icon,
+.arrow-link:focus-visible .arrow-link-icon {
+  transform: translateX(3px);
+}
+
+.arrow-link:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow-link-label::after,
+  .arrow-link-icon {
+    transition: none;
+  }
+
+  .arrow-link:hover .arrow-link-icon,
+  .arrow-link:focus-visible .arrow-link-icon {
+    transform: none;
+  }
+}
+
+/* Ana sayfa Çalışmalarımız bölümü: bağlantı artık eyebrow'un yanında değil,
+   bölüm başlığı ve açıklamasının altında, kendi satırında durur. */
+.works-view-all-link {
+  margin-top: var(--space-md);
+}
+
 h1, h2, h3, h4 {
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -79,6 +157,14 @@ p {
   font-size: clamp(1.05rem, 1.6vw, 1.25rem);
   color: var(--color-text-secondary);
   max-width: 560px;
+}
+
+/* Bölüm başlıklarında h2/h1 ile hemen altındaki açıklama (lede) arasında
+   hiç boşluk yoktu; iki satırlı başlıklarda metin başlığa yapışık
+   görünüyordu. Küçük, tutarlı bir aralık eklendi. */
+.section-header h2 + .lede,
+.section-header h1 + .lede {
+  margin-top: 0.75rem;
 }
 
 /* ---------- Butonlar ---------- */
@@ -219,6 +305,77 @@ p {
   color: var(--color-text);
 }
 
+/* "Çalışmalarımız" dropdown'u — lang-switch ile aynı görsel/etkileşim
+   dili (tetikleyici + aç/kapa menü), ancak menü öğeleri gerçek <a>
+   bağlantılardır (listbox/option semantiği gerekmez; bu standart bir
+   "disclosure/menü" düğmesi deseni). */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  padding: 0.4rem 0;
+  transition: color var(--transition-fast);
+}
+
+.nav-dropdown-trigger:hover,
+.nav-dropdown-trigger.is-active {
+  color: var(--color-text);
+}
+
+.nav-dropdown-chevron {
+  width: 12px;
+  height: 12px;
+  transition: transform var(--transition-fast);
+}
+
+.nav-dropdown.is-open .nav-dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 230px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-elevated);
+  padding: 0.35rem;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), transform var(--transition-fast),
+    visibility var(--transition-fast);
+  z-index: 10;
+}
+
+.nav-dropdown.is-open .nav-dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.nav-dropdown-menu li a {
+  display: block;
+  padding: 0.6rem 0.7rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--color-text);
+}
+
+.nav-dropdown-menu li a:hover {
+  background-color: var(--color-bg-elevated);
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -243,6 +400,17 @@ p {
 .icon-btn svg {
   width: 20px;
   height: 20px;
+}
+
+/* Footer'daki sosyal ikonlar için aynı pasif/inert durum (bkz.
+   .contact-card.is-pending yorumu). */
+.icon-btn.is-pending {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.icon-btn.is-pending:hover {
+  background-color: transparent;
 }
 
 /* Dil seçimi — şimdilik yalnızca "TR". Gerçek bir dil değiştirme
@@ -352,12 +520,6 @@ p {
   margin: 0;
 }
 
-.hero .lede {
-  max-width: 520px;
-  margin-inline: auto;
-  text-align: center;
-}
-
 /* 3 CTA, desktop/tablette tek satırda yan yana durur. Sütunlar sabit
    bir genişlikte (--hero-btn-width) tutulur, böylece buton genişliği
    yazı uzunluğuna göre değişmez; hepsi eşit boyutta ve eşit
@@ -404,10 +566,14 @@ p {
 }
 
 /* Paket kartları grid'i: sütun sayısı slider tarafından
-   --packages-per-view CSS değişkeni ile belirlenir. */
+   --packages-per-view CSS değişkeni ile belirlenir. Kart sayısı 3'ten
+   4'e çıkınca (bkz. data/packages.js) her kart daha dar kaldığı için
+   boşluk (gap) burada genel .grid varsayılanından (var(--space-md),
+   24px) biraz düşürüldü — kartlar yandan daha az "basık" görünsün diye. */
 .packages-grid {
   grid-template-columns: repeat(var(--packages-per-view, 3), 1fr);
   align-items: stretch;
+  gap: var(--space-sm);
 }
 
 .card {
@@ -435,6 +601,10 @@ p {
      en uzun CTA metnine sahip kart (ör. "Özel Proje") dar ekranlarda
      kendi hücresinden taşıp border'ı ekran/viewport dışına çıkarıyordu. */
   min-width: 0;
+  /* .card'ın varsayılan iç boşluğu (var(--space-lg), 40px) 4 kartla
+     birlikte dar kartları dikey olarak gereğinden fazla uzatıyordu;
+     burada daha dengeli/kare bir orana yaklaşsın diye düşürüldü. */
+  padding: var(--space-md);
 }
 
 .package-card .btn-block {
@@ -461,10 +631,42 @@ p {
   box-shadow: var(--shadow-elevated);
 }
 
+/* Kurumsal paket kartındaki "İletişime Geç" butonu her zaman siyah
+   zemin + beyaz yazı olmalı. Not: Paketler bölümü .section-invert
+   olduğundan, --color-accent/--color-accent-contrast burada normalde
+   TERS çevrilir (bkz. css/variables.css) ve bu buton .btn-primary
+   üzerinden otomatik olarak AÇIK zemin/KOYU yazıya dönerdi; bu kural
+   bilinçli olarak sabit (section-invert bağlamından bağımsız) siyah/beyaz
+   renkler kullanarak bunu geçersiz kılar. İnce beyaz kenarlık, buton
+   bölümün siyah zeminine karışıp kaybolmasın diye eklendi. */
+.package-card.is-highlighted .btn-primary {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+/* "Kendi projenizi anlatın / Fiyat alın" kartı: sabit fiyat/kapsamlı bir
+   paket gibi görünmemesi için kesikli kenarlık + saydam zemin kullanılır
+   (diğer paket kartlarının görünümüne dokunulmaz). Butonu da popup
+   açmaz, doğrudan proje anlatım sayfasına (projenizi-anlatin.html) bağlanan
+   gerçek bir <a> bağlantısıdır (bkz. components/packages.js > renderCard). */
+.package-card-cta {
+  border-style: dashed;
+  background-color: transparent;
+}
+
+/* Bu kartta özellik listesi olmadığından (yukarıdaki yorum), diğer
+   kartlardaki .package-features'ın sağladığı "flex-grow" boşluğu
+   burada yoktur; buton grid'de eşit yüksekliğe gerilmiş kartın en
+   altına yapışsın diye "margin-top:auto" ile aynı sonuç elde edilir. */
+.package-card-cta .package-contact-trigger-link {
+  margin-top: auto;
+}
+
 .package-badge {
   position: absolute;
   top: -13px;
-  left: var(--space-lg);
+  left: var(--space-md);
   background-color: var(--color-accent);
   color: var(--color-accent-contrast);
   font-size: 0.72rem;
@@ -488,7 +690,7 @@ p {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
   flex-grow: 1;
 }
 
@@ -560,8 +762,17 @@ p {
   cursor: default;
 }
 
+/* Not: yalnızca masaüstünde (bkz. components/packages.js >
+   updateControls() — has-single-page yalnızca tier==="desktop" iken
+   eklenir; tablette oklar bilinçli olarak görsel/işlevsel etkin
+   görünmeye devam eder, buna dokunulmadı) oklar tamamen kaldırılır.
+   Önceden yalnızca "visibility:hidden" kullanılıyordu; bu, görünmez
+   olsalar da genişliklerini (44px + aralarındaki boşluk) slider
+   satırında rezerve etmeye devam ediyor, kart grid'ine ayrılan alanı
+   gereksiz yere daraltıyordu. "display:none" ile bu alan tamamen
+   kartlara geri kazandırılır. */
 .packages-slider.has-single-page .slider-arrow {
-  visibility: hidden;
+  display: none;
 }
 
 .slider-dots {
@@ -718,32 +929,10 @@ p {
   margin-bottom: var(--space-lg);
 }
 
-.about-pillars {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-xl);
-  margin-top: var(--space-2xl);
-  padding-top: var(--space-2xl);
-  border-top: 1px solid var(--color-border);
-}
-
-.about-pillar-index {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-sm);
-}
-
-.about-pillar-title {
-  font-size: clamp(1.2rem, 1.7vw, 1.45rem);
-  margin-bottom: var(--space-sm);
-}
-
-.about-pillar p {
-  font-size: 0.98rem;
-  line-height: 1.65;
+/* Hakkımızda: about-intro'nun altında hakkimizda.html'e giden bağlantı.
+   Görünümü ortak .arrow-link'ten gelir; burada yalnızca konum boşluğu. */
+.about-more-link {
+  margin-top: var(--space-md);
 }
 
 /* ---------- SSS / Accordion ---------- */
@@ -962,6 +1151,24 @@ p {
 
 .contact-card:hover {
   text-decoration: none;
+}
+
+/* LinkedIn/GitHub gibi henüz gerçek bağlantısı girilmemiş kanallar:
+   "#" gibi sahte bir hedefe sahip çalışmayan bir bağlantı yerine,
+   href'siz bir <a role="link" aria-disabled="true"> olarak render edilir
+   (bkz. components/contact.js, data/contact.js > socialProfileUrls) —
+   tıklanamaz, tab sırasına girmez ve ekran okuyuculara devre dışı
+   bağlantı olarak bildirilir. Burada yalnızca görsel olarak "pasif" bir
+   görünüm (düşük opaklık + not-allowed imleci) eklenir; diğer kanalların
+   görünümüne dokunulmaz. */
+.contact-card.is-pending {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.contact-card.is-pending:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 /* İkon dairesi ve rengi, kartın koyulaşmasından önceki haliyle
@@ -1493,6 +1700,62 @@ p {
   font-style: italic;
 }
 
+/* ---------- Alt sayfalar (hakkimizda.html, projenizi-anlatin.html) ----------
+   Sade içerik sayfaları: ortalanmış bölüm başlığı (sitedeki diğer bölüm
+   başlıklarıyla aynı ölçü), altında başlık + metinden oluşan içerik
+   blokları ve koyu (.section-invert) bir iletişim çağrısı bandı. Yalnızca
+   mevcut token'lar (renk, boşluk, köşe) kullanılır. */
+
+/* Sayfanın tek h1'i, görsel olarak sitedeki h2 bölüm başlıklarıyla aynı
+   ölçüdedir (calismalarimiz.html ile tutarlı görünüm). */
+.page-title {
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  font-weight: 600;
+}
+
+.page-section .section-header .lede {
+  margin-inline: auto;
+}
+
+.page-blocks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+
+/* Etkileşimsiz içerik bloğu: .card ile aynı yüzey/kenarlık/köşe, ancak
+   tıklanabilir bir öğe gibi görünmesin diye hover efekti yoktur. */
+.page-block {
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+}
+
+.page-block-title {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-xs);
+}
+
+.page-block p {
+  font-size: 0.95rem;
+}
+
+.page-cta .section-header {
+  margin-bottom: var(--space-lg);
+}
+
+.page-cta .section-header .lede {
+  margin-inline: auto;
+}
+
+.page-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
 /* ---------- Yardımcı sınıflar ---------- */
 
 .text-center {
@@ -1506,6 +1769,28 @@ p {
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+/* "İçeriğe geç" (skip link) klavyeyle odaklandığında görünür olur;
+   aksi halde odak görünmez bir öğede kalıyordu. Yalnızca bağlantılar
+   için geçerlidir; görsel olarak gizli başlıklar/ipuçları etkilenmez. */
+a.visually-hidden:focus-visible {
+  position: fixed;
+  top: var(--space-xs);
+  left: var(--space-xs);
+  z-index: 200;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-size: 0.9rem;
+  font-weight: 600;
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 /* Not: scroll ile tetiklenen fade-in/reveal giriş animasyonu

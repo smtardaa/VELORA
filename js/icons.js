@@ -39,6 +39,8 @@ export const icons = {
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg>',
   linkedin:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5v6M8 7.8v.01M12 16.5v-3.8c0-1.2.9-2.2 2-2.2s2 1 2 2.2v3.8"/></svg>',
+  github:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-3.5 1-4-1.5-5.5-1.7"/><path d="M16.5 21v-2.6c0-.8-.3-1.3-.6-1.6 2-.2 4.1-1 4.1-4.4 0-1-.3-1.8-.9-2.5.1-.3.4-1.3-.1-2.6 0 0-1-.3-2.7.9a9 9 0 0 0-4.6 0C10 5 9 5.3 9 5.3c-.5 1.3-.2 2.3-.1 2.6-.6.7-.9 1.5-.9 2.5 0 3.4 2.1 4.2 4.1 4.4-.3.3-.5.7-.6 1.3v3.9"/></svg>',
   x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="m5 5 14 14M19 5 5 19"/></svg>',
   facebook:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 21v-7.5h2.5l.5-3H14V8.2c0-.9.3-1.5 1.6-1.5H17V4.2C16.7 4.1 15.8 4 14.8 4 12.6 4 11 5.3 11 7.8v2.7H8.5v3H11V21"/></svg>',

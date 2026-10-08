@@ -7,6 +7,16 @@ body {
   transition: background-color var(--transition-base), color var(--transition-base);
 }
 
+/* Ortak klavye odak halkası. Butonlar, bağlantılar ve tabindex'li öğeler
+   (ör. dil seçenekleri) tarayıcıdan tarayıcıya değişen varsayılan halka
+   yerine, .arrow-link ve dosya seçicide zaten kullanılan aynı odak rengini
+   (--color-focus) alır. :where() özgüllüğü sıfır tutar; böylece kendi odak
+   stilini tanımlayan bileşenler (form alanları, .arrow-link vb.) bunu ezer. */
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
 .container {
   width: 100%;
   max-width: var(--container-width);
@@ -280,6 +290,13 @@ p {
   width: auto;
 }
 
+/* 40px'lik masaüstü header'ında 36px'lik logonun üstünde yalnızca 2px
+   kalır; ortak odak halkasının 2px'lik dış boşluğu halkayı ekranın üst
+   kenarından taşırıyordu. Halka logoya bitişik çizilir. */
+.brand:focus-visible {
+  outline-offset: 0;
+}
+
 .main-nav {
   display: flex;
   align-items: center;
@@ -535,11 +552,18 @@ p {
   justify-content: center;
 }
 
+/* Yükseklik 44.18px olarak korunur; ancak sabit "height" + 11px dikey
+   dolgu, DE/IT gibi dillerde 3 satıra kırılan etiketlerin buton
+   kenarına taşmasına yol açıyordu. min-height + küçük dikey dolgu ile
+   1–3 satırlık etiketler aynı 44.18px'lik butona sığar; daha uzun bir
+   metin olursa buton taşmak yerine büyür (grid satırı üç butonu eşit
+   yükseklikte tutar). */
 .hero-actions .btn {
   width: 100%;
   justify-self: stretch;
-  height: 44.18px;
-  padding: 11px 21px;
+  min-height: 44.18px;
+  height: auto;
+  padding: 4px 21px;
   font-size: 0.68rem;
   white-space: normal;
   text-align: center;
@@ -867,7 +891,12 @@ p {
   height: 34px;
 }
 
+/* Kartlar slider'da eşit yüksekliğe gerildiği için gövde kalan alanı
+   doldurur ve "Projeyi İncele" bağlantısı kartın altına yaslanır; aksi
+   halde iki satıra kırılan bir proje adı, o karttaki bağlantıyı
+   komşularından daha aşağıda gösteriyordu. */
 .project-body {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -886,12 +915,20 @@ p {
 }
 
 .project-link {
+  margin-top: auto;
   font-size: 0.88rem;
   font-weight: 500;
   color: var(--color-text);
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
+}
+
+/* Kart, overflow:hidden olan slider viewport'unun tam yüksekliğini
+   kapladığından dışa taşan odak halkası üstten/alttan kırpılıyordu;
+   halka bu kartta kenarlığın içine çizilir. */
+.project-card:focus-visible {
+  outline-offset: -3px;
 }
 
 /* ---------- Hakkında ---------- */
@@ -997,6 +1034,14 @@ p {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-md);
+}
+
+/* Yan yana iki alandan birinin etiketi iki satıra kırıldığında (ör.
+   "Varsa Önceki Web Sitesinin Bağlantısı (opsiyonel)") o alanın kutusu
+   komşusundan aşağıda kalıyordu. Alan içeriği hücrenin altına yaslanır;
+   böylece giriş kutuları her zaman aynı hizada durur. */
+.form-row > .field {
+  justify-content: flex-end;
 }
 
 .field {
@@ -1121,19 +1166,21 @@ p {
 /* ---------- İletişim ---------- */
 
 /* İletişim kartları: grid yerine flexbox + justify-content:center
-   kullanılır. Böylece 7 kart desktop'ta 4 + 3 şeklinde dizilir ve son
-   sıradaki 3 kart sola yaslanmak yerine ortalanır. */
+   kullanılır; eksik kalan son sıra sola yaslanmak yerine ortalanır.
+   Kanal sayısı 9 olduğundan masaüstü/tablette 3 sütun kullanılır (3 × 3);
+   önceki 4 sütunlu düzen 4 + 4 + 1 dizilip son satırda tek bir kart
+   bırakıyordu. */
 .contact-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-md);
-  max-width: 980px;
+  max-width: 860px;
   margin-inline: auto;
 }
 
 .contact-card {
-  flex: 0 1 calc((100% - 3 * var(--space-md)) / 4);
+  flex: 0 1 calc((100% - 2 * var(--space-md)) / 3);
   min-width: 190px;
   display: flex;
   flex-direction: column;
@@ -1275,6 +1322,8 @@ p {
 
 .footer-social {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-xs);
 }
 
@@ -1541,10 +1590,13 @@ p {
   color: var(--color-text-secondary);
 }
 
+/* Projeler arasındaki ayırıcı çizginin üstünde (gap) ve altında
+   (.work-detail padding-top) eşit boşluk kalır; önceden üstte 128px,
+   altta 96px olduğundan çizgi bir sonraki projeye yapışık görünüyordu. */
 .work-detail-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3xl);
+  gap: var(--space-2xl);
 }
 
 .work-detail {

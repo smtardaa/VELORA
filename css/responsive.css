@@ -16,11 +16,6 @@
     --header-height: 72px;
   }
 
-  /* İletişim kartları: 2 sütun (son sırada tek kart varsa ortalanır) */
-  .contact-card {
-    flex: 0 1 calc((100% - var(--space-md)) / 2);
-  }
-
   section {
     padding-block: var(--space-2xl);
   }
@@ -54,6 +49,17 @@
 @media (min-width: 481px) and (max-width: 640px) {
   .packages-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* İletişim kartları: 3 sütun (masaüstü/tablet) bu genişlikte kartları
+   ~170px'e sıkıştırdığı için 2 sütuna geçilir (son sırada tek kart
+   varsa ortalanır). min-width sıfırlanır; aksi halde 481–500px
+   arasında 190px'lik alt sınır kartları tek sütuna düşürüyordu. */
+@media (max-width: 640px) {
+  .contact-card {
+    flex: 0 1 calc((100% - var(--space-md)) / 2);
+    min-width: 0;
   }
 }
 
@@ -140,9 +146,12 @@
     max-height: 160px;
   }
 
+  /* Masaüstü panelinden gelen yuvarlak köşe (border-radius) burada
+     kaldırılır; aksi halde alt çizgilerin uçları kıvrık görünüyordu. */
   .nav-dropdown-menu li a {
     padding-left: var(--space-md);
     font-size: 0.98rem;
+    border-radius: 0;
   }
 }
 
@@ -152,10 +161,12 @@
     grid-template-columns: 1fr;
   }
 
-  /* Projenizi Anlatın formu: tek sütuna düşünce satır boşluğu (gap) ile
-     alanların kendi alt boşluğu üst üste binip alanlar arasında iki kat
-     boşluk oluşuyordu; bu formda yalnızca alanların kendi boşluğu kalır. */
-  .brief-form .form-row {
+  /* Formlar tek sütuna düşünce satır boşluğu (gap) ile alanların kendi
+     alt boşluğu üst üste binip alanlar arasında iki kat boşluk
+     oluşuyordu; yalnızca alanların kendi boşluğu kalır. Önceden yalnızca
+     Projenizi Anlatın formunda düzeltilmişti; Soru Sor formunda (Ad ↔
+     Soyad, Şirket ↔ Bağlantı, Bütçe ↔ İhtiyaç) aynı fazla boşluk vardı. */
+  .form-row {
     gap: 0;
   }
 
@@ -173,8 +184,12 @@
      olduğundan (ekran okuyucular önce metni duyar); mobilde ise sitedeki
      diğer proje kartlarıyla (görsel üstte) tutarlı olması için görsel,
      yalnızca GÖRSEL OLARAK "order" ile bilginin üstüne alınır. */
+  /* Tek sütunda masaüstündeki 96px'lik sütun aralığı görsel ile kendi
+     proje başlığı arasına giriyordu; görsel bir önceki projeye ait gibi
+     duruyordu. Görsel ile bilgi bloğu arasındaki boşluk daraltılır. */
   .work-detail {
     grid-template-columns: 1fr;
+    gap: var(--space-lg);
   }
 
   .work-detail-visual {
@@ -211,6 +226,7 @@
        sabit kompakt yükseklik (44.18px) yerine mevcut mobil davranış
        (otomatik yükseklik) korunur. */
     width: 100%;
+    min-height: 0;
     height: auto;
     padding: 0.75rem 1.25rem;
     font-size: 0.88rem;
@@ -244,7 +260,12 @@
     padding-top: 8vh;
   }
 
-  /* İletişim kartları: mobilde tek sütun */
+  /* İletişim kartları: mobilde tek sütun. 9 kanal alt alta geldiğinden
+     kartlar arası boşluk biraz daraltılır; bölüm gereksiz uzamaz. */
+  .contact-grid {
+    gap: var(--space-sm);
+  }
+
   .contact-card {
     flex: 1 1 100%;
     max-width: 320px;
@@ -269,10 +290,6 @@
     height: 16px;
   }
 
-  .work-detail-list {
-    gap: var(--space-2xl);
-  }
-
   .works-filter-chips {
     gap: 0.5rem;
   }
@@ -293,5 +310,12 @@
 
   .form-card {
     padding: var(--space-md);
+  }
+
+  /* 7 sosyal ikon (7 × 40px + 6 boşluk) 320px genişlikte satıra
+     sığmayıp sayfada yatay kaydırma oluşturuyordu; ikonlar arası boşluk
+     kaldırılır (40px'lik dokunma alanları korunur). */
+  .footer-social {
+    gap: 0;
   }
 }

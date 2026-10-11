@@ -113,9 +113,9 @@ function applyMeta() {
 
   // Varsayılan olarak "meta.title" / "meta.description" kullanılır
   // (index.html'in bugüne kadarki davranışı — geriye dönük uyumlu).
-  // Yeni bir sayfa (ör. calismalarimiz.html) <html> etiketine
+  // Açık bir tam ekran görünüm (js/viewRouter.js) <html> etiketine
   // data-i18n-meta-title / data-i18n-meta-description ekleyerek kendi
-  // sayfasına özgü başlık/açıklama anahtarlarını belirtebilir.
+  // başlık/açıklama anahtarlarını belirtir; görünüm kapanınca kaldırılır.
   const titleKey = document.documentElement.getAttribute("data-i18n-meta-title") || "meta.title";
   const descriptionKey =
     document.documentElement.getAttribute("data-i18n-meta-description") || "meta.description";
@@ -123,6 +123,13 @@ function applyMeta() {
   document.title = t(titleKey);
   const metaDescription = document.querySelector('meta[name="description"]');
   if (metaDescription) metaDescription.setAttribute("content", t(descriptionKey));
+}
+
+// Açık görünüm değişince (js/viewRouter.js <html> etiketinin
+// data-i18n-meta-* özniteliklerini güncelledikten sonra) sekme başlığını ve
+// meta açıklamasını mevcut dilde yeniden uygular.
+export function refreshMeta() {
+  applyMeta();
 }
 
 function applyAll() {

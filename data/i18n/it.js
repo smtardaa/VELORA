@@ -49,6 +49,7 @@ export const it = {
     lede: "Una selezione di siti che abbiamo realizzato per brand di settori diversi.",
     prevAriaLabel: "Progetto precedente",
     nextAriaLabel: "Progetto successivo",
+    dotAriaLabel: "Vai al progetto {n}",
     viewProject: "Scopri il progetto",
     projectAriaLabel: "Scopri il progetto {name}",
     categories: {
@@ -160,32 +161,52 @@ export const it = {
     heading: "Pacchetti su misura per le tue esigenze",
     lede: "Scegliamo insieme il pacchetto più adatto: bastano poche informazioni e ti prepariamo un preventivo chiaro.",
     deliveryNote: "Tempi di consegna per tutti i pacchetti: 5 giorni lavorativi",
-    prevAriaLabel: "Pacchetti precedenti",
-    nextAriaLabel: "Pacchetti successivi",
-    dotAriaLabel: "Gruppo di pacchetti {n}",
+    priceLabel: "Prezzo di partenza",
+    includesLabel: "Incluso nel pacchetto",
+    extrasLabel: "Non incluso / quotato a parte",
+    pricingNote: "I prezzi indicati sono prezzi di partenza; il prezzo finale viene definito dopo aver chiarito insieme il perimetro del progetto. Dominio, hosting e costi di servizi di terze parti non sono inclusi nei pacchetti.",
+    custom: {
+      examplesLabel: "Esempi che possiamo valutare come richiesta personalizzata",
+      priceText: "Il prezzo viene definito una volta chiarito il perimetro"
+    },
     items: {
       "tek-sayfa": {
         name: "Pagina Singola",
-        description: "Un sito essenziale in un'unica pagina che presenta chiaramente il tuo brand e i tuoi servizi.",
-        features: ["Design personalizzato a pagina singola", "Layout completamente responsive", "Impostazioni SEO essenziali"],
+        audience: "Per piccole attività e per chi offre un servizio principale",
+        description: "Un sito di presentazione che racconta la tua attività, il tuo servizio e come contattarti in un'unica pagina ordinata.",
+        features: ["Pagina singola con design su misura", "Sezioni servizi, chi siamo e contatti", "Link a WhatsApp, telefono ed e-mail", "Ottimizzato per smartphone, tablet e desktop", "Impostazioni SEO di base"],
+        extras: ["Pagine aggiuntive", "Testi e fotografia professionale", "Costi di dominio e hosting"],
         cta: "Contattaci"
       },
       kurumsal: {
         name: "Aziendale",
-        description: "Un sito professionale multi-pagina che riflette l'identità della tua azienda.",
-        features: ["Design personalizzato fino a 5 pagine", "Configurazione SEO avanzata", "Aggiornamento contenuti semplice"],
+        audience: "Per le attività che vogliono presentarsi in modo più completo",
+        description: "Un sito aziendale multipagina che presenta i tuoi servizi, la tua storia e i tuoi contatti in pagine dedicate.",
+        features: ["Design su misura fino a 5 pagine", "Layout dedicato per i servizi", "Pagina sede e contatti", "Ottimizzato per smartphone, tablet e desktop", "Impostazioni SEO di base"],
+        extras: ["Pannello di gestione dei contenuti", "Più lingue", "Testi e fotografia professionale", "Costi di dominio e hosting"],
         cta: "Contattaci"
       },
-      "ozel-proje": {
-        name: "Progetto Personalizzato",
-        description: "Una soluzione flessibile ed espandibile, pianificata su misura per le tue esigenze.",
-        features: ["Ambito su misura per le tue esigenze", "Pagine e funzionalità flessibili", "Consulenza prioritaria"],
+      "randevu-menu": {
+        name: "Prenotazioni e Menu",
+        audience: "Per attività locali come parrucchieri, centri estetici e nail studio, caffè e ristoranti",
+        description: "Un sito che presenta in modo ordinato servizi e prezzi o il tuo menu e guida i visitatori al canale giusto per prenotare o contattarti.",
+        features: ["Pagina servizi/prezzi o menu", "Richiesta di appuntamento via WhatsApp e telefono", "Link allo strumento di prenotazione che già usi (se presente)", "Indirizzo, orari e contatti", "Design pensato prima per il mobile"],
+        extras: ["Sistema di prenotazione online in tempo reale", "Ordini e pagamenti online", "Costi di dominio e hosting"],
+        cta: "Contattaci"
+      },
+      "e-ticaret": {
+        name: "E-commerce",
+        audience: "Per le attività che vogliono vendere i propri prodotti online",
+        description: "Un design di negozio che presenta in modo ordinato il tuo catalogo, pianificato in base alla piattaforma e-commerce che verrà scelta.",
+        features: ["Design della home page del negozio", "Layout di categorie e schede prodotto", "Negozio ottimizzato per il mobile", "Canali di contatto per domande prima dell'ordine"],
+        extras: ["Piattaforma e-commerce / licenza", "Integrazioni di pagamento (POS virtuale), spedizione e magazzino", "Collegamenti ai marketplace", "Inserimento massivo dei prodotti e fotografia prodotto", "Costi di dominio e hosting"],
         cta: "Contattaci"
       },
       "proje-anlatin": {
-        name: "Raccontaci il tuo progetto / Richiedi un preventivo",
-        description: "Condividi l'ambito del tuo progetto: insieme definiremo la soluzione e il prezzo più adatti.",
-        cta: "Raccontacelo ora"
+        name: "Raccontaci il tuo progetto",
+        description: "Se le tue esigenze non rientrano nei pacchetti standard, raccontaci il tuo progetto: prima definiamo insieme il perimetro, poi stabiliamo il prezzo.",
+        examples: ["Strutture di pagina e percorsi utente su misura", "Integrazioni aggiuntive", "Più lingue", "Altre esigenze che non rientrano nei pacchetti"],
+        cta: "Raccontaci il tuo progetto"
       }
     }
   },
@@ -329,6 +350,12 @@ export const it = {
       faq: "FAQ",
       ask: "Fai una domanda"
     },
+    groups: {
+      pages: "Pagine",
+      quickLinks: "Accesso rapido",
+      contact: "Contattaci"
+    },
+    allChannels: "Tutti i canali di contatto",
     rightsReserved: "Tutti i diritti riservati."
   },
 
@@ -447,6 +474,10 @@ export const it = {
     }
   },
 
+  views: {
+    backHome: "Torna alla home",
+    currentLabel: "Vista attuale:"
+  },
   misc: {
     logoAlt: "Logo VELORA"
   }

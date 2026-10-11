@@ -10,7 +10,7 @@ import { t, getLang, onLanguageChange } from "../js/i18n.js";
 // çağırarak dizini günceller.
 //
 // Not: Paketler (#paketler) ve SSS (#sss) bölümleri yalnızca index.html
-// üzerinde bulunur. Bu bileşen calismalarimiz.html gibi başka bir
+// üzerinde bulunur. (Tek sayfa yapısında önek her zaman boştur.) Bu bileşen başka bir
 // sayfada da çalıştığı için hedefler o sayfada mevcut olup olmadığına
 // göre "index.html#..." ile öneklenir; ana sayfada davranış değişmez.
 function buildSearchIndex() {

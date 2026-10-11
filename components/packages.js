@@ -1,320 +1,159 @@
-// components/packages.js — Paketler bölümü: toplam paket sayısı kadar
-// (sabit "3" değil, bkz. getCardsPerView()) kart aynı anda gösterilir;
-// "sonsuz kaydırma" yalnızca mobilde anlamlıdır.
+// components/packages.js — Paketler bölümü (yalnızca index.html).
 //
-// Davranış (kesin):
-//  - Desktop  (>1024px) : tüm paketler aynı anda, düz bir ızgara gibi —
-//    ok, pagination ve swipe YOKTUR, tamamen statik görünür (paket
-//    sayısı değiştiğinde de bu davranış korunur).
-//  - Tablet   (481-1024): tüm paketler aynı anda görünmeye devam eder,
-//    ancak ok ve dokunmatik kaydırma kontrolleri görsel olarak etkin
-//    kalır (yalnızca tek sayfa olduğundan gerçekte kaydırılacak ikinci
-//    bir sayfa yoktur; bu nedenle tıklama/kaydırma sessizce hiçbir şeyi
-//    değiştirmez, ancak arayüz devre dışı görünmez).
-//  - Mobile   (<=480px) : aynı anda 1 kart -> 1 / 2 / 3 / 4 / 1 / ...
-//    (sonsuz); ok, swipe ve pagination noktaları tam işlevseldir.
+// Yapı: 4 fiyatlı paket kartı + standart paketlere uymayan talepler için
+// ayrı, fiyatsız bir "Kendi Projenizi Anlatın" kartı. Kartlar statik bir
+// ızgarada gösterilir (masaüstü 4 sütun, tablet 2 sütun, mobil tek sütun;
+// 5. kart her zaman tam genişlikte, ızgaranın altında). Önceki paket
+// slider'ı (oklar/noktalar) kaldırıldı: 5 kartın içeriği (fiyat, dahil
+// olanlar, dahil olmayanlar) yan yana karşılaştırılabilsin ve kartlar
+// kaydırma sırasında sırayla görünebilsin diye.
 //
-// Sonsuzluk (mobilde), ilk ve son grubun birer "klon"unu track'in
-// başına/sonuna ekleyip sınıra ulaşınca (kullanıcı fark etmeden)
-// animasyonsuz bir şekilde gerçek gruba geri sarmakla (classic
-// clone-carousel tekniği) sağlanır. Otomatik oynatma YOKTUR: yalnızca
-// ok ve swipe ile hareket eder.
+// Görünme animasyonu: kartlar ekrana girdikçe 1., 2., 3., 4. (ve 5.) sırayla
+// kısa bir opaklık/kayma geçişiyle görünür. Hareketi azaltma tercihi
+// (prefers-reduced-motion) açıksa veya IntersectionObserver yoksa kartlar
+// doğrudan görünür durumda çizilir — hiçbir içerik gizli kalmaz.
 
-import { packagesData } from "../data/packages.js";
+import { packagesData, priceCurrencyLabel } from "../data/packages.js";
 import { icon } from "../js/icons.js";
-import { debounce, escapeHtml } from "../js/utils.js";
-import { t, onLanguageChange } from "../js/i18n.js";
+import { escapeHtml } from "../js/utils.js";
+import { t, getLang, onLanguageChange } from "../js/i18n.js";
 import { openPackageContactModal } from "./packageContactModal.js";
 
-// Paket verisinin çevrilebilir kısımları (isim/açıklama/özellikler/CTA)
-// data/i18n/*.js içinde "packages.items.<id>" altında tutulur; sabit
-// alanlar (id, highlighted) yalnızca data/packages.js'ten gelir.
+const NUMBER_LOCALES = { tr: "tr-TR", en: "en-US", de: "de-DE", fr: "fr-FR", it: "it-IT" };
+const REVEAL_STEP_MS = 110;
+
+// Paket verisinin çevrilebilir kısımları data/i18n/*.js > packages.items.<id>
+// altındadır; yapısal alanlar (id, startingPrice, highlighted, ctaHref)
+// yalnızca data/packages.js'ten gelir.
 function getTranslatedPackages() {
-  return packagesData.map((pkg) => ({ ...pkg, ...t(`packages.items.${pkg.id}`) }));
+  return packagesData.map((pkg) => ({ ...t(`packages.items.${pkg.id}`), ...pkg }));
 }
 
-function getViewportTier() {
-  const width = window.innerWidth;
-  if (width <= 480) return "mobile";
-  if (width <= 1024) return "tablet";
-  return "desktop";
+function formatPrice(value) {
+  const locale = NUMBER_LOCALES[getLang()] || "tr-TR";
+  return new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(value);
 }
 
-function getCardsPerView() {
-  // Tablet ve desktop'ta toplam paket sayısı kadar sütun kullanılır
-  // (sabit "3" değil — paket sayısı değişse de her zaman tamamı aynı
-  // anda tek satırda görünür); yalnızca mobilde tek kart gösterilir.
-  return getViewportTier() === "mobile" ? 1 : packagesData.length;
-}
-
-function chunk(array, size) {
-  const result = [];
-  for (let i = 0; i < array.length; i += size) {
-    result.push(array.slice(i, i + size));
-  }
-  return result;
-}
-
-function renderCard(pkg) {
-  // "proje-anlatin" gibi "ctaHref" alanı olan kartlar sabit fiyatlı/kapsamlı
-  // bir paket DEĞİLDİR: özellik listesi gösterilmez (data/i18n/*.js >
-  // packages.items.proje-anlatin kasıtlı olarak "features" içermez) ve
-  // butonu, diğer kartlardaki iletişim popup'ını açan <button> yerine,
-  // doğrudan ilgili sayfaya giden gerçek bir <a> bağlantısıdır.
-  const featuresMarkup =
-    pkg.features && pkg.features.length
-      ? `
-        <ul class="package-features">
-          ${pkg.features
-            .map((feature) => `<li>${icon("check")}<span>${escapeHtml(feature)}</span></li>`)
-            .join("")}
-        </ul>
-      `
-      : "";
-
-  const ctaMarkup = pkg.ctaHref
-    ? `<a class="btn btn-secondary btn-block package-contact-trigger-link" href="${escapeHtml(pkg.ctaHref)}">${escapeHtml(pkg.cta)}</a>`
-    : `<button type="button" class="btn ${pkg.highlighted ? "btn-primary" : "btn-secondary"} btn-block package-contact-trigger" data-package-name="${escapeHtml(pkg.name)}">
-        ${escapeHtml(pkg.cta)}
-      </button>`;
-
+function renderList(items, className, iconName) {
+  if (!Array.isArray(items) || !items.length) return "";
   return `
-    <article class="card package-card${pkg.highlighted ? " is-highlighted" : ""}${pkg.ctaHref ? " package-card-cta" : ""}">
-      ${pkg.badge ? `<span class="package-badge">${escapeHtml(pkg.badge)}</span>` : ""}
-      <h3 class="package-name">${escapeHtml(pkg.name)}</h3>
+    <ul class="${className}">
+      ${items
+        .map((item) => `<li>${iconName ? icon(iconName) : '<span class="package-dash" aria-hidden="true"></span>'}<span>${escapeHtml(item)}</span></li>`)
+        .join("")}
+    </ul>
+  `;
+}
+
+function renderPricedCard(pkg, order) {
+  const headingId = `package-${pkg.id}-name`;
+  return `
+    <article class="package-card${pkg.highlighted ? " is-highlighted" : ""}" data-order="${order}" aria-labelledby="${headingId}">
+      <div class="package-head">
+        <h3 class="package-name" id="${headingId}">${escapeHtml(pkg.name)}</h3>
+        <p class="package-audience">${escapeHtml(pkg.audience)}</p>
+      </div>
+      <p class="package-price">
+        <span class="package-price-label">${escapeHtml(t("packages.priceLabel"))}</span>
+        <span class="package-price-value">${escapeHtml(formatPrice(pkg.startingPrice))}<span class="package-price-currency"> ${escapeHtml(priceCurrencyLabel)}</span></span>
+      </p>
       <p class="package-description">${escapeHtml(pkg.description)}</p>
-      ${featuresMarkup}
-      ${ctaMarkup}
+      <div class="package-list-group">
+        <p class="package-list-title">${escapeHtml(t("packages.includesLabel"))}</p>
+        ${renderList(pkg.features, "package-features", "check")}
+      </div>
+      <div class="package-list-group package-list-group-extras">
+        <p class="package-list-title">${escapeHtml(t("packages.extrasLabel"))}</p>
+        ${renderList(pkg.extras, "package-extras")}
+      </div>
+      <button type="button" class="btn ${pkg.highlighted ? "btn-primary" : "btn-secondary"} btn-block package-contact-trigger" data-package-name="${escapeHtml(pkg.name)}">
+        ${escapeHtml(pkg.cta)}
+      </button>
     </article>
   `;
 }
 
-function renderPageHtml(pageItems, cardsPerView) {
+// Standart paketlere uymayan özel talepler kartı: fiyat göstermez, örnek
+// listesi yalnızca "değerlendirilebilecek" konulardır ve buton popup
+// açmak yerine Projenizi Anlatın görünümünü (#/projenizi-anlatin) açan
+// gerçek bir bağlantıdır.
+function renderCustomCard(pkg, order) {
+  const headingId = `package-${pkg.id}-name`;
   return `
-    <div class="slider-page">
-      <div class="grid packages-grid" style="--packages-per-view:${cardsPerView}">
-        ${pageItems.map(renderCard).join("")}
+    <article class="package-card package-card-custom" data-order="${order}" aria-labelledby="${headingId}">
+      <div class="package-custom-main">
+        <h3 class="package-name" id="${headingId}">${escapeHtml(pkg.name)}</h3>
+        <p class="package-description">${escapeHtml(pkg.description)}</p>
+        <p class="package-custom-price">${escapeHtml(t("packages.custom.priceText"))}</p>
       </div>
-    </div>
+      <div class="package-custom-examples">
+        <p class="package-list-title">${escapeHtml(t("packages.custom.examplesLabel"))}</p>
+        ${renderList(pkg.examples, "package-examples")}
+      </div>
+      <a class="btn btn-secondary package-contact-trigger-link" href="${escapeHtml(pkg.ctaHref)}">${escapeHtml(pkg.cta)}</a>
+    </article>
   `;
 }
 
-export function initPackagesSlider({ sliderEl, trackEl, prevBtn, nextBtn, dotsEl }) {
-  if (!sliderEl || !trackEl || !prevBtn || !nextBtn || !dotsEl) return;
+export function initPackages({ gridEl }) {
+  if (!gridEl) return;
 
-  let cardsPerView = getCardsPerView();
-  let realPages = chunk(getTranslatedPackages(), cardsPerView);
-  let pageCount = realPages.length;
-  // extendedPages = [son grubun klonu, ...gerçek gruplar, ilk grubun klonu]
-  let extendedPages = [];
-  // currentIndex, extendedPages içindeki konumu gösterir. Gerçek gruplar
-  // her zaman [1, pageCount] aralığında; 0 ve pageCount+1 klonlardır.
-  let currentIndex = 1;
-  let isAnimating = false;
+  // Görünür hale gelmiş kartların sırası; dil değişiminde kartlar yeniden
+  // çizildiğinde zaten görünmüş olanlar tekrar gizlenmez.
+  const revealedOrders = new Set();
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const canReveal = "IntersectionObserver" in window && !reduceMotion.matches;
+  let observer = null;
 
-  function buildExtended() {
-    extendedPages = pageCount > 1
-      ? [realPages[pageCount - 1], ...realPages, realPages[0]]
-      : [...realPages];
-    currentIndex = pageCount > 1 ? 1 : 0;
+  function reveal(card, delayMs) {
+    card.style.setProperty("--reveal-delay", `${delayMs}ms`);
+    card.classList.add("is-revealed");
+    revealedOrders.add(card.dataset.order);
+    // Gecikme yalnızca giriş animasyonu içindir; sonrasında hover
+    // geçişleri gecikmesiz çalışsın diye temizlenir.
+    window.setTimeout(() => card.style.removeProperty("--reveal-delay"), delayMs + 600);
   }
 
-  function renderTrack() {
-    trackEl.innerHTML = extendedPages
-      .map((pageItems) => renderPageHtml(pageItems, cardsPerView))
-      .join("");
-  }
-
-  function renderDots() {
-    dotsEl.innerHTML = realPages
-      .map(
-        (_, index) => `
-          <button class="slider-dot" type="button" data-page="${index}" aria-label="${escapeHtml(t("packages.dotAriaLabel").replace("{n}", String(index + 1)))}"></button>
-        `
-      )
-      .join("");
-  }
-
-  function activeRealIndex() {
-    if (pageCount <= 1) return 0;
-    return ((currentIndex - 1) % pageCount + pageCount) % pageCount;
-  }
-
-  function setTransform(withTransition) {
-    trackEl.style.transition = withTransition ? "" : "none";
-    trackEl.style.transform = `translateX(-${currentIndex * 100}%)`;
-    if (!withTransition) {
-      // Reflow zorlayarak "transition:none" değişikliğinin hemen
-      // uygulanmasını sağla, sonra transition'ı tekrar aç.
-      // eslint-disable-next-line no-unused-expressions
-      trackEl.offsetHeight;
-      trackEl.style.transition = "";
-    }
-  }
-
-  function updateControls() {
-    const active = activeRealIndex();
-    dotsEl.querySelectorAll(".slider-dot").forEach((dot, index) => {
-      dot.classList.toggle("is-active", index === active);
-      dot.setAttribute("aria-current", index === active ? "true" : "false");
-    });
-
-    const hasMultiplePages = pageCount > 1;
-    const tier = getViewportTier();
-
-    // Masaüstünde gerçekten tek sayfa varsa (3 paket, 3'lü ızgara)
-    // slider tamamen düz bir ızgaraya döner: ok tamamen gizlenir ve
-    // devre dışı bırakılır. Tablette ise — 3 kart aynı anda görünse
-    // bile — ok ve dokunmatik kaydırma kontrolleri görsel/işlevsel
-    // olarak etkin görünmeye devam eder (istenen davranış); pratikte
-    // kaydırılacak ikinci bir sayfa olmadığından bir etkisi olmaz.
-    const hideArrows = !hasMultiplePages && tier === "desktop";
-    sliderEl.classList.toggle("has-single-page", hideArrows);
-    prevBtn.disabled = tier === "desktop" ? !hasMultiplePages : false;
-    nextBtn.disabled = tier === "desktop" ? !hasMultiplePages : false;
-
-    // Pagination noktaları, gerçekten birden fazla sayfa olmadığı
-    // sürece (tier fark etmeksizin) gösterilmez — tek sayfa için tek
-    // bir nokta göstermenin anlamı yoktur.
-    dotsEl.style.display = hasMultiplePages ? "" : "none";
-  }
-
-  function goTo(direction) {
-    if (isAnimating || pageCount <= 1) return;
-    isAnimating = true;
-    currentIndex += direction;
-    setTransform(true);
-    updateControls();
-  }
-
-  function goToRealPage(index) {
-    if (isAnimating || pageCount <= 1) return;
-    isAnimating = true;
-    currentIndex = index + 1;
-    setTransform(true);
-    updateControls();
-  }
-
-  trackEl.addEventListener("transitionend", (event) => {
-    // event.target === trackEl kontrolü önemli: aksi halde, kart
-    // içindeki iletişim butonunun kendi ":active" transform geçişi
-    // (tıklanma efekti) buraya "bubbling" ile ulaşıp track'i yanlışlıkla
-    // sonraki sayfaya kaydırabilir.
-    if (event.target !== trackEl || event.propertyName !== "transform") return;
-    isAnimating = false;
-
-    if (currentIndex >= extendedPages.length - 1) {
-      currentIndex = 1;
-      setTransform(false);
-    } else if (currentIndex <= 0) {
-      currentIndex = pageCount;
-      setTransform(false);
-    }
-    updateControls();
-  });
-
-  function rebuild() {
-    const oldCardsPerView = cardsPerView;
-    const firstVisibleItemIndex = activeRealIndex() * oldCardsPerView;
-
-    cardsPerView = getCardsPerView();
-    realPages = chunk(getTranslatedPackages(), cardsPerView);
-    pageCount = realPages.length;
-    buildExtended();
-
-    const newPageIndex = Math.max(
-      0,
-      Math.min(Math.floor(firstVisibleItemIndex / cardsPerView), pageCount - 1)
+  if (canReveal) {
+    gridEl.classList.add("is-reveal-ready");
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries
+          .filter((entry) => entry.isIntersecting)
+          .map((entry) => entry.target)
+          .sort((a, b) => Number(a.dataset.order) - Number(b.dataset.order))
+          .forEach((card, index) => {
+            reveal(card, index * REVEAL_STEP_MS);
+            observer.unobserve(card);
+          });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -6% 0px" }
     );
-    currentIndex = pageCount > 1 ? newPageIndex + 1 : 0;
-
-    renderTrack();
-    renderDots();
-    setTransform(false);
-    updateControls();
   }
 
-  // Dil değiştiğinde: kart sayısı/sayfa yapısı aynı kalır (yalnızca
-  // içerik metni değişir), bu yüzden görünen sayfa konumu korunarak
-  // yalnızca içerik yeniden çizilir — ok/nokta/touch olay dinleyicileri
-  // burada tekrar bağlanmaz (aşağıda yalnızca bir kez bağlanır).
-  function refreshContent() {
-    const activeIndexBeforeRefresh = activeRealIndex();
-    realPages = chunk(getTranslatedPackages(), cardsPerView);
-    pageCount = realPages.length;
-    buildExtended();
-    currentIndex = pageCount > 1 ? activeIndexBeforeRefresh + 1 : 0;
-    renderTrack();
-    renderDots();
-    setTransform(false);
-    updateControls();
+  function render() {
+    if (observer) observer.disconnect();
+
+    gridEl.innerHTML = getTranslatedPackages()
+      .map((pkg, index) => (pkg.ctaHref ? renderCustomCard(pkg, index) : renderPricedCard(pkg, index)))
+      .join("");
+
+    if (!observer) return;
+    gridEl.querySelectorAll(".package-card").forEach((card) => {
+      if (revealedOrders.has(card.dataset.order)) card.classList.add("is-revealed");
+      else observer.observe(card);
+    });
   }
 
-  prevBtn.addEventListener("click", () => goTo(-1));
-  nextBtn.addEventListener("click", () => goTo(1));
-
-  dotsEl.addEventListener("click", (event) => {
-    const dot = event.target.closest(".slider-dot");
-    if (!dot) return;
-    goToRealPage(Number(dot.dataset.page));
-  });
-
-  // Paket kartındaki iletişim butonu artık #iletisim'e yönlendirmez;
-  // seçilen pakete göre içeriği değişen popup'ı açar. Kartlar dil
-  // değişiminde / sayfa yeniden çiziminde yeniden oluşturulduğu için
-  // dinleyici, hiç değişmeyen trackEl üzerinde tek seferlik olay
-  // delegasyonu ile bağlanır.
-  trackEl.addEventListener("click", (event) => {
+  // Paket kartındaki iletişim butonu seçilen pakete göre içeriği değişen
+  // popup'ı açar. Kartlar yeniden çizildiği için dinleyici, hiç
+  // değişmeyen gridEl üzerinde tek seferlik olay delegasyonu ile bağlanır.
+  gridEl.addEventListener("click", (event) => {
     const trigger = event.target.closest(".package-contact-trigger");
     if (!trigger) return;
     openPackageContactModal(trigger.dataset.packageName);
   });
 
-  sliderEl.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight") goTo(1);
-    if (event.key === "ArrowLeft") goTo(-1);
-  });
-
-  // Touch / swipe desteği (mobil ve dokunmatik trackpad'ler için).
-  let touchStartX = null;
-  const SWIPE_THRESHOLD = 40;
-
-  trackEl.addEventListener(
-    "touchstart",
-    (event) => {
-      touchStartX = event.touches[0].clientX;
-    },
-    { passive: true }
-  );
-
-  trackEl.addEventListener(
-    "touchend",
-    (event) => {
-      if (touchStartX === null) return;
-      const deltaX = event.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
-        goTo(deltaX < 0 ? 1 : -1);
-      }
-      touchStartX = null;
-    },
-    { passive: true }
-  );
-
-  window.addEventListener(
-    "resize",
-    debounce(() => {
-      const nextCardsPerView = getCardsPerView();
-      if (nextCardsPerView !== cardsPerView) {
-        rebuild();
-      }
-    }, 150)
-  );
-
-  buildExtended();
-  renderTrack();
-  renderDots();
-  setTransform(false);
-  updateControls();
-
-  onLanguageChange(refreshContent);
+  render();
+  onLanguageChange(render);
 }

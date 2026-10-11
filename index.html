@@ -11,13 +11,27 @@
 
   <link rel="icon" type="image/png" href="assets/Velora First logo.png" />
 
+  <!-- Adres bir görünümü gösteriyorsa (ör. #/hakkimizda), JS yüklenmeden önce
+       ana sayfanın kısa süreliğine görünmesini önler (bkz. css/views.css). -->
+  <script>
+    (function () {
+      var m = /^#\/(calismalarimiz|hakkimizda|projenizi-anlatin)(\/|$)/.exec(location.hash);
+      if (m) document.documentElement.setAttribute("data-boot-view", m[1]);
+    })();
+  </script>
+
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/variables.css" />
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/responsive.css" />
+  <!-- Yalnızca ana sayfaya özgü görsel katman (palet, tipografi, paketler,
+       çalışmalar vitrini, footer). Diğer sayfalar bu dosyayı yüklemez. -->
+  <link rel="stylesheet" href="css/home.css" />
+  <!-- Tam ekran görünümler ve geçiş katmanı. -->
+  <link rel="stylesheet" href="css/views.css" />
 </head>
 
-<body>
+<body class="page-home">
 
   <a class="visually-hidden" href="#main-content" data-i18n="skipLink">İçeriğe geç</a>
 
@@ -42,16 +56,16 @@
             <ul class="nav-dropdown-menu" id="works-dropdown-menu">
               <li><a href="#calismalarimiz" data-i18n="header.worksDropdown.viewHomeSection">Çalışmalarımızı görün</a>
               </li>
-              <li><a href="calismalarimiz.html" data-i18n="header.worksDropdown.viewAll">Tüm çalışmalarımızı
+              <li><a href="#/calismalarimiz" data-i18n="header.worksDropdown.viewAll">Tüm çalışmalarımızı
                   inceleyin</a></li>
             </ul>
           </li>
           <li><a href="#paketler" data-i18n="header.nav.packages">Paketlerimiz</a></li>
-          <li><a href="hakkimizda.html" data-i18n="header.nav.about">Hakkımızda</a></li>
+          <li><a href="#/hakkimizda" data-i18n="header.nav.about">Hakkımızda</a></li>
           <li><a href="#soru-sor" data-i18n="header.nav.ask">Soru Sor</a></li>
           <li><a href="#sss" data-i18n="header.nav.faq">SSS</a></li>
           <li><a href="#iletisim" data-i18n="header.nav.contact">İletişim</a></li>
-          <li><a href="projenizi-anlatin.html" data-i18n="header.nav.projectBrief">Projenizi Anlatın</a></li>
+          <li><a href="#/projenizi-anlatin" data-i18n="header.nav.projectBrief">Projenizi Anlatın</a></li>
         </ul>
       </nav>
 
@@ -108,7 +122,7 @@
         <div class="hero-actions">
           <a class="btn btn-secondary" href="#paketler" data-i18n="hero.cta.packages">Paketleri İncele</a>
           <a class="btn btn-secondary" href="#iletisim" data-i18n="hero.cta.contact">Hemen İletişime Geç</a>
-          <a class="btn btn-secondary" href="#soru-sor" data-i18n="hero.cta.ask">Projenizi Anlatın</a>
+          <a class="btn btn-secondary" href="#/projenizi-anlatin" data-i18n="hero.cta.ask">Projenizi Anlatın</a>
         </div>
       </div>
     </section>
@@ -124,7 +138,7 @@
           <!-- Metin yalnızca iç <span>'de (data-i18n) tutulur; böylece dil
                değişiminde ok ikonu silinmez ve hover alt çizgisi yalnızca
                metin genişliğinde kalır (bkz. css/main.css > .arrow-link). -->
-          <a class="arrow-link works-view-all-link" href="calismalarimiz.html">
+          <a class="arrow-link works-view-all-link" href="#/calismalarimiz">
             <span class="arrow-link-label" data-i18n="works.viewAllLink">Tüm çalışmalarımızı inceleyin</span>
             <svg class="arrow-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
@@ -134,26 +148,31 @@
           </a>
         </div>
 
-        <div class="works-slider" id="works-slider">
-          <button class="slider-arrow works-prev" type="button" data-i18n-aria-label="works.prevAriaLabel"
-            aria-label="Önceki çalışma">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="m15 5-7 7 7 7" />
-            </svg>
-          </button>
-
+        <div class="works-slider" id="works-slider" role="region" data-i18n-aria-label="works.heading"
+          aria-label="Örnek çalışmalarımızdan bazıları">
           <div class="works-viewport">
             <div class="works-track" id="works-track"></div>
           </div>
 
-          <button class="slider-arrow works-next" type="button" data-i18n-aria-label="works.nextAriaLabel"
-            aria-label="Sonraki çalışma">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="m9 5 7 7-7 7" />
-            </svg>
-          </button>
+          <div class="works-controls">
+            <div class="works-dots" id="works-dots"></div>
+            <div class="works-arrows">
+              <button class="slider-arrow works-prev" type="button" data-i18n-aria-label="works.prevAriaLabel"
+                aria-label="Önceki çalışma">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <path d="m15 5-7 7 7 7" />
+                </svg>
+              </button>
+              <button class="slider-arrow works-next" type="button" data-i18n-aria-label="works.nextAriaLabel"
+                aria-label="Sonraki çalışma">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <path d="m9 5 7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -169,29 +188,13 @@
           <span class="delivery-note" data-i18n="packages.deliveryNote">Tüm paketlerde teslim süresi: 5 iş günü</span>
         </div>
 
-        <div class="packages-slider" id="packages-slider">
-          <button class="slider-arrow slider-prev" type="button" data-i18n-aria-label="packages.prevAriaLabel"
-            aria-label="Önceki paketler">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="m15 5-7 7 7 7" />
-            </svg>
-          </button>
+        <!-- 4 fiyatlı paket + özel proje kartı: components/packages.js
+             (fiyatlar data/packages.js, metinler data/i18n/*.js). -->
+        <div class="packages-grid" id="packages-grid"></div>
 
-          <div class="packages-viewport">
-            <div class="packages-track" id="packages-track"></div>
-          </div>
-
-          <button class="slider-arrow slider-next" type="button" data-i18n-aria-label="packages.nextAriaLabel"
-            aria-label="Sonraki paketler">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="m9 5 7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-
-        <div class="slider-dots" id="packages-dots"></div>
+        <p class="packages-note" data-i18n="packages.pricingNote">Fiyatlar başlangıç fiyatıdır; kesin fiyat, kapsam
+          birlikte netleştirildikten sonra belirlenir. Alan adı, hosting ve üçüncü taraf hizmet ücretleri paketlere dahil
+          değildir.</p>
       </div>
     </section>
 
@@ -202,7 +205,7 @@
         <div class="about-intro">
           <span class="eyebrow" data-i18n="about.eyebrow">VELORA</span>
           <h2 class="about-headline" data-i18n="about.headline">Dijital dünyadaki ilk izleniminiz, bir kapıdır.</h2>
-          <a class="arrow-link about-more-link" href="hakkimizda.html">
+          <a class="arrow-link about-more-link" href="#/hakkimizda">
             <span class="arrow-link-label" data-i18n="about.moreLink">Hakkımızda daha fazla bilgi edinin</span>
             <svg class="arrow-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
@@ -216,7 +219,7 @@
     </section>
 
     <!-- Soru Sor -->
-    <section id="soru-sor" class="section-invert">
+    <section id="soru-sor" class="section-soft">
       <div class="container">
         <div class="section-header center">
           <span class="eyebrow" data-i18n="form.eyebrow">Soru Sor</span>
@@ -332,34 +335,377 @@
 
   </main>
 
-  <footer class="site-footer">
+  <!-- Kurumsal footer (yalnızca ana sayfa): marka + kısa tanım, site
+       bağlantıları ve iletişim/sosyal bağlantılar ayrı gruplarda. Kısa tanım
+       mevcut meta.description metnidir; sosyal ikonlar data/contact.js'teki
+       mevcut hedeflerle components/contact.js tarafından çizilir. -->
+  <footer class="site-footer footer-corporate" id="home-footer">
     <div class="container">
-      <div class="footer-inner">
-        <a class="footer-brand" href="#anasayfa" data-i18n-aria-label="header.brandAriaLabel"
-          aria-label="VELORA ana sayfa">
-          <img class="footer-logo" data-logo-img data-i18n-alt="misc.logoAlt" src="assets/Velora Second logo.png"
-            alt="VELORA logosu" width="30" height="32" />
-        </a>
+      <div class="footer-grid">
+        <div class="footer-col footer-col-brand">
+          <a class="footer-brand" href="#anasayfa" data-i18n-aria-label="header.brandAriaLabel"
+            aria-label="VELORA ana sayfa">
+            <img class="footer-logo" data-logo-img data-i18n-alt="misc.logoAlt" src="assets/Velora Second logo.png"
+              alt="VELORA logosu" width="30" height="32" />
+          </a>
+          <p class="footer-tagline" data-i18n="meta.description">VELORA, markalar için sade, hızlı ve etkili web
+            deneyimleri tasarlayan bir web ajansıdır.</p>
+        </div>
 
-        <nav class="footer-links" data-i18n-aria-label="footer.altMenuAriaLabel" aria-label="Alt menü">
-          <a href="#anasayfa" data-i18n="footer.links.home">Ana Sayfa</a>
-          <a href="#paketler" data-i18n="footer.links.packages">Paketler</a>
-          <a href="#calismalarimiz" data-i18n="footer.links.works">Çalışmalarımız</a>
-          <a href="hakkimizda.html" data-i18n="footer.links.about">Hakkımızda</a>
-          <a href="#iletisim" data-i18n="footer.links.contact">İletişim</a>
-          <a href="#sss" data-i18n="footer.links.faq">SSS</a>
-          <a href="#soru-sor" data-i18n="footer.links.ask">Soru Sorma</a>
+        <nav class="footer-col" aria-labelledby="footer-heading-pages">
+          <h2 class="footer-heading" id="footer-heading-pages" data-i18n="footer.groups.pages">Sayfalar</h2>
+          <ul class="footer-list">
+            <li><a href="#anasayfa" data-i18n="footer.links.home">Ana Sayfa</a></li>
+            <li><a href="#/calismalarimiz" data-i18n="footer.links.works">Çalışmalarımız</a></li>
+            <li><a href="#/hakkimizda" data-i18n="footer.links.about">Hakkımızda</a></li>
+            <li><a href="#/projenizi-anlatin" data-i18n="header.nav.projectBrief">Projenizi Anlatın</a></li>
+          </ul>
         </nav>
 
-        <div class="footer-social" id="footer-social"></div>
+        <nav class="footer-col" aria-labelledby="footer-heading-quick">
+          <h2 class="footer-heading" id="footer-heading-quick" data-i18n="footer.groups.quickLinks">Hızlı erişim</h2>
+          <ul class="footer-list">
+            <li><a href="#paketler" data-i18n="footer.links.packages">Paketler</a></li>
+            <li><a href="#sss" data-i18n="footer.links.faq">SSS</a></li>
+            <li><a href="#soru-sor" data-i18n="footer.links.ask">Soru Sorma</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-col">
+          <h2 class="footer-heading" data-i18n="footer.groups.contact">Bize ulaşın</h2>
+          <a class="footer-contact-link" href="#iletisim" data-i18n="footer.allChannels">Tüm iletişim kanalları</a>
+          <div class="footer-social" id="footer-social"></div>
+        </div>
       </div>
 
       <div class="footer-bottom">
-        <span>&copy; <span id="current-year"></span> VELORA. <span data-i18n="footer.rightsReserved">Tüm hakları
+        <span>&copy; <span id="current-year" data-current-year></span> VELORA. <span data-i18n="footer.rightsReserved">Tüm hakları
             saklıdır.</span></span>
       </div>
     </div>
   </footer>
+
+  <!-- ======================================================================
+       Tam ekran görünümler (eski calismalarimiz / hakkimizda /
+       projenizi-anlatin sayfalarının içerikleri). Ana sayfanın devamı
+       değildir: header'ın altında sabit konumlu, kendi kaydırma alanı olan
+       katmanlardır. Açma/kapama, adres (#/calismalarimiz, #/hakkimizda,
+       #/projenizi-anlatin), geri/ileri, odak ve geçiş animasyonu:
+       js/viewRouter.js. Görünür olan görünüm .is-active sınıfı alır.
+       ====================================================================== -->
+  <div class="app-views">
+    <section class="app-view" id="view-calismalarimiz" data-view="calismalarimiz" aria-labelledby="view-works-title"
+      data-meta-title="works.detail.metaTitle" data-meta-description="works.detail.metaDescription">
+      <div class="view-bar">
+        <div class="container view-bar-inner">
+          <a class="view-back" href="#/">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M19 12H5" />
+              <path d="m11 18-6-6 6-6" />
+            </svg>
+            <span data-i18n="views.backHome">Ana sayfaya dön</span>
+          </a>
+          <p class="view-bar-current"><span class="visually-hidden" data-i18n="views.currentLabel">Açık görünüm:</span>
+            <span data-i18n="header.nav.works">Çalışmalarımız</span></p>
+        </div>
+      </div>
+
+      <div class="view-content">
+        <section id="calismalarimiz-detay">
+          <div class="container">
+
+            <div class="section-header center">
+              <span class="eyebrow" data-i18n="works.eyebrow">Çalışmalarımız</span>
+              <h1 class="page-title view-title" id="view-works-title" tabindex="-1" data-i18n="works.detail.pageHeading">Tüm çalışmalarımızı inceleyin</h1>
+              <p class="lede" style="margin-inline:auto" data-i18n="works.detail.pageLede">
+                Farklı sektörler için hazırladığımız konsept çalışmaları aşağıda bulabilirsiniz. Her biri, VELORA'nın tasarım yaklaşımını göstermek amacıyla hazırlanmış bir konsept/demo projesidir; gerçek bir müşteri işini veya doğrulanmış sonucu temsil etmez.
+              </p>
+            </div>
+
+            <!-- Görsel, pasif tercih alanı: yalnızca bir tasarım örneğidir.
+                 Butonlar native "disabled" özniteliğiyle işaretlenmiştir; bu
+                 sayede hem tab sırasından çıkarlar hem de ekran okuyuculara
+                 devre dışı olarak bildirilirler. Hiçbir seçim/filtreleme
+                 yapmazlar ve aşağıdaki çalışma listesini etkilemezler. -->
+            <div class="works-filter">
+              <h3 class="works-filter-heading" data-i18n="works.detail.filter.heading">Kendinize uygun siteyi bulup inceleyin</h3>
+
+
+              <div class="works-filter-chips" role="group" data-i18n-aria-label="works.detail.filter.heading" aria-label="Kendinize uygun siteyi bulup inceleyin">
+                <button type="button" class="works-filter-chip" disabled data-i18n="works.detail.filter.options.hairdresser">Kuaför</button>
+                <button type="button" class="works-filter-chip" disabled data-i18n="works.detail.filter.options.beauty">Güzellik &amp; Tırnak</button>
+                <button type="button" class="works-filter-chip" disabled data-i18n="works.detail.filter.options.legal">Hukuk</button>
+                <button type="button" class="works-filter-chip" disabled data-i18n="works.detail.filter.options.accounting">Mali Müşavirlik</button>
+              </div>
+
+            </div>
+
+            <!-- 7 örnek/demo çalışma: bkz. components/worksDetail.js -->
+            <div class="work-detail-list" id="works-detail-list"></div>
+
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer: ana sayfa footer'ının kopyası (js/viewRouter.js çalışma
+           anında buraya klonlar). -->
+      <div class="view-footer" data-view-footer></div>
+    </section>
+
+    <section class="app-view" id="view-hakkimizda" data-view="hakkimizda" aria-labelledby="view-about-title"
+      data-meta-title="pages.about.metaTitle" data-meta-description="pages.about.metaDescription">
+      <div class="view-bar">
+        <div class="container view-bar-inner">
+          <a class="view-back" href="#/">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M19 12H5" />
+              <path d="m11 18-6-6 6-6" />
+            </svg>
+            <span data-i18n="views.backHome">Ana sayfaya dön</span>
+          </a>
+          <p class="view-bar-current"><span class="visually-hidden" data-i18n="views.currentLabel">Açık görünüm:</span>
+            <span data-i18n="header.nav.about">Hakkımızda</span></p>
+        </div>
+      </div>
+
+      <div class="view-content">
+        <section class="page-section" id="about-giris">
+          <div class="container">
+            <div class="section-header center">
+              <span class="eyebrow" data-i18n="pages.about.eyebrow">Hakkımızda</span>
+              <h1 class="page-title view-title" id="view-about-title" tabindex="-1" data-i18n="pages.about.heading">VELORA hakkında</h1>
+              <p class="lede" data-i18n="pages.about.lede">VELORA, işletmelerin dijitalde kendini doğru ve anlaşılır biçimde anlatabilmesi için sade ve kullanışlı web siteleri tasarlamayı amaçlar.</p>
+            </div>
+
+            <!-- Hakkımızda içeriği. Her blok başlık + metinden oluşur; metinler
+                 data/i18n/*.js > pages.about (sections / bodies) altından 5 dilde
+                 gelir. Yalnızca kullanıcının doğruladığı bilgiler kullanıldı
+                 (web sitesi tasarımı ve geliştirme hizmeti hedefi, alandaki
+                 üçüncü yıl, sadelik / kullanılabilirlik / işletmenin kendini doğru
+                 anlatması). Kuruluş tarihi, müşteri/proje sayısı, ekip, konum,
+                 fiyat, süre veya garanti edilmiş sonuç EKLENMEDİ. -->
+            <div class="page-blocks">
+              <article class="page-block" aria-labelledby="about-who">
+                <h2 class="page-block-title" id="about-who" data-i18n="pages.about.sections.who">Ne yapıyoruz</h2>
+                <p data-i18n="pages.about.bodies.who">VELORA, işletmeler için web sitesi tasarımı ve geliştirme hizmeti sunmayı hedefler. Bu yaklaşım, web tasarımı ve geliştirme alanında üçüncü yılına ulaşan bir deneyime dayanır. Amaç, her işletmenin kendine ait, düzenli ve güven veren bir dijital vitrine sahip olmasıdır.</p>
+              </article>
+              <article class="page-block" aria-labelledby="about-approach">
+                <h2 class="page-block-title" id="about-approach" data-i18n="pages.about.sections.approach">Tasarımda neye önem veriyoruz</h2>
+                <p data-i18n="pages.about.bodies.approach">Bir web sitesi tasarlarken önce işletmenin neyi, kime anlatmak istediğini anlamaya çalışırız. Sadelik, ziyaretçinin aradığını kolayca bulabilmesi ve her cihazda rahat kullanılabilen bir yapı tasarımın temelini oluşturur. Gereksiz kalabalıktan kaçınır, içeriğin öne çıkmasını sağlarız.</p>
+              </article>
+              <article class="page-block" aria-labelledby="about-values">
+                <h2 class="page-block-title" id="about-values" data-i18n="pages.about.sections.values">İşletmenize katkımız</h2>
+                <p data-i18n="pages.about.bodies.values">Hedefimiz, işletmenizin dijitaldeki ilk izlenimini net ve tutarlı hale getirmektir. Hizmetlerinizi, kimliğinizi ve sizinle iletişime geçmenin yolunu açıkça gösteren bir site, ziyaretçilerin sizi daha kolay tanımasına yardımcı olur.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-invert page-cta" id="about-iletisim">
+          <div class="container">
+            <div class="section-header center">
+              <h2 data-i18n="pages.about.ctaHeading">Sorularınız mı var?</h2>
+              <p class="lede" data-i18n="pages.about.ctaLede">Bize iletişim kanallarımızdan veya Soru Sor formundan ulaşabilirsiniz.</p>
+            </div>
+            <div class="page-cta-actions">
+              <a class="btn btn-primary" href="#iletisim" data-i18n="pages.about.ctaContact">İletişime geçin</a>
+              <a class="btn btn-secondary" href="#paketler" data-i18n="pages.about.ctaPackages">Paketleri inceleyin</a>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer: ana sayfa footer'ının kopyası (js/viewRouter.js çalışma
+           anında buraya klonlar). -->
+      <div class="view-footer" data-view-footer></div>
+    </section>
+
+    <section class="app-view" id="view-projenizi-anlatin" data-view="projenizi-anlatin" aria-labelledby="view-brief-title"
+      data-meta-title="pages.projectBrief.metaTitle" data-meta-description="pages.projectBrief.metaDescription">
+      <div class="view-bar">
+        <div class="container view-bar-inner">
+          <a class="view-back" href="#/">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M19 12H5" />
+              <path d="m11 18-6-6 6-6" />
+            </svg>
+            <span data-i18n="views.backHome">Ana sayfaya dön</span>
+          </a>
+          <p class="view-bar-current"><span class="visually-hidden" data-i18n="views.currentLabel">Açık görünüm:</span>
+            <span data-i18n="header.nav.projectBrief">Projenizi Anlatın</span></p>
+        </div>
+      </div>
+
+      <div class="view-content">
+        <!-- 1) Proje anlatım formu. Görsel yaklaşım ana sayfadaki "Soru Sor"
+             formuyla aynı (.form-card / .form-row / .field). Davranış:
+             components/projectBriefForm.js — form HENÜZ bir gönderim
+             altyapısına bağlı değildir; bkz. o dosyanın başındaki not. -->
+        <section class="page-section" id="proje-formu">
+          <div class="container">
+            <div class="section-header center">
+              <span class="eyebrow" data-i18n="pages.projectBrief.eyebrow">Projenizi Anlatın</span>
+              <h1 class="page-title view-title" id="view-brief-title" tabindex="-1" data-i18n="pages.projectBrief.heading">Projenizi anlatın</h1>
+              <p class="lede" data-i18n="pages.projectBrief.lede">İşletmenizi ve web sitesinden beklentilerinizi aşağıdaki formla paylaşın; ihtiyacınızı birlikte netleştirelim.</p>
+            </div>
+
+            <form class="form-card brief-form" id="project-brief-form" novalidate>
+              <p class="form-required-note" data-i18n="pages.projectBrief.form.requiredNote">* ile işaretli alanlar zorunludur.</p>
+
+              <div class="form-row">
+                <div class="field" data-field="fullName">
+                  <label for="brief-full-name"><span data-i18n="pages.projectBrief.form.labels.fullName">Ad Soyad</span> <span class="field-required" aria-hidden="true">*</span></label>
+                  <input type="text" id="brief-full-name" name="fullName" autocomplete="name" required aria-required="true" />
+                  <span class="field-error" aria-live="polite"></span>
+                </div>
+                <div class="field" data-field="email">
+                  <label for="brief-email"><span data-i18n="pages.projectBrief.form.labels.email">E-posta</span> <span class="field-required" aria-hidden="true">*</span></label>
+                  <input type="email" id="brief-email" name="email" autocomplete="email" required aria-required="true" />
+                  <span class="field-error" aria-live="polite"></span>
+                </div>
+              </div>
+
+              <div class="field" data-field="businessName">
+                <label for="brief-business-name"><span data-i18n="pages.projectBrief.form.labels.businessName">İşletme / Marka adı</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+                <input type="text" id="brief-business-name" name="businessName" autocomplete="organization" />
+                <span class="field-error" aria-live="polite"></span>
+              </div>
+
+              <!-- İşletme türü ve ihtiyaç: her sütunda seçim alanı + "Diğer"
+                   seçilince hemen altında açılan metin alanı. -->
+              <div class="form-row">
+                <div class="field-group">
+                  <div class="field" data-field="businessType">
+                    <label for="brief-business-type"><span data-i18n="pages.projectBrief.form.labels.businessType">İşletme türü</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+                    <select id="brief-business-type" name="businessType">
+                      <option value="" selected data-i18n="pages.projectBrief.form.selectPlaceholder">Seçiniz</option>
+                    <option value="menBarber" data-i18n="pages.projectBrief.form.businessTypes.menBarber">Erkek kuaförü</option>
+                    <option value="womenHairdresser" data-i18n="pages.projectBrief.form.businessTypes.womenHairdresser">Kadın kuaförü</option>
+                    <option value="beautySalon" data-i18n="pages.projectBrief.form.businessTypes.beautySalon">Güzellik salonu</option>
+                    <option value="nailStudio" data-i18n="pages.projectBrief.form.businessTypes.nailStudio">Tırnak stüdyosu</option>
+                    <option value="lawFirm" data-i18n="pages.projectBrief.form.businessTypes.lawFirm">Hukuk bürosu</option>
+                    <option value="independentLawyer" data-i18n="pages.projectBrief.form.businessTypes.independentLawyer">Bağımsız avukat</option>
+                    <option value="accountant" data-i18n="pages.projectBrief.form.businessTypes.accountant">Mali müşavir</option>
+                    <option value="other" data-i18n="pages.projectBrief.form.businessTypes.other">Diğer</option>
+                    </select>
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+                  <div class="field is-hidden" data-field="businessTypeOther" id="brief-business-type-other-wrap">
+                    <label for="brief-business-type-other" data-i18n="pages.projectBrief.form.labels.businessTypeOther">İşletme türünüzü yazın</label>
+                    <input type="text" id="brief-business-type-other" name="businessTypeOther" data-i18n-placeholder="pages.projectBrief.form.placeholders.businessTypeOther" placeholder="İşletme türünüz" disabled />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+                </div>
+                <div class="field-group">
+                  <div class="field" data-field="need">
+                    <label for="brief-need"><span data-i18n="pages.projectBrief.form.labels.need">İhtiyaç</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+                    <select id="brief-need" name="need">
+                      <option value="" selected data-i18n="pages.projectBrief.form.selectPlaceholder">Seçiniz</option>
+                    <option value="newSite" data-i18n="pages.projectBrief.form.needs.newSite">Yeni web sitesi</option>
+                    <option value="redesign" data-i18n="pages.projectBrief.form.needs.redesign">Mevcut web sitesini yenileme</option>
+                    <option value="booking" data-i18n="pages.projectBrief.form.needs.booking">Rezervasyon / menü</option>
+                    <option value="ecommerce" data-i18n="pages.projectBrief.form.needs.ecommerce">E-ticaret</option>
+                    <option value="other" data-i18n="pages.projectBrief.form.needs.other">Diğer</option>
+                    </select>
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+                  <div class="field is-hidden" data-field="needOther" id="brief-need-other-wrap">
+                    <label for="brief-need-other" data-i18n="pages.projectBrief.form.labels.needOther">İhtiyacınızı yazın</label>
+                    <input type="text" id="brief-need-other" name="needOther" data-i18n-placeholder="pages.projectBrief.form.placeholders.needOther" placeholder="İhtiyacınız" disabled />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field" data-field="website">
+                <label for="brief-website"><span data-i18n="pages.projectBrief.form.labels.website">Mevcut web sitesi bağlantısı</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+                <input type="url" id="brief-website" name="website" autocomplete="url" inputmode="url" data-i18n-placeholder="pages.projectBrief.form.placeholders.website" placeholder="https://..." />
+                <span class="field-error" aria-live="polite"></span>
+              </div>
+
+              <div class="field" data-field="projectSummary">
+                <label for="brief-summary"><span data-i18n="pages.projectBrief.form.labels.summary">Projenizi ve işletmenizi kısaca anlatın</span> <span class="field-required" aria-hidden="true">*</span></label>
+                <textarea id="brief-summary" name="projectSummary" required aria-required="true" data-i18n-placeholder="pages.projectBrief.form.placeholders.summary" placeholder="İşletmeniz ne yapıyor, web sitesiyle neyi amaçlıyorsunuz?"></textarea>
+                <span class="field-error" aria-live="polite"></span>
+              </div>
+
+              <div class="field" data-field="details">
+                <label for="brief-details"><span data-i18n="pages.projectBrief.form.labels.details">Aklınızdaki diğer detaylar</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+                <textarea id="brief-details" name="details" class="textarea-large" data-i18n-placeholder="pages.projectBrief.form.placeholders.details" placeholder="Örneğin: renk tercihleriniz, yeni bir logoya ihtiyacınız olup olmadığı, beğendiğiniz örnek siteler, olmasını istediğiniz sayfalar ve özellikler ya da önemli gördüğünüz diğer ayrıntılar."></textarea>
+                <span class="field-error" aria-live="polite"></span>
+              </div>
+
+              <!-- Proje dosyaları: çoklu seçim. Tür/boyut sınırı bilinçli olarak
+                   uygulanmadı (gerçek gönderim altyapısı henüz seçilmedi; sınırlar
+                   ona göre belirlenmeli). Seçilen dosyaların adları aşağıdaki
+                   listede gösterilir. -->
+              <div class="field" data-field="files">
+                <label for="brief-files"><span data-i18n="pages.projectBrief.form.labels.files">Proje dosyaları</span> <span class="field-optional" data-i18n="form.optionalTag">(opsiyonel)</span></label>
+                <!-- Yerel dosya girdisi erişilebilir biçimde (görsel olarak) gizlenir
+                     ama odaklanabilir kalır; görünen düğme/etiket ve durum metni
+                     sitenin diline göre çevrilir (tarayıcının kendi "Choose
+                     Files" metni yerine). -->
+                <div class="file-picker">
+                  <input type="file" id="brief-files" name="files" class="file-picker-input" multiple aria-describedby="brief-files-status brief-files-help brief-files-pending" />
+                  <label for="brief-files" class="file-picker-button" data-i18n="pages.projectBrief.form.chooseFiles">Dosya seç</label>
+                  <span class="file-picker-status" id="brief-files-status" data-i18n="pages.projectBrief.form.noFiles">Henüz dosya seçilmedi</span>
+                </div>
+                <p class="field-help" id="brief-files-help" data-i18n="pages.projectBrief.form.filesHelp">Mevcut web sitenizin dosyaları, logonuz, görseller veya ilgili dokümanlar gibi birden fazla dosya seçebilirsiniz.</p>
+                <p class="field-help field-help-pending" id="brief-files-pending" data-pending-notice data-i18n="pages.projectBrief.form.filesPending">Dosya gönderimi henüz etkin değil: seçtiğiniz dosyalar şu an hiçbir yere yüklenmez.</p>
+                <div class="file-list" id="brief-file-list" aria-live="polite" hidden></div>
+              </div>
+
+              <p class="form-pending-notice" data-pending-notice data-i18n="pages.projectBrief.form.notice">Bu form henüz bir gönderim altyapısına bağlı değil; girdiğiniz bilgiler ve dosyalar şu an hiçbir yere iletilmez. Bize ulaşmak için sayfanın altındaki iletişim kanallarını kullanabilirsiniz.</p>
+
+              <button class="btn btn-primary btn-block" type="submit" data-i18n="pages.projectBrief.form.submit">Projeyi Gönder</button>
+              <div class="form-feedback" role="status" aria-live="polite"></div>
+            </form>
+
+            <p class="brief-footnote" data-i18n="pages.projectBrief.form.footnote">Bilgileri ne kadar açık paylaşırsanız, ihtiyacınızı ve proje kapsamını o kadar doğru anlayabilir; size uygun çözümü ve sonraki adımları daha hızlı netleştirebiliriz.</p>
+          </div>
+        </section>
+
+        <!-- 2) Çalışmalar yönlendirmesi + iletişim. Çalışmalar konsept/demo
+             projelerdir (açıklama metni bunu "konseptler" olarak belirtir).
+             İletişim kanalları ana sayfadakiyle aynı kaynaktan
+             (data/contact.js) components/contact.js ile üretilir. -->
+        <section class="section-invert brief-continue" id="calismalar-ve-iletisim">
+          <div class="container">
+            <div class="section-header center brief-works">
+              <h2 data-i18n="pages.projectBrief.works.heading">Örnek çalışmalarımıza göz atın</h2>
+              <p class="lede" data-i18n="pages.projectBrief.works.lede">Farklı işletmeler için hazırladığımız konseptleri inceleyerek web siteniz için fikir edinebilirsiniz.</p>
+              <a class="arrow-link brief-works-link" href="#/calismalarimiz">
+                <span class="arrow-link-label" data-i18n="pages.projectBrief.works.link">Çalışmalarımızı inceleyin</span>
+                <svg class="arrow-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+              </a>
+            </div>
+
+            <div class="brief-contact" id="iletisim-kanallari">
+              <div class="section-header center">
+                <span class="eyebrow" data-i18n="contact.eyebrow">İletişim</span>
+                <h2 data-i18n="contact.heading">Bize ulaşın</h2>
+              </div>
+              <div class="grid contact-grid" id="brief-contact-grid"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer: ana sayfa footer'ının kopyası (js/viewRouter.js çalışma
+           anında buraya klonlar). -->
+      <div class="view-footer" data-view-footer></div>
+    </section>
+  </div>
+
+  <!-- Görünümler arası geçiş katmanı: siyah zemin + ortada VELORA logosu
+       (assets/Velora First logo.png — siyah zeminli beyaz logo, olduğu gibi). -->
+  <div class="view-transition" aria-hidden="true">
+    <img class="view-transition-logo" src="assets/Velora First logo.png" alt="" width="1932" height="1932"
+      decoding="async" />
+  </div>
 
   <!-- Arama -->
   <div class="search-overlay" id="search-overlay">

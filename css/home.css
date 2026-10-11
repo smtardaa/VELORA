@@ -1,0 +1,863 @@
+/* css/home.css — sitenin güncel görsel katmanı (palet, tipografi ölçeği,
+   butonlar, kartlar, footer). Tek sayfa yapısında ana sayfa ve üç tam
+   ekran görünüm (Çalışmalarımız, Hakkımızda, Projenizi Anlatın) bu
+   kuralları birlikte kullanır; görünümlere özgü uyarlamalar css/views.css'te.
+   Tüm seçiciler <body class="page-home"> altında tanımlanır.
+
+   İçerik:
+   1. Palet ve tipografi ölçeği (token'lar)
+   2. Bölüm zeminleri (siyah/beyaz tekrarını yumuşatan gri tonlar)
+   3. Tipografi uygulaması
+   4. Hero (#0437F2 butonlar)
+   5. Çalışmalar vitrini
+   6. Paketler (kartlar, özel proje kartı, sıralı görünme)
+   7. Soru Sor, SSS, İletişim ince ayarları
+   8. Kurumsal footer
+   9. Hareketi azaltma tercihi */
+
+/* ---------- 1. Palet ve tipografi ölçeği ---------- */
+
+.page-home {
+  /* Gri tonlar: mevcut siyah/beyaz/gri paletinin ara değerleri. */
+  --home-gray-50: #f5f5f7;
+  --home-gray-200: #e3e3e8;
+  --home-gray-300: #d2d2d7;
+  --home-graphite: #161618;
+  --home-graphite-raised: #1f1f22;
+  --home-graphite-highlight: #26262a;
+  --home-graphite-border: #333338;
+
+  /* Ana vurgu rengi — kontrollü kullanılır: hero butonları ve çalışmalar
+     vitrinindeki etkin konum göstergesi. */
+  --home-accent: #0437f2;
+  --home-accent-hover: #0330d4;
+
+  /* Akışkan tipografi ölçeği (mobil → masaüstü). */
+  --fs-display: clamp(3.5rem, 2rem + 7vw, 7.5rem);
+  --fs-h2: clamp(2.25rem, 1.55rem + 2.6vw, 3.5rem);
+  --fs-h3: clamp(1.375rem, 1.25rem + 0.4vw, 1.625rem);
+  --fs-lede: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.9375rem;
+  --fs-label: 0.8125rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- 2. Bölüm zeminleri ----------
+   Ritim: hero siyah → çalışmalar açık gri → paketler grafit → hakkında
+   beyaz → soru sor açık gri → SSS beyaz → iletişim grafit → footer açık gri. */
+
+.page-home #calismalarimiz {
+  background-color: var(--home-gray-50);
+}
+
+.page-home #paketler.section-invert,
+.page-home #iletisim.section-invert {
+  --color-bg: var(--home-graphite);
+  --color-bg-elevated: var(--home-graphite-raised);
+  --color-bg-muted: var(--home-graphite-highlight);
+  --color-border: var(--home-graphite-border);
+}
+
+/* Açık gri bölüm (Soru Sor): kart beyaz, alanlar açık gri. */
+.page-home .section-soft {
+  --color-bg: var(--home-gray-50);
+  --color-bg-elevated: #ffffff;
+  --color-bg-muted: var(--home-gray-200);
+  --color-border: var(--home-gray-300);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ---------- 3. Tipografi ---------- */
+
+.page-home .section-header {
+  max-width: 780px;
+  margin-bottom: clamp(3rem, 2rem + 3vw, 4.5rem);
+}
+
+.page-home .eyebrow {
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.875rem;
+}
+
+/* Bölüm başlıkları (ana sayfa bölümleri ve görünümlerin sayfa başlıkları).
+   Kart/blok içindeki h2'ler (ör. .page-block-title) kendi ölçülerini korur. */
+.page-home .section-header h2,
+.page-home .page-title {
+  font-size: var(--fs-h2);
+  letter-spacing: -0.028em;
+  line-height: 1.08;
+}
+
+.page-home .lede {
+  font-size: var(--fs-lede);
+  line-height: 1.5;
+  max-width: 640px;
+}
+
+.page-home .section-header h2 + .lede,
+.page-home .section-header h1 + .lede {
+  margin-top: 1rem;
+}
+
+.page-home .arrow-link {
+  font-size: var(--fs-body);
+}
+
+.page-home .works-view-all-link {
+  margin-top: 1.75rem;
+}
+
+.page-home .delivery-note {
+  margin-top: 1.5rem;
+  font-size: var(--fs-small);
+  padding: 0.5rem 1.1rem;
+}
+
+.page-home .about-headline {
+  font-size: clamp(2.5rem, 1.4rem + 4.2vw, 4.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  max-width: 900px;
+}
+
+/* ---------- 4. Hero ---------- */
+
+.page-home .hero {
+  /* Düz siyah yerine üstte hafif grafit bir ışıma: aynı siyah/gri palet,
+     daha derinlikli bir açılış. */
+  background: radial-gradient(120% 85% at 50% 0%, #1d1d21 0%, #000000 62%);
+  padding-block-start: calc(var(--header-height) + clamp(5rem, 3rem + 6vw, 9rem));
+  padding-block-end: clamp(4.5rem, 3rem + 5vw, 8rem);
+}
+
+.page-home .hero-inner {
+  max-width: 980px;
+  gap: clamp(1.75rem, 1.25rem + 1.5vw, 2.75rem);
+}
+
+.page-home .hero h1 {
+  font-size: var(--fs-display);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.page-home .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0;
+}
+
+/* Hero butonları: zemin tam olarak #0437F2. Önceki sabit 130.85px genişlik
+   ve 0.68rem yazı, büyütülen tipografi ölçeğiyle değiştirildi; butonlar
+   metne göre genişler, en az 12.5rem genişlikte kalır. */
+.page-home .hero-actions .btn {
+  flex: 0 1 auto;
+  width: auto;
+  min-width: 12.5rem;
+  min-height: 52px;
+  height: auto;
+  padding: 0.85rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  background-color: var(--home-accent);
+  border: 1px solid var(--home-accent);
+  color: #ffffff;
+  transition: background-color var(--transition-fast), transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.page-home .hero-actions .btn:hover {
+  background-color: var(--home-accent-hover);
+  border-color: var(--home-accent-hover);
+  box-shadow: 0 8px 24px rgba(4, 55, 242, 0.35);
+}
+
+/* Mavi buton siyah zeminde dururken mavi odak halkası ayırt edilmez. */
+.page-home .hero-actions .btn:focus-visible {
+  outline-color: #ffffff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .page-home .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 340px;
+  }
+
+  .page-home .hero-actions .btn {
+    min-width: 0;
+    width: 100%;
+    white-space: normal;
+  }
+}
+
+/* ---------- 5. Çalışmalar vitrini ---------- */
+
+.page-home .works-slider {
+  position: relative;
+}
+
+/* Kartlar arasındaki boşluk slide'ların iç dolgusundan gelir; viewport bu
+   dolgu kadar dışa taşırılarak kart kenarları kapsayıcı ile hizalanır.
+   touch-action: pan-y — dikey sayfa kaydırması tarayıcıda kalır, yatay
+   sürükleme components/projects.js'e bırakılır. */
+.page-home .works-viewport {
+  overflow: hidden;
+  margin-inline: -0.75rem;
+  padding-block: 0.5rem 1.25rem;
+  touch-action: pan-y;
+}
+
+.page-home .works-track {
+  display: flex;
+  transition: transform 560ms var(--ease-out);
+  will-change: transform;
+}
+
+.page-home .works-slide {
+  flex: 0 0 calc(100% / var(--project-per-view, 3));
+  min-width: 0;
+  padding-inline: 0.75rem;
+}
+
+.page-home .project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-lg);
+  color: var(--color-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.page-home .project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04), 0 18px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Kart, overflow:hidden olan viewport içinde durduğu için odak halkası
+   kenarlığın içine çizilir (dışa taşan halka kırpılırdı). */
+.page-home .project-card:focus-visible {
+  outline-offset: -3px;
+}
+
+.page-home .project-thumb {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(160deg, #eeeef2 0%, #e1e1e6 100%);
+  overflow: hidden;
+}
+
+.page-home .project-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.page-home .project-thumb-icon {
+  display: inline-flex;
+  color: #6e6e73;
+  transition: transform var(--transition-base);
+}
+
+.page-home .project-thumb-icon svg {
+  width: 56px;
+  height: 56px;
+}
+
+.page-home .project-card:hover .project-thumb-icon {
+  transform: scale(1.06);
+}
+
+/* "Konsept Proje" etiketi — Çalışmalarımız görünümündeki rozetle aynı metin. */
+.page-home .project-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1d1d1f;
+  background-color: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+}
+
+.page-home .project-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.5rem 1.5rem 1.6rem;
+}
+
+.page-home .project-category {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.page-home .project-name {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.2;
+}
+
+.page-home .project-link {
+  margin-top: auto;
+  padding-top: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.page-home .project-link span {
+  transition: transform var(--transition-fast);
+}
+
+.page-home .project-card:hover .project-link span {
+  transform: translateX(3px);
+}
+
+.page-home .works-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-top: 1.25rem;
+}
+
+.page-home .works-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.page-home .works-dots[hidden] {
+  display: none;
+}
+
+.page-home .works-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background-color: #c7c7cc;
+  transition: width var(--transition-base), background-color var(--transition-base);
+}
+
+/* 8px'lik göstergenin dokunma alanı görünmez bir katmanla büyütülür. */
+.page-home .works-dot::before {
+  content: "";
+  position: absolute;
+  inset: -12px -5px;
+}
+
+.page-home .works-dot:hover {
+  background-color: #8e8e93;
+}
+
+.page-home .works-dot.is-active {
+  width: 28px;
+  background-color: var(--home-accent);
+}
+
+.page-home .works-arrows {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.page-home .works-arrows .slider-arrow {
+  width: 48px;
+  height: 48px;
+  background-color: #ffffff;
+  border-color: var(--home-gray-300);
+}
+
+.page-home .works-arrows .slider-arrow:hover:not(:disabled) {
+  background-color: var(--home-gray-200);
+}
+
+/* ---------- 6. Paketler ---------- */
+
+.page-home .packages-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.page-home .package-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-width: 0;
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.5rem;
+  transition: opacity 480ms var(--ease-out), transform 480ms var(--ease-out),
+    border-color var(--transition-base), box-shadow var(--transition-base);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.page-home .package-card:hover {
+  border-color: #4a4a50;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  transform: translateY(-4px);
+}
+
+.page-home .package-card.is-highlighted {
+  background-color: var(--home-graphite-highlight);
+  border-color: #46464c;
+}
+
+/* Kurumsal paket butonu her zaman siyah zemin + beyaz yazı (kullanıcı
+   kararı); ince beyaz kenarlık butonu koyu karttan ayırır. */
+.page-home .package-card.is-highlighted .btn-primary {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+.page-home .package-name {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.page-home .package-audience {
+  margin-top: 0.45rem;
+  font-size: var(--fs-small);
+  line-height: 1.45;
+}
+
+.page-home .package-price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-block: 1rem;
+  border-block: 1px solid var(--color-border);
+}
+
+.page-home .package-price-label {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.page-home .package-price-value {
+  font-size: clamp(2rem, 1.7rem + 0.9vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.page-home .package-price-currency {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--color-text-secondary);
+}
+
+.page-home .package-description {
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.page-home .package-list-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.page-home .package-list-group-extras {
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.page-home .package-list-title {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.page-home .package-features,
+.page-home .package-extras,
+.page-home .package-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.page-home .package-features li,
+.page-home .package-extras li,
+.page-home .package-examples li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: var(--fs-small);
+  line-height: 1.45;
+}
+
+.page-home .package-features li {
+  color: var(--color-text);
+}
+
+.page-home .package-extras li {
+  color: var(--color-text-secondary);
+}
+
+.page-home .package-examples li {
+  color: var(--color-text);
+}
+
+.page-home .package-features svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--color-text);
+}
+
+.page-home .package-dash {
+  flex-shrink: 0;
+  width: 10px;
+  height: 1.5px;
+  margin-top: 0.7em;
+  background-color: currentColor;
+  opacity: 0.7;
+}
+
+.page-home .package-card .btn {
+  margin-top: auto;
+  min-height: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: normal;
+}
+
+/* Fiyatlı kartların iç bölümleri (başlık, fiyat, açıklama, dahil olanlar,
+   dahil olmayanlar, buton) aynı satırdaki kartlarda aynı hizada durur:
+   kart, ızgaranın 6 satırını "subgrid" olarak paylaşır. Desteklemeyen
+   tarayıcılarda kartlar yukarıdaki flex düzeniyle (hizasız) görünür. */
+@supports (grid-template-rows: subgrid) {
+  .page-home .packages-grid > .package-card:not(.package-card-custom) {
+    display: grid;
+    grid-row: span 6;
+    grid-template-rows: subgrid;
+    row-gap: 1.25rem;
+  }
+
+  .page-home .packages-grid > .package-card:not(.package-card-custom) .btn {
+    align-self: end;
+  }
+}
+
+/* 5. kart: fiyatlı paket gibi görünmesin diye kesikli kenarlık, saydam
+   zemin ve tam genişlikte yatay yerleşim (metin | örnekler | buton). */
+.page-home .package-card-custom {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1.5rem, 1rem + 2vw, 3rem);
+  padding: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem);
+  background-color: transparent;
+  border-style: dashed;
+  border-color: #4a4a50;
+}
+
+.page-home .package-card-custom .package-description {
+  margin-top: 0.6rem;
+}
+
+.page-home .package-custom-price {
+  margin-top: 1rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.page-home .package-custom-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.page-home .package-card-custom .btn {
+  margin-top: 0;
+  padding-inline: 2rem;
+  white-space: nowrap;
+}
+
+.page-home .packages-note {
+  max-width: 760px;
+  margin: 2.5rem auto 0;
+  text-align: center;
+  font-size: var(--fs-small);
+  line-height: 1.55;
+}
+
+/* Sıralı görünme: JS (components/packages.js) yalnızca hareket azaltma
+   tercihi kapalıyken "is-reveal-ready" ekler; aksi halde kartlar hiç
+   gizlenmez. */
+.page-home .packages-grid.is-reveal-ready .package-card:not(.is-revealed) {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+@media (max-width: 1099px) {
+  .page-home .packages-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .page-home .package-card-custom {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .page-home .package-card-custom .btn {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-home .packages-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page-home .package-card-custom {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .page-home .package-card-custom .btn {
+    justify-self: stretch;
+    white-space: normal;
+  }
+}
+
+/* ---------- 7. Soru Sor, SSS, İletişim ---------- */
+
+.page-home .form-card {
+  max-width: 680px;
+  border-radius: 28px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 16px 48px rgba(0, 0, 0, 0.06);
+}
+
+.page-home .field label {
+  font-size: var(--fs-small);
+}
+
+.page-home .field-optional {
+  font-size: 0.85rem;
+}
+
+.page-home .field input,
+.page-home .field select,
+.page-home .field textarea {
+  font-size: 1rem;
+}
+
+.page-home .field input,
+.page-home .field select {
+  height: 52px;
+}
+
+/* Butonlar: ana sayfa ve tüm görünümlerde aynı ölçü (hero ve paket kartı
+   butonlarının daha özgül kuralları bunun üzerine yazılır). */
+.page-home .btn {
+  min-height: 52px;
+  padding: 0.8rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.page-home .faq-list {
+  max-width: 820px;
+}
+
+.page-home .faq-question {
+  font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  padding-block: 1.5rem;
+  transition: color var(--transition-fast);
+}
+
+.page-home .faq-question:hover {
+  color: var(--color-text-secondary);
+}
+
+.page-home .faq-answer p {
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  max-width: 700px;
+}
+
+.page-home .contact-card h3 {
+  font-size: 1.3rem;
+}
+
+.page-home .contact-card p {
+  font-size: 1rem;
+}
+
+.page-home .contact-card:not(.is-pending):hover {
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------- 8. Kurumsal footer ---------- */
+
+.page-home .footer-corporate {
+  background-color: var(--home-gray-50);
+  border-top: none;
+  padding-block: clamp(3.5rem, 2.5rem + 3vw, 5rem) 2rem;
+}
+
+.page-home .footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)) minmax(0, 1.7fr);
+  gap: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  text-align: left;
+}
+
+.page-home .footer-col-brand .footer-brand {
+  display: inline-flex;
+}
+
+.page-home .footer-tagline {
+  margin-top: 1.1rem;
+  max-width: 320px;
+  font-size: var(--fs-small);
+  line-height: 1.55;
+}
+
+.page-home .footer-heading {
+  margin-bottom: 1rem;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.page-home .footer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.page-home .footer-list a,
+.page-home .footer-contact-link {
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.page-home .footer-list a:hover,
+.page-home .footer-contact-link:hover {
+  color: var(--color-text);
+}
+
+.page-home .footer-contact-link {
+  display: inline-block;
+}
+
+/* Sosyal ikonlar: 40px'lik dokunma alanlarının iç boşluğu kadar sola
+   kaydırılır; görsel olarak sütunun sol kenarıyla hizalanır. */
+.page-home .footer-corporate .footer-social {
+  justify-content: flex-start;
+  margin-top: 1rem;
+  margin-left: -10px;
+  gap: 0.25rem;
+}
+
+.page-home .footer-corporate .footer-bottom {
+  margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--home-gray-300);
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+/* 7 sosyal ikon (7 × 40px) dar dördüncü sütuna sığmayıp alt satıra
+   taşmasın diye 1100px altında iki sütuna geçilir. */
+@media (max-width: 1100px) {
+  .page-home .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .page-home .footer-col-brand,
+  .page-home .footer-grid > .footer-col:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Mobilde iki bağlantı grubu yan yana kalır; marka ve iletişim grubu tam
+   genişliktedir (footer gereksiz uzamaz). */
+@media (max-width: 480px) {
+  .page-home .footer-grid {
+    gap: 2rem 1.5rem;
+  }
+}
+
+/* ---------- 9. Hareketi azaltma tercihi ----------
+   css/reset.css süreleri zaten ~0'a indirir; burada ayrıca hover
+   kalkmaları ve sıralı görünme ofseti tamamen kaldırılır. */
+@media (prefers-reduced-motion: reduce) {
+  .page-home .package-card,
+  .page-home .package-card:hover,
+  .page-home .project-card:hover,
+  .page-home .project-card:hover .project-thumb-icon,
+  .page-home .project-card:hover .project-link span,
+  .page-home .contact-card:hover {
+    transform: none;
+  }
+
+  .page-home .packages-grid.is-reveal-ready .package-card:not(.is-revealed) {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Not: .works-track'in geçişi burada "none" yapılmaz — reset.css'in
+     0.01ms'lik süresi "transitionend" olayını korur; slider'ın sonsuz
+     döngü geri sarması bu olaya bağlıdır. */
+}

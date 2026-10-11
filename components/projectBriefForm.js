@@ -1,4 +1,5 @@
-// components/projectBriefForm.js — projenizi-anlatin.html sayfasındaki
+// components/projectBriefForm.js — Projenizi Anlatın görünümündeki (index.html >
+// #view-projenizi-anlatin)
 // "Projenizi anlatın" formu.
 //
 // GÖNDERİM DURUMU (önemli):

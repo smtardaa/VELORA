@@ -124,7 +124,8 @@ export function initHeader() {
   }
 }
 
-// Bulunulan sayfanın dosya adı (ör. "hakkimizda.html"). GitHub Pages gibi
+// Bulunulan sayfanın dosya adı. Site artık tek sayfadır (index.html); bu ve
+// aşağıdaki fonksiyon yalnızca geriye dönük uyumluluk için durur. GitHub Pages gibi
 // sunucularda kök URL ("/" veya "/repo/") index.html'e, uzantısız adresler
 // ("/hakkimizda") ise ilgili .html dosyasına karşılık gelir.
 function currentPageName() {
@@ -132,10 +133,10 @@ function currentPageName() {
   return last.includes(".") ? last : `${last}.html`;
 }
 
-// Ayrı sayfalarda (hakkimizda.html, projenizi-anlatin.html,
-// calismalarimiz.html) o sayfaya giden nav bağlantısı "aktif" görünür ve
-// aria-current="page" alır. Ana sayfada bu yapılmaz; orada aktif durum
-// aşağıdaki bölüm bazlı scroll-spy tarafından yönetilir.
+// Ayrı bir HTML sayfasında o sayfaya giden nav bağlantısını "aktif" yapar.
+// Tek sayfa yapısında index.html dışında sayfa olmadığından erken döner;
+// açık tam ekran görünümün bağlantısını js/viewRouter.js işaretler, ana
+// sayfa bölümlerini aşağıdaki scroll-spy yönetir.
 function markCurrentPageLinks(worksTrigger) {
   const page = currentPageName();
   if (page === "index.html") return;
@@ -146,7 +147,7 @@ function markCurrentPageLinks(worksTrigger) {
     link.classList.add("is-active");
     link.setAttribute("aria-current", "page");
     // Dropdown içindeki bir seçenek bulunulan sayfaysa (ör.
-    // calismalarimiz.html), dropdown tetikleyicisi de aktif görünür.
+    // Çalışmalarımız), dropdown tetikleyicisi de aktif görünür.
     if (worksTrigger && link.closest(".nav-dropdown")) {
       worksTrigger.classList.add("is-active");
     }
@@ -190,6 +191,10 @@ function initScrollSpy(header, links, worksTrigger) {
   };
 
   const computeActiveId = () => {
+    // Tam ekran görünüm açıkken (js/viewRouter.js) aktif bağlantıyı
+    // görünüm yönetir; ana sayfa bölümlerine göre vurgulama yapılmaz.
+    if (document.documentElement.classList.contains("has-open-view")) return null;
+
     const first = sections[0];
     const last = sections[sections.length - 1];
     if (window.scrollY <= 1) return `#${first.id}`;
@@ -212,11 +217,13 @@ function initScrollSpy(header, links, worksTrigger) {
     scheduled = true;
     window.requestAnimationFrame(() => {
       scheduled = false;
-      setActive(computeActiveId());
+      const id = computeActiveId();
+      if (id) setActive(id);
     });
   };
 
-  setActive(computeActiveId());
+  const initialId = computeActiveId();
+  if (initialId) setActive(initialId);
   window.addEventListener("scroll", update, { passive: true });
   window.addEventListener("resize", update);
   window.addEventListener("load", update);

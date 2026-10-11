@@ -1,16 +1,24 @@
 // js/main.js — uygulama giriş noktası. Tüm bileşenleri başlatır.
+//
+// Site tek bir HTML sayfasıdır (index.html): ana sayfa + üç tam ekran görünüm
+// (Çalışmalarımız, Hakkımızda, Projenizi Anlatın). Görünümlerin açılıp
+// kapanması, adres/geçmiş yönetimi ve geçiş animasyonu js/viewRouter.js'tedir.
 
 import { logoConfig } from "../data/site-config.js";
 import { initHeader } from "../components/header.js";
-import { initPackagesSlider } from "../components/packages.js";
+import { initPackages } from "../components/packages.js";
 import { initProjectsSlider } from "../components/projects.js";
 import { renderFaq } from "../components/faq.js";
 import { renderContactChannels, renderFooterSocial } from "../components/contact.js";
 import { initQuestionForm } from "../components/questionForm.js";
 import { initSearch } from "../components/search.js";
 import { initPackageContactModal } from "../components/packageContactModal.js";
+import { renderWorksDetail } from "../components/worksDetail.js";
+import { initProjectBriefForm } from "../components/projectBriefForm.js";
 import { initI18n, onLanguageChange } from "./i18n.js";
-import { qs, setYear, applyInitialScrollPosition } from "./utils.js";
+import { prepareViewFooters, initViewRouter } from "./viewRouter.js";
+import { createReveal } from "./reveal.js";
+import { qs, qsa, applyInitialScrollPosition } from "./utils.js";
 
 function applyBrandConfig() {
   // Logo dosyası tek bir yerden (data/site-config.js > logoConfig.path)
@@ -30,11 +38,17 @@ function init() {
 
   applyBrandConfig();
 
+  // Görünümlerin footer'ları ana sayfa footer'ından klonlanır; sosyal
+  // ikonlar ve telif yılı aşağıda tüm footer'lara birlikte çizilir.
+  prepareViewFooters();
+
   initHeader();
 
   const sssList = qs("#sss-list");
   const iletisimGrid = qs("#iletisim-grid");
-  const footerSocial = qs("#footer-social");
+  const briefContactGrid = qs("#brief-contact-grid");
+  const footerSocials = qsa(".footer-social");
+  const worksDetailList = qs("#works-detail-list");
 
   initPackageContactModal({
     overlay: qs("#package-modal-overlay"),
@@ -44,24 +58,26 @@ function init() {
     closeBtn: qs("#package-modal-close")
   });
 
-  initPackagesSlider({
-    sliderEl: qs("#packages-slider"),
-    trackEl: qs("#packages-track"),
-    prevBtn: qs(".slider-prev"),
-    nextBtn: qs(".slider-next"),
-    dotsEl: qs("#packages-dots")
-  });
+  initPackages({ gridEl: qs("#packages-grid") });
 
   initProjectsSlider({
     sliderEl: qs("#works-slider"),
+    viewportEl: qs("#works-slider .works-viewport"),
     trackEl: qs("#works-track"),
     prevBtn: qs(".works-prev"),
-    nextBtn: qs(".works-next")
+    nextBtn: qs(".works-next"),
+    dotsEl: qs("#works-dots")
   });
 
   renderFaq(sssList);
   renderContactChannels(iletisimGrid);
-  renderFooterSocial(footerSocial);
+  renderContactChannels(briefContactGrid);
+  footerSocials.forEach((el) => renderFooterSocial(el));
+  renderWorksDetail(worksDetailList);
+
+  // Görünümlerde kartların sıralı görünmesi (paketlerdeki animasyon dili).
+  const worksReveal = createReveal(worksDetailList, ".work-detail");
+  createReveal(qs("#view-hakkimizda .page-blocks"), ".page-block");
 
   // "Saf render" bileşenleri (kendi init sarmalayıcısı olmayan, doğrudan
   // çağrılan renderX fonksiyonları): dil değişince yeniden çizilmeleri
@@ -70,9 +86,15 @@ function init() {
   // sayısı katlanarak artar).
   onLanguageChange(() => renderFaq(sssList));
   onLanguageChange(() => renderContactChannels(iletisimGrid));
-  onLanguageChange(() => renderFooterSocial(footerSocial));
+  onLanguageChange(() => renderContactChannels(briefContactGrid));
+  onLanguageChange(() => footerSocials.forEach((el) => renderFooterSocial(el)));
+  onLanguageChange(() => {
+    renderWorksDetail(worksDetailList);
+    worksReveal.refresh();
+  });
 
   initQuestionForm(qs("#soru-form"));
+  initProjectBriefForm(qs("#project-brief-form"));
 
   initSearch({
     trigger: qs("#search-trigger"),
@@ -82,11 +104,16 @@ function init() {
     closeBtn: qs("#search-close")
   });
 
-  setYear();
+  const year = String(new Date().getFullYear());
+  qsa("[data-current-year]").forEach((el) => {
+    el.textContent = year;
+  });
 
   // Dinamik içerik render edildikten sonra: hash yoksa en üstten başla,
-  // hash varsa hedefe git (bkz. js/utils.js).
+  // ana sayfa bölümü hash'i varsa hedefe git (bkz. js/utils.js). Görünüm
+  // adresleri (#/…) bu çağrıdan sonra yönlendirici tarafından uygulanır.
   applyInitialScrollPosition();
+  initViewRouter();
 }
 
 if (document.readyState === "loading") {

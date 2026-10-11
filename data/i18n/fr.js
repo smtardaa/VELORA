@@ -49,6 +49,7 @@ export const fr = {
     lede: "Une sélection de sites que nous avons conçus pour des marques de secteurs variés.",
     prevAriaLabel: "Projet précédent",
     nextAriaLabel: "Projet suivant",
+    dotAriaLabel: "Aller au projet {n}",
     viewProject: "Découvrir le projet",
     projectAriaLabel: "Découvrir le projet {name}",
     categories: {
@@ -161,32 +162,52 @@ export const fr = {
     heading: "Des offres adaptées à vos besoins",
     lede: "Définissons ensemble l'offre la plus adaptée ; contactez-nous et nous vous proposerons un devis clair.",
     deliveryNote: "Délai de livraison pour toutes les offres : 5 jours ouvrés",
-    prevAriaLabel: "Offres précédentes",
-    nextAriaLabel: "Offres suivantes",
-    dotAriaLabel: "Groupe d'offres {n}",
+    priceLabel: "Prix de départ",
+    includesLabel: "Inclus",
+    extrasLabel: "Non inclus / facturé séparément",
+    pricingNote: "Les prix indiqués sont des prix de départ ; le prix définitif est fixé une fois le périmètre défini ensemble. Les frais de nom de domaine, d'hébergement et de services tiers ne sont pas inclus dans les offres.",
+    custom: {
+      examplesLabel: "Exemples que nous pouvons étudier comme demande sur mesure",
+      priceText: "Le prix est fixé une fois le périmètre défini"
+    },
     items: {
       "tek-sayfa": {
         name: "Page unique",
-        description: "Un site sobre en une seule page qui présente clairement votre marque et vos services.",
-        features: ["Design sur mesure en une page", "Mise en page entièrement responsive", "Configuration SEO essentielle"],
+        audience: "Pour les petites entreprises et les activités centrées sur un service principal",
+        description: "Un site vitrine qui présente votre entreprise, votre service et les moyens de vous joindre sur une seule page bien organisée.",
+        features: ["Une page au design sur mesure", "Sections services, à propos et contact", "Liens WhatsApp, téléphone et e-mail", "Adapté au mobile, à la tablette et à l'ordinateur", "Réglages SEO de base"],
+        extras: ["Pages supplémentaires", "Rédaction et photographie professionnelle", "Frais de nom de domaine et d'hébergement"],
         cta: "Nous contacter"
       },
       kurumsal: {
         name: "Institutionnel",
-        description: "Un site professionnel multi-pages qui reflète votre identité d'entreprise.",
-        features: ["Design sur mesure jusqu'à 5 pages", "Configuration SEO avancée", "Mise à jour de contenu facile"],
+        audience: "Pour les entreprises qui souhaitent une présentation plus complète",
+        description: "Un site institutionnel de plusieurs pages qui présente vos services, votre histoire et vos coordonnées sur des pages distinctes.",
+        features: ["Design sur mesure jusqu'à 5 pages", "Mise en page dédiée aux services", "Page localisation et contact", "Adapté au mobile, à la tablette et à l'ordinateur", "Réglages SEO de base"],
+        extras: ["Panneau de gestion de contenu", "Plusieurs langues", "Rédaction et photographie professionnelle", "Frais de nom de domaine et d'hébergement"],
         cta: "Nous contacter"
       },
-      "ozel-proje": {
-        name: "Projet sur mesure",
-        description: "Une solution flexible et évolutive, dont le périmètre est pensé spécialement pour vous.",
-        features: ["Périmètre adapté à vos besoins", "Pages et fonctionnalités flexibles", "Accompagnement prioritaire"],
+      "randevu-menu": {
+        name: "Rendez-vous & Menu",
+        audience: "Pour les commerces de proximité : salons de coiffure, instituts de beauté et ongleries, cafés et restaurants",
+        description: "Un site qui présente clairement vos prestations et tarifs ou votre menu, et oriente les visiteurs vers le bon canal pour réserver ou vous contacter.",
+        features: ["Page prestations/tarifs ou menu", "Prise de rendez-vous guidée via WhatsApp et téléphone", "Lien vers votre outil de réservation actuel (le cas échéant)", "Adresse, horaires et coordonnées", "Design pensé d'abord pour le mobile"],
+        extras: ["Système de réservation en ligne en temps réel", "Commande et paiement en ligne", "Frais de nom de domaine et d'hébergement"],
+        cta: "Nous contacter"
+      },
+      "e-ticaret": {
+        name: "E-commerce",
+        audience: "Pour les entreprises qui souhaitent vendre leurs produits en ligne",
+        description: "Un design de boutique qui met en valeur votre catalogue, pensé en fonction de la plateforme e-commerce qui sera choisie.",
+        features: ["Design de la page d'accueil de la boutique", "Mise en page des catégories et des fiches produits", "Boutique adaptée au mobile", "Canaux de contact pour les questions avant commande"],
+        extras: ["Plateforme e-commerce / licence", "Intégrations paiement (TPE virtuel), livraison et stock", "Connexions aux marketplaces", "Saisie de produits en masse et photographie produit", "Frais de nom de domaine et d'hébergement"],
         cta: "Nous contacter"
       },
       "proje-anlatin": {
-        name: "Parlez-nous de votre projet / Obtenez un devis",
-        description: "Partagez le périmètre de votre projet, nous définirons ensemble la solution et le tarif adaptés.",
-        cta: "Nous en parler"
+        name: "Parlez-nous de votre projet",
+        description: "Si votre besoin ne correspond pas aux offres standard, parlez-nous de votre projet : nous définissons d'abord le périmètre ensemble, puis nous fixons le prix.",
+        examples: ["Structures de pages et parcours utilisateur sur mesure", "Intégrations supplémentaires", "Plusieurs langues", "Autres besoins qui ne rentrent pas dans les offres"],
+        cta: "Parlez-nous de votre projet"
       }
     }
   },
@@ -330,6 +351,12 @@ export const fr = {
       faq: "FAQ",
       ask: "Poser une question"
     },
+    groups: {
+      pages: "Pages",
+      quickLinks: "Accès rapide",
+      contact: "Nous contacter"
+    },
+    allChannels: "Tous les canaux de contact",
     rightsReserved: "Tous droits réservés."
   },
 
@@ -448,6 +475,10 @@ export const fr = {
     }
   },
 
+  views: {
+    backHome: "Retour à l'accueil",
+    currentLabel: "Vue actuelle :"
+  },
   misc: {
     logoAlt: "Logo VELORA"
   }

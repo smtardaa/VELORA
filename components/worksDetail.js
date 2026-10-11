@@ -1,4 +1,5 @@
-// components/worksDetail.js — calismalarimiz.html sayfasındaki 7 proje
+// components/worksDetail.js — Çalışmalarımız görünümündeki (index.html >
+// #view-calismalarimiz) 7 proje
 // detay bloğunu (sağda görsel, solda 3'lü accordion) render eder.
 //
 // Accordion davranışı SSS (components/faq.js) ile aynı görsel/etkileşim

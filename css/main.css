@@ -589,17 +589,6 @@ p {
   padding: 0.4rem 0.9rem;
 }
 
-/* Paket kartları grid'i: sütun sayısı slider tarafından
-   --packages-per-view CSS değişkeni ile belirlenir. Kart sayısı 3'ten
-   4'e çıkınca (bkz. data/packages.js) her kart daha dar kaldığı için
-   boşluk (gap) burada genel .grid varsayılanından (var(--space-md),
-   24px) biraz düşürüldü — kartlar yandan daha az "basık" görünsün diye. */
-.packages-grid {
-  grid-template-columns: repeat(var(--packages-per-view, 3), 1fr);
-  align-items: stretch;
-  gap: var(--space-sm);
-}
-
 .card {
   background-color: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
@@ -611,150 +600,6 @@ p {
 .card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-card);
-}
-
-/* Paket kartları */
-
-.package-card {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  background-color: var(--color-bg);
-  /* Grid hücresi, içerideki (nowrap) CTA metninin doğal genişliğine
-     göre büzülmeyi reddetmesin diye min-width sıfırlanır. Aksi halde
-     en uzun CTA metnine sahip kart (ör. "Özel Proje") dar ekranlarda
-     kendi hücresinden taşıp border'ı ekran/viewport dışına çıkarıyordu. */
-  min-width: 0;
-  /* .card'ın varsayılan iç boşluğu (var(--space-lg), 40px) 4 kartla
-     birlikte dar kartları dikey olarak gereğinden fazla uzatıyordu;
-     burada daha dengeli/kare bir orana yaklaşsın diye düşürüldü. */
-  padding: var(--space-md);
-}
-
-.package-card .btn-block {
-  white-space: normal;
-}
-
-/* Slider viewport'u overflow:hidden olduğu için kartların genel
-   hover kalkma efekti (translateY) burada uygulanmaz: kart yukarı
-   kayınca üst kenarı viewport tarafından kırpılıp bir "taşma/kayma"
-   hissi veriyordu. Konum sabit kalsın, yalnızca gölge ile geri
-   bildirim verilsin. */
-.package-card:hover {
-  transform: none;
-  box-shadow: var(--shadow-card);
-}
-
-.package-card.is-highlighted:hover {
-  box-shadow: var(--shadow-elevated);
-}
-
-.package-card.is-highlighted {
-  /* Border rengi artık diğer paket kartlarıyla aynı (var(--color-border),
-     .card kuralından miras alınır) — yalnızca gölge farkı korunur. */
-  box-shadow: var(--shadow-elevated);
-}
-
-/* Kurumsal paket kartındaki "İletişime Geç" butonu her zaman siyah
-   zemin + beyaz yazı olmalı. Not: Paketler bölümü .section-invert
-   olduğundan, --color-accent/--color-accent-contrast burada normalde
-   TERS çevrilir (bkz. css/variables.css) ve bu buton .btn-primary
-   üzerinden otomatik olarak AÇIK zemin/KOYU yazıya dönerdi; bu kural
-   bilinçli olarak sabit (section-invert bağlamından bağımsız) siyah/beyaz
-   renkler kullanarak bunu geçersiz kılar. İnce beyaz kenarlık, buton
-   bölümün siyah zeminine karışıp kaybolmasın diye eklendi. */
-.package-card.is-highlighted .btn-primary {
-  background-color: #000000;
-  color: #ffffff;
-  border: 1px solid #ffffff;
-}
-
-/* "Kendi projenizi anlatın / Fiyat alın" kartı: sabit fiyat/kapsamlı bir
-   paket gibi görünmemesi için kesikli kenarlık + saydam zemin kullanılır
-   (diğer paket kartlarının görünümüne dokunulmaz). Butonu da popup
-   açmaz, doğrudan proje anlatım sayfasına (projenizi-anlatin.html) bağlanan
-   gerçek bir <a> bağlantısıdır (bkz. components/packages.js > renderCard). */
-.package-card-cta {
-  border-style: dashed;
-  background-color: transparent;
-}
-
-/* Bu kartta özellik listesi olmadığından (yukarıdaki yorum), diğer
-   kartlardaki .package-features'ın sağladığı "flex-grow" boşluğu
-   burada yoktur; buton grid'de eşit yüksekliğe gerilmiş kartın en
-   altına yapışsın diye "margin-top:auto" ile aynı sonuç elde edilir. */
-.package-card-cta .package-contact-trigger-link {
-  margin-top: auto;
-}
-
-.package-badge {
-  position: absolute;
-  top: -13px;
-  left: var(--space-md);
-  background-color: var(--color-accent);
-  color: var(--color-accent-contrast);
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-  letter-spacing: 0.02em;
-}
-
-.package-name {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-
-.package-description {
-  font-size: 0.9rem;
-  margin-bottom: var(--space-sm);
-}
-
-.package-features {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  margin-bottom: var(--space-md);
-  flex-grow: 1;
-}
-
-.package-features li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.55rem;
-  font-size: 0.9rem;
-  color: var(--color-text);
-}
-
-.package-features svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-  margin-top: 3px;
-  color: var(--color-text-secondary);
-}
-
-/* ---------- Paket slider ---------- */
-
-.packages-slider {
-  display: flex;
-  align-items: stretch;
-  gap: var(--space-sm);
-}
-
-.packages-viewport {
-  flex: 1;
-  overflow: hidden;
-}
-
-.packages-track {
-  display: flex;
-  transition: transform var(--transition-base);
-}
-
-.slider-page {
-  flex: 0 0 100%;
-  min-width: 0;
 }
 
 .slider-arrow {
@@ -786,150 +631,9 @@ p {
   cursor: default;
 }
 
-/* Not: yalnızca masaüstünde (bkz. components/packages.js >
-   updateControls() — has-single-page yalnızca tier==="desktop" iken
-   eklenir; tablette oklar bilinçli olarak görsel/işlevsel etkin
-   görünmeye devam eder, buna dokunulmadı) oklar tamamen kaldırılır.
-   Önceden yalnızca "visibility:hidden" kullanılıyordu; bu, görünmez
-   olsalar da genişliklerini (44px + aralarındaki boşluk) slider
-   satırında rezerve etmeye devam ediyor, kart grid'ine ayrılan alanı
-   gereksiz yere daraltıyordu. "display:none" ile bu alan tamamen
-   kartlara geri kazandırılır. */
-.packages-slider.has-single-page .slider-arrow {
-  display: none;
-}
-
-.slider-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: var(--space-md);
-}
-
-.slider-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--color-border);
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
-}
-
-.slider-dot.is-active {
-  background-color: var(--color-accent);
-  transform: scale(1.2);
-}
-
-.packages-slider.has-single-page + .slider-dots {
-  display: none;
-}
-
-/* ---------- Çalışmalarımız (works) slider ---------- */
-
-.works-slider {
-  display: flex;
-  align-items: stretch;
-  gap: var(--space-sm);
-}
-
-.works-viewport {
-  flex: 1;
-  overflow: hidden;
-}
-
-.works-track {
-  display: flex;
-  transition: transform var(--transition-base);
-}
-
-.works-slide {
-  flex: 0 0 calc(100% / var(--project-per-view, 3));
-  min-width: 0;
-  box-sizing: border-box;
-  padding-inline: calc(var(--space-md) / 2);
-}
-
-.project-card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  color: var(--color-text);
-}
-
-/* Slider viewport'u overflow:hidden olduğu için genel .card:hover
-   kalkma efekti burada da uygulanmaz (paket kartlarındaki aynı
-   kırpılma sorununu önler); yalnızca gölge ile geri bildirim verilir. */
-.project-card:hover {
-  transform: none;
-  box-shadow: var(--shadow-elevated);
-}
-
-.project-thumb {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 16 / 10;
-  border-radius: var(--radius-sm);
-  background-color: var(--color-bg-muted);
-  border: 1px solid var(--color-border);
-  margin-bottom: var(--space-md);
-  overflow: hidden;
-}
-
-.project-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.project-thumb-icon {
-  display: inline-flex;
-  color: var(--color-text-secondary);
-}
-
-.project-thumb-icon svg {
-  width: 34px;
-  height: 34px;
-}
-
-/* Kartlar slider'da eşit yüksekliğe gerildiği için gövde kalan alanı
-   doldurur ve "Projeyi İncele" bağlantısı kartın altına yaslanır; aksi
-   halde iki satıra kırılan bir proje adı, o karttaki bağlantıyı
-   komşularından daha aşağıda gösteriyordu. */
-.project-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.project-name {
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.project-category {
-  font-size: 0.85rem;
-  color: var(--color-text-secondary);
-  margin-bottom: 0.6rem;
-}
-
-.project-link {
-  margin-top: auto;
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: var(--color-text);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-/* Kart, overflow:hidden olan slider viewport'unun tam yüksekliğini
-   kapladığından dışa taşan odak halkası üstten/alttan kırpılıyordu;
-   halka bu kartta kenarlığın içine çizilir. */
-.project-card:focus-visible {
-  outline-offset: -3px;
-}
+/* Paket kartları ve "Çalışmalarımız" vitrini yalnızca ana sayfada
+   kullanıldığından stilleri css/home.css içindedir. .slider-arrow
+   (yukarıda) vitrinin ok butonlarında kullanılır. */
 
 /* ---------- Hakkında ---------- */
 /* Sitenin geri kalanı ürün/pazarlama odaklı, ortalanmış bölüm başlıklarıyla
@@ -966,7 +670,7 @@ p {
   margin-bottom: var(--space-lg);
 }
 
-/* Hakkımızda: about-intro'nun altında hakkimizda.html'e giden bağlantı.
+/* Hakkımızda: about-intro'nun altında Hakkımızda görünümünü açan bağlantı.
    Görünümü ortak .arrow-link'ten gelir; burada yalnızca konum boşluğu. */
 .about-more-link {
   margin-top: var(--space-md);
@@ -1543,7 +1247,7 @@ p {
   height: 22px;
 }
 
-/* ---------- Çalışmalarımız Detay Sayfası (calismalarimiz.html) ---------- */
+/* ---------- Çalışmalarımız görünümü (index.html > #view-calismalarimiz) ---------- */
 /* Ana sayfadaki "Çalışmalarımız" slider'ından (.works-slider vb.) ayrı bir
    bileşen seti: burada her proje için sağda görsel / solda 3'lü accordion
    içeren daha geniş bir detay bloğu var. Sitedeki renk/boşluk/kenar
@@ -1606,7 +1310,7 @@ p {
   align-items: start;
   padding-top: var(--space-2xl);
   border-top: 1px solid var(--color-border);
-  /* Ana sayfadaki proje kartları calismalarimiz.html#<id> ile doğrudan bu
+  /* Ana sayfadaki proje kartları #/calismalarimiz/<id> ile doğrudan bu
      bloğa bağlanır; sabit header'ın içeriği kapatmaması için #hakkinda ile
      aynı scroll-margin-top tekniği kullanılır. */
   scroll-margin-top: calc(var(--header-height) + var(--space-sm));
@@ -1752,14 +1456,14 @@ p {
   font-style: italic;
 }
 
-/* ---------- Alt sayfalar (hakkimizda.html, projenizi-anlatin.html) ----------
+/* ---------- Hakkımızda ve Projenizi Anlatın görünümleri ----------
    Sade içerik sayfaları: ortalanmış bölüm başlığı (sitedeki diğer bölüm
    başlıklarıyla aynı ölçü), altında başlık + metinden oluşan içerik
    blokları ve koyu (.section-invert) bir iletişim çağrısı bandı. Yalnızca
    mevcut token'lar (renk, boşluk, köşe) kullanılır. */
 
 /* Sayfanın tek h1'i, görsel olarak sitedeki h2 bölüm başlıklarıyla aynı
-   ölçüdedir (calismalarimiz.html ile tutarlı görünüm). */
+   ölçüdedir (Çalışmalarımız görünümü ile tutarlı). */
 .page-title {
   font-size: clamp(2rem, 3.4vw, 2.75rem);
   font-weight: 600;
@@ -1808,7 +1512,7 @@ p {
   gap: var(--space-sm);
 }
 
-/* ---------- Projenizi Anlatın formu (projenizi-anlatin.html) ----------
+/* ---------- Projenizi Anlatın formu (#view-projenizi-anlatin) ----------
    Ana sayfadaki "Soru Sor" formunun bileşenlerini (.form-card / .form-row /
    .field) aynen kullanır; burada yalnızca bu forma özgü ekler var. */
 

@@ -29,7 +29,7 @@ export function qsa(selector, scope = document) {
 }
 
 // setYear(selector) — footer'daki telif yılı span'ini günceller. Hem
-// ana sayfa (js/main.js) hem de calismalarimiz.html (js/worksPage.js)
+// ana sayfa (js/main.js) hem de eski ayrı sayfalar (js/worksPage.js)
 // aynı footer'ı kullandığı için burada paylaşılan tek bir yerde tutulur.
 export function setYear(selector = "#current-year") {
   const el = qs(selector);
@@ -76,7 +76,8 @@ export function trapFocus(container) {
 //  - URL'de hash yoksa: sayfa her zaman en üstten başlar (tarayıcının
 //    yenilemede eski kaydırma konumunu geri yüklemesi kapatılır).
 //  - URL'de geçerli bir hash varsa (ör. index.html#paketler,
-//    calismalarimiz.html#lumen-kahve): hedef öğeye gidilir. Hedef içerik
+//    #paketler): hedef öğeye gidilir. (Görünüm adresleri — #/… — için
+//    hedef bulunmaz; onları js/viewRouter.js uygular.) Hedef içerik
 //    JS ile sonradan üretildiği için (proje detayları, paketler vb.)
 //    tarayıcının kendi ilk kaydırması yanlış konumda kalabileceğinden,
 //    render sonrası ve bir sonraki karede konum tekrar hedefe hizalanır

@@ -48,13 +48,14 @@ export const tr = {
   works: {
     eyebrow: "Çalışmalarımız",
     // Ana sayfadaki Çalışmalarımız bölümünün eyebrow'u altında gösterilen,
-    // calismalarimiz.html'e giden bağlantı (header dropdown'undaki aynı
+    // Çalışmalarımız görünümünü açan bağlantı (header dropdown'undaki aynı
     // isimli seçenekten bilinçli olarak ayrı bir anahtardır).
     viewAllLink: "Tüm çalışmalarımızı inceleyin",
     heading: "Örnek çalışmalarımızdan bazıları",
     lede: "Farklı sektörlerden markalar için tasarladığımız web sitelerinden birkaç örnek.",
     prevAriaLabel: "Önceki çalışma",
     nextAriaLabel: "Sonraki çalışma",
+    dotAriaLabel: "{n}. çalışmaya git",
     viewProject: "Projeyi İncele",
     projectAriaLabel: "{name} projesini incele",
     categories: {
@@ -66,7 +67,7 @@ export const tr = {
       "marka-vitrin": "E-Ticaret",
       "ada-mimarlik": "Kişisel Portfolyo"
     },
-    // calismalarimiz.html (ayrı Çalışmalarımız sayfası) için içerik.
+    // Çalışmalarımız görünümü (index.html > #view-calismalarimiz) için içerik.
     // Buradaki her şey KONSEPT/DEMO amaçlıdır: description/benefits/techNote
     // gerçek bir müşteri işini, doğrulanmış sonucu veya fiilen kullanılmış
     // teknolojiyi temsil etmez — techNote alanları bilinçli olarak "önerilen
@@ -179,36 +180,58 @@ export const tr = {
     heading: "İhtiyacınıza uygun paketler",
     lede: "Size en uygun paketi birlikte belirleyelim; net bir teklif için bize ulaşmanız yeterli.",
     deliveryNote: "Tüm paketlerde teslim süresi: 5 iş günü",
-    prevAriaLabel: "Önceki paketler",
-    nextAriaLabel: "Sonraki paketler",
-    dotAriaLabel: "Paket grubu {n}",
+    priceLabel: "Başlangıç fiyatı",
+    includesLabel: "Pakete dahil",
+    extrasLabel: "Dahil değil / ayrıca fiyatlandırılır",
+    pricingNote: "Fiyatlar başlangıç fiyatıdır; kesin fiyat, kapsam birlikte netleştirildikten sonra belirlenir. Alan adı, hosting ve üçüncü taraf hizmet ücretleri paketlere dahil değildir.",
+    custom: {
+      examplesLabel: "Özel talep olarak değerlendirebileceğimiz örnekler",
+      priceText: "Fiyat, kapsam netleştikten sonra belirlenir"
+    },
+    // Fiyatlı paketler: başlangıç fiyatları data/packages.js > startingPrice
+    // içinde tutulur (dile göre değişmez). "features" pakete dahil olanları,
+    // "extras" pakete dahil olmayan / ayrıca fiyatlandırılan kalemleri listeler.
+    // "proje-anlatin" fiyatlı bir paket DEĞİLDİR: fiyat göstermez, "examples"
+    // yalnızca özel talep kapsamında değerlendirilecek örneklerdir (garanti
+    // edilmiş hizmet listesi değildir) ve butonu Projenizi Anlatın görünümünü açar.
     items: {
       "tek-sayfa": {
         name: "Tek Sayfa",
-        description: "Tek bir sayfada markanızı ve hizmetlerinizi net şekilde anlatan sade site.",
-        features: ["Tek sayfa özel tasarım", "Tam responsive yapı", "Temel SEO ayarları"],
+        audience: "Küçük işletmeler ve tek ana hizmet sunanlar için",
+        description: "İşletmenizi, hizmetinizi ve size ulaşma yollarını tek ve düzenli bir sayfada anlatan tanıtım sitesi.",
+        features: ["Tek sayfa, size özel tasarım", "Hizmet, hakkında ve iletişim bölümleri", "WhatsApp, telefon ve e-posta bağlantıları", "Mobil, tablet ve masaüstü uyumu", "Temel SEO ayarları"],
+        extras: ["Ek sayfalar", "Metin yazımı ve profesyonel fotoğraf", "Alan adı ve hosting ücretleri"],
         cta: "İletişime Geç"
       },
       kurumsal: {
         name: "Kurumsal",
-        description: "Çok sayfalı, kurumsal kimliğinizi yansıtan profesyonel web sitesi.",
-        features: ["5 sayfaya kadar özel tasarım", "Gelişmiş SEO yapılandırması", "Kolay içerik güncelleme"],
+        audience: "İşletmesini daha kapsamlı tanıtmak isteyenler için",
+        description: "Hizmetlerinizi, hikâyenizi ve iletişim bilgilerinizi ayrı sayfalarda anlatan çok sayfalı kurumsal site.",
+        features: ["5 sayfaya kadar özel tasarım", "Hizmetler için ayrı sayfa düzeni", "Konum ve iletişim sayfası", "Mobil, tablet ve masaüstü uyumu", "Temel SEO ayarları"],
+        extras: ["İçerik yönetim paneli", "Birden fazla dil", "Metin yazımı ve profesyonel fotoğraf", "Alan adı ve hosting ücretleri"],
         cta: "İletişime Geç"
       },
-      "ozel-proje": {
-        name: "Özel Proje",
-        description: "Kapsamı size özel planlanan, esnek ve genişletilebilir çözüm.",
-        features: ["İhtiyaca özel kapsam", "Esnek sayfa/özellik seçimi", "Öncelikli danışmanlık"],
+      "randevu-menu": {
+        name: "Randevu ve Menü",
+        audience: "Kuaför, güzellik ve tırnak stüdyosu, kafe ve restoran gibi yerel işletmeler için",
+        description: "Hizmet ve fiyat listenizi ya da menünüzü düzenli sunan, ziyaretçiyi randevu veya iletişim için doğru kanala yönlendiren site.",
+        features: ["Hizmet/fiyat listesi veya menü sayfası", "WhatsApp ve telefonla randevu yönlendirmesi", "Kullandığınız randevu aracına bağlantı (varsa)", "Konum, çalışma saatleri ve iletişim bilgileri", "Mobil öncelikli tasarım"],
+        extras: ["Gerçek zamanlı online randevu/rezervasyon sistemi", "Online sipariş ve ödeme", "Alan adı ve hosting ücretleri"],
         cta: "İletişime Geç"
       },
-      // Sabit fiyat/kapsamlı bir paket DEĞİLDİR; kasıtlı olarak "features"
-      // listesi yoktur (bkz. components/packages.js > renderCard) ve
-      // butonu popup açmak yerine proje anlatım sayfasına
-      // (projenizi-anlatin.html) bağlanır.
+      "e-ticaret": {
+        name: "E-Ticaret",
+        audience: "Ürünlerini internetten satmak isteyen işletmeler için",
+        description: "Ürün kataloğunuzu düzenli sergileyen, seçilecek e-ticaret altyapısına göre planlanan mağaza tasarımı.",
+        features: ["Mağaza ana sayfası tasarımı", "Kategori ve ürün sayfası düzeni", "Mobil uyumlu mağaza görünümü", "Sipariş öncesi sorular için iletişim kanalları"],
+        extras: ["E-ticaret altyapısı / platform lisansı", "Ödeme (sanal POS), kargo ve stok entegrasyonları", "Pazaryeri bağlantıları", "Toplu ürün girişi ve ürün fotoğrafı", "Alan adı ve hosting ücretleri"],
+        cta: "İletişime Geç"
+      },
       "proje-anlatin": {
-        name: "Kendi projenizi anlatın / Fiyat alın",
-        description: "Projenizin kapsamını paylaşın, size uygun çözümü ve fiyatı birlikte belirleyelim.",
-        cta: "Hemen anlatın"
+        name: "Kendi Projenizi Anlatın",
+        description: "İhtiyacınız standart paketlere uymuyorsa projenizi anlatın; önce kapsamı birlikte netleştirelim, fiyatı ardından belirleyelim.",
+        examples: ["Özel sayfa yapıları ve kullanıcı akışları", "Ek entegrasyonlar", "Birden fazla dil", "Paketlere sığmayan diğer ihtiyaçlar"],
+        cta: "Projenizi anlatın"
       }
     }
   },
@@ -221,7 +244,7 @@ export const tr = {
   about: {
     eyebrow: "VELORA",
     headline: "Dijital dünyadaki ilk izleniminiz, bir kapıdır.",
-    // Hakkımızda bölümünün altındaki, hakkimizda.html'e giden bağlantı.
+    // Hakkımızda bölümünün altındaki, Hakkımızda görünümünü açan bağlantı.
     moreLink: "Hakkımızda daha fazla bilgi edinin"
   },
 
@@ -356,6 +379,12 @@ export const tr = {
       faq: "SSS",
       ask: "Soru Sorma"
     },
+    groups: {
+      pages: "Sayfalar",
+      quickLinks: "Hızlı erişim",
+      contact: "Bize ulaşın"
+    },
+    allChannels: "Tüm iletişim kanalları",
     rightsReserved: "Tüm hakları saklıdır."
   },
 
@@ -372,8 +401,8 @@ export const tr = {
     }
   },
 
-  // Ayrı sayfalar için içerik: "about" (hakkimizda.html — şimdilik yalnızca
-  // başlık + nötr içerik iskeleti) ve "projectBrief" (projenizi-anlatin.html
+  // Tam ekran görünümler için içerik: "about" (Hakkımızda görünümü) ve
+  // "projectBrief" (Projenizi Anlatın görünümü
   // — proje anlatım formu + çalışmalar/iletişim bölümü). Gerçek içerik
   // geldiğinde metinler buradan (ve diğer 4 dilde aynı anahtarlardan)
   // güncellenmelidir. Doğrulanmamış bilgi eklenmedi.
@@ -400,7 +429,7 @@ export const tr = {
       ctaContact: "İletişime geçin",
       ctaPackages: "Paketleri inceleyin"
     },
-    // projenizi-anlatin.html: proje anlatım formu + çalışmalar/iletişim
+    // Projenizi Anlatın görünümü: proje anlatım formu + çalışmalar/iletişim
     // bölümü. Form henüz bir gönderim altyapısına bağlı olmadığı için
     // 'notice', 'filesPending' ve 'feedback.notSent' metinleri bunu açıkça
     // belirtir (bkz. components/projectBriefForm.js).
@@ -483,6 +512,13 @@ export const tr = {
     }
   },
 
+  // Tam ekran görünümler (Çalışmalarımız / Hakkımızda / Projenizi Anlatın)
+  // üstündeki çubuk: ana sayfaya dönüş bağlantısı ve açık görünümün adı
+  // (ad, header.nav.* anahtarlarından gelir).
+  views: {
+    backHome: "Ana sayfaya dön",
+    currentLabel: "Açık görünüm:"
+  },
   misc: {
     logoAlt: "VELORA logosu"
   }

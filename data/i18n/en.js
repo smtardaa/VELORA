@@ -49,6 +49,7 @@ export const en = {
     lede: "A selection of websites we've designed for brands across different industries.",
     prevAriaLabel: "Previous project",
     nextAriaLabel: "Next project",
+    dotAriaLabel: "Go to project {n}",
     viewProject: "View Project",
     projectAriaLabel: "View the {name} project",
     categories: {
@@ -161,32 +162,52 @@ export const en = {
     heading: "Packages that fit your needs",
     lede: "Let's figure out the right package together — just reach out and we'll put together a clear quote.",
     deliveryNote: "Delivery time for every package: 5 business days",
-    prevAriaLabel: "Previous packages",
-    nextAriaLabel: "Next packages",
-    dotAriaLabel: "Package group {n}",
+    priceLabel: "Starting price",
+    includesLabel: "Included",
+    extrasLabel: "Not included / priced separately",
+    pricingNote: "Prices are starting prices; the final price is set once we have defined the scope together. Domain, hosting and third-party service fees are not included in the packages.",
+    custom: {
+      examplesLabel: "Examples we can consider as a custom request",
+      priceText: "Price is set once the scope is clear"
+    },
     items: {
       "tek-sayfa": {
         name: "Single Page",
-        description: "A clean, single-page site that clearly presents your brand and services.",
-        features: ["Custom single-page design", "Fully responsive layout", "Essential SEO setup"],
+        audience: "For small businesses and single-service providers",
+        description: "A presentation site that explains your business, your service and how to reach you on one well-organized page.",
+        features: ["Single page with a custom design", "Services, about and contact sections", "WhatsApp, phone and email links", "Mobile, tablet and desktop friendly", "Basic SEO settings"],
+        extras: ["Additional pages", "Copywriting and professional photography", "Domain and hosting fees"],
         cta: "Get in Touch"
       },
       kurumsal: {
         name: "Corporate",
-        description: "A multi-page, professional website that reflects your corporate identity.",
-        features: ["Custom design for up to 5 pages", "Advanced SEO configuration", "Easy content updates"],
+        audience: "For businesses that want a more complete presentation",
+        description: "A multi-page corporate site that presents your services, your story and your contact details on separate pages.",
+        features: ["Custom design for up to 5 pages", "Dedicated page layout for services", "Location and contact page", "Mobile, tablet and desktop friendly", "Basic SEO settings"],
+        extras: ["Content management panel", "Multiple languages", "Copywriting and professional photography", "Domain and hosting fees"],
         cta: "Get in Touch"
       },
-      "ozel-proje": {
-        name: "Custom Project",
-        description: "A flexible, scalable solution planned around your specific scope.",
-        features: ["Scope tailored to your needs", "Flexible pages & features", "Priority consulting"],
+      "randevu-menu": {
+        name: "Booking & Menu",
+        audience: "For local businesses such as hair salons, beauty and nail studios, cafés and restaurants",
+        description: "A site that presents your services and prices or your menu clearly and guides visitors to the right channel to book or get in touch.",
+        features: ["Service/price list or menu page", "Booking guidance via WhatsApp and phone", "Link to the booking tool you already use (if any)", "Location, opening hours and contact details", "Mobile-first design"],
+        extras: ["Real-time online booking/reservation system", "Online ordering and payment", "Domain and hosting fees"],
+        cta: "Get in Touch"
+      },
+      "e-ticaret": {
+        name: "E-Commerce",
+        audience: "For businesses that want to sell their products online",
+        description: "A store design that showcases your product catalog clearly, planned around the e-commerce platform to be chosen.",
+        features: ["Store home page design", "Category and product page layout", "Mobile-friendly store design", "Contact channels for pre-order questions"],
+        extras: ["E-commerce platform / licence", "Payment (virtual POS), shipping and stock integrations", "Marketplace connections", "Bulk product entry and product photography", "Domain and hosting fees"],
         cta: "Get in Touch"
       },
       "proje-anlatin": {
-        name: "Tell Us About Your Project / Get a Quote",
-        description: "Share your project's scope and let's work out the right solution and price together.",
-        cta: "Tell Us Now"
+        name: "Tell Us About Your Project",
+        description: "If your needs don't fit the standard packages, tell us about your project; we'll define the scope together first and set the price afterwards.",
+        examples: ["Custom page structures and user flows", "Additional integrations", "Multiple languages", "Other needs that don't fit the packages"],
+        cta: "Tell us about your project"
       }
     }
   },
@@ -330,6 +351,12 @@ export const en = {
       faq: "FAQ",
       ask: "Ask a Question"
     },
+    groups: {
+      pages: "Pages",
+      quickLinks: "Quick links",
+      contact: "Contact us"
+    },
+    allChannels: "All contact channels",
     rightsReserved: "All rights reserved."
   },
 
@@ -448,6 +475,10 @@ export const en = {
     }
   },
 
+  views: {
+    backHome: "Back to home",
+    currentLabel: "Current view:"
+  },
   misc: {
     logoAlt: "VELORA logo"
   }

@@ -49,6 +49,7 @@ export const de = {
     lede: "Eine Auswahl an Websites, die wir für Marken aus verschiedenen Branchen gestaltet haben.",
     prevAriaLabel: "Vorheriges Projekt",
     nextAriaLabel: "Nächstes Projekt",
+    dotAriaLabel: "Zu Projekt {n}",
     viewProject: "Projekt ansehen",
     projectAriaLabel: "Projekt {name} ansehen",
     categories: {
@@ -163,32 +164,52 @@ export const de = {
     heading: "Pakete, die zu Ihnen passen",
     lede: "Lassen Sie uns gemeinsam das passende Paket finden — melden Sie sich einfach, und wir erstellen Ihnen ein klares Angebot.",
     deliveryNote: "Lieferzeit für alle Pakete: 5 Werktage",
-    prevAriaLabel: "Vorherige Pakete",
-    nextAriaLabel: "Nächste Pakete",
-    dotAriaLabel: "Paketgruppe {n}",
+    priceLabel: "Ab-Preis",
+    includesLabel: "Im Paket enthalten",
+    extrasLabel: "Nicht enthalten / separat berechnet",
+    pricingNote: "Die Preise sind Ab-Preise; der endgültige Preis wird festgelegt, nachdem wir den Umfang gemeinsam geklärt haben. Domain-, Hosting- und Drittanbietergebühren sind in den Paketen nicht enthalten.",
+    custom: {
+      examplesLabel: "Beispiele, die wir als individuelle Anfrage prüfen können",
+      priceText: "Der Preis wird nach Klärung des Umfangs festgelegt"
+    },
     items: {
       "tek-sayfa": {
         name: "Einzelseite",
-        description: "Eine klare Einzelseiten-Website, die Ihre Marke und Ihre Leistungen übersichtlich zeigt.",
-        features: ["Individuelles Einzelseiten-Design", "Vollständig responsives Layout", "Grundlegende SEO-Einrichtung"],
+        audience: "Für kleine Unternehmen und Anbieter mit einer Hauptleistung",
+        description: "Eine Präsentationsseite, die Ihr Unternehmen, Ihre Leistung und Ihre Kontaktwege auf einer übersichtlichen Seite zeigt.",
+        features: ["Eine Seite mit individuellem Design", "Bereiche für Leistungen, Über uns und Kontakt", "Links zu WhatsApp, Telefon und E-Mail", "Optimiert für Smartphone, Tablet und Desktop", "Grundlegende SEO-Einstellungen"],
+        extras: ["Zusätzliche Seiten", "Texterstellung und professionelle Fotografie", "Domain- und Hosting-Gebühren"],
         cta: "Kontakt aufnehmen"
       },
       kurumsal: {
         name: "Unternehmen",
-        description: "Eine mehrseitige, professionelle Website, die Ihre Unternehmensidentität widerspiegelt.",
-        features: ["Individuelles Design für bis zu 5 Seiten", "Erweiterte SEO-Konfiguration", "Einfache Inhaltsaktualisierung"],
+        audience: "Für Unternehmen, die sich umfassender präsentieren möchten",
+        description: "Eine mehrseitige Unternehmenswebsite, die Ihre Leistungen, Ihre Geschichte und Ihre Kontaktdaten auf eigenen Seiten vorstellt.",
+        features: ["Individuelles Design für bis zu 5 Seiten", "Eigenes Seitenlayout für Leistungen", "Standort- und Kontaktseite", "Optimiert für Smartphone, Tablet und Desktop", "Grundlegende SEO-Einstellungen"],
+        extras: ["Content-Management-Panel", "Mehrere Sprachen", "Texterstellung und professionelle Fotografie", "Domain- und Hosting-Gebühren"],
         cta: "Kontakt aufnehmen"
       },
-      "ozel-proje": {
-        name: "Individuelles Projekt",
-        description: "Eine flexible, erweiterbare Lösung, die genau auf Ihren Umfang zugeschnitten ist.",
-        features: ["Auf Ihren Bedarf zugeschnittener Umfang", "Flexible Seiten & Funktionen", "Bevorzugte Beratung"],
+      "randevu-menu": {
+        name: "Termine & Menü",
+        audience: "Für lokale Betriebe wie Friseure, Kosmetik- und Nagelstudios, Cafés und Restaurants",
+        description: "Eine Website, die Ihre Leistungen und Preise oder Ihre Speisekarte übersichtlich zeigt und Besucher zum richtigen Kanal für Termin oder Kontakt führt.",
+        features: ["Leistungs-/Preisliste oder Speisekarte", "Terminanfrage per WhatsApp und Telefon", "Link zu Ihrem bestehenden Buchungstool (falls vorhanden)", "Standort, Öffnungszeiten und Kontaktdaten", "Mobile-First-Design"],
+        extras: ["Online-Termin-/Reservierungssystem in Echtzeit", "Online-Bestellung und Zahlung", "Domain- und Hosting-Gebühren"],
+        cta: "Kontakt aufnehmen"
+      },
+      "e-ticaret": {
+        name: "E-Commerce",
+        audience: "Für Unternehmen, die ihre Produkte online verkaufen möchten",
+        description: "Ein Shop-Design, das Ihren Produktkatalog übersichtlich präsentiert und auf die zu wählende E-Commerce-Plattform abgestimmt wird.",
+        features: ["Design der Shop-Startseite", "Layout für Kategorie- und Produktseiten", "Mobilfreundliches Shop-Design", "Kontaktkanäle für Fragen vor der Bestellung"],
+        extras: ["E-Commerce-Plattform / Lizenz", "Zahlungs- (virtuelles POS), Versand- und Lagerintegrationen", "Marktplatz-Anbindungen", "Massen-Produkteingabe und Produktfotografie", "Domain- und Hosting-Gebühren"],
         cta: "Kontakt aufnehmen"
       },
       "proje-anlatin": {
-        name: "Erzählen Sie uns von Ihrem Projekt / Angebot erhalten",
-        description: "Teilen Sie uns den Umfang Ihres Projekts mit, und wir finden gemeinsam die passende Lösung und den passenden Preis.",
-        cta: "Jetzt erzählen"
+        name: "Erzählen Sie uns von Ihrem Projekt",
+        description: "Wenn Ihr Bedarf nicht zu den Standardpaketen passt, erzählen Sie uns von Ihrem Projekt; wir klären zuerst gemeinsam den Umfang und legen danach den Preis fest.",
+        examples: ["Individuelle Seitenstrukturen und Nutzerabläufe", "Zusätzliche Integrationen", "Mehrere Sprachen", "Weitere Anforderungen, die nicht in die Pakete passen"],
+        cta: "Projekt beschreiben"
       }
     }
   },
@@ -332,6 +353,12 @@ export const de = {
       faq: "FAQ",
       ask: "Frage stellen"
     },
+    groups: {
+      pages: "Seiten",
+      quickLinks: "Schnellzugriff",
+      contact: "Kontakt"
+    },
+    allChannels: "Alle Kontaktkanäle",
     rightsReserved: "Alle Rechte vorbehalten."
   },
 
@@ -450,6 +477,10 @@ export const de = {
     }
   },
 
+  views: {
+    backHome: "Zurück zur Startseite",
+    currentLabel: "Aktuelle Ansicht:"
+  },
   misc: {
     logoAlt: "VELORA Logo"
   }

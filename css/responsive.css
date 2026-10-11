@@ -20,35 +20,15 @@
     padding-block: var(--space-2xl);
   }
 
-  /* Alt sayfaların (calismalarimiz.html, hakkimizda.html,
-     projenizi-anlatin.html) ilk bölümü: sabit header burada 72px'e
+  /* Eski ayrı sayfaların ilk bölümü için yazılmıştı; tek sayfa yapısında
+     <main> içindeki ilk bölüm hero olduğundan şu an eşleşen öğe yoktur
+     (görünümler header'ın altından başlar, bkz. css/views.css). Eski not: sabit header burada 72px'e
      çıktığından, mobilde bölümün üst boşluğu (64px) header'dan kısa
      kalıyor ve eyebrow başlığı header'ın altına ~5px giriyordu. Üst boşluk
      header yüksekliği + nefes payı olarak hesaplanır. Ana sayfa hero'su
      kendi dolgusunu kullandığından etkilenmez. */
   main > section:first-child:not(.hero) {
     padding-block-start: calc(var(--header-height) + var(--space-lg));
-  }
-}
-
-/* Yalnızca tablet (481–1024px): 4 paket kartı tek satıra sığmayınca her kart
-   ~130–190px'e kadar daralıyor, metinler kelime kelime alt alta düşüyor ve
-   "İletişime Geç" butonları iki satıra kırılıyordu. Tüm paketler yine aynı
-   anda ve tek sayfada görünür (components/packages.js'teki tablet davranışı
-   değişmez); yalnızca ızgara 2×2 düzenine geçer. Masaüstü ve mobil
-   etkilenmez. */
-@media (min-width: 481px) and (max-width: 1024px) {
-  .packages-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* Dar tablet / büyük telefon (481–640px): iki sütun bile ~130–190px'e
-   düştüğü için kartlar tek sütunda alt alta gösterilir (yine tümü aynı
-   anda görünür). */
-@media (min-width: 481px) and (max-width: 640px) {
-  .packages-grid {
-    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -269,25 +249,6 @@
   .contact-card {
     flex: 1 1 100%;
     max-width: 320px;
-  }
-
-  .packages-slider,
-  .works-slider {
-    gap: var(--space-xs);
-  }
-
-  .works-slide {
-    padding-inline: calc(var(--space-sm) / 2);
-  }
-
-  .slider-arrow {
-    width: 36px;
-    height: 36px;
-  }
-
-  .slider-arrow svg {
-    width: 16px;
-    height: 16px;
   }
 
   .works-filter-chips {

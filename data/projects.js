@@ -6,8 +6,9 @@
 // projeler hazır olduğunda yalnızca bu dosyadaki `image` alanını
 // doldurmak yeterlidir (örn. image: "assets/proje-1.jpg").
 //
-// `href`: her kart, calismalarimiz.html sayfasındaki kendi detay
-// bloğuna (aynı id'li <article id="...">) yönlendirir — components/worksDetail.js
+// `href`: her kart, Çalışmalarımız görünümünü açıp kendi detay bloğuna
+// (aynı id'li <article id="...">) gider (#/calismalarimiz/<id>, bkz.
+// js/viewRouter.js) — components/worksDetail.js
 // bu id'leri kullanarak detay bloklarını render eder.
 
 export const projectsData = [
@@ -17,7 +18,7 @@ export const projectsData = [
     category: "Kurumsal Web Sitesi",
     icon: "building",
     image: null,
-    href: "calismalarimiz.html#velora-kurumsal"
+    href: "#/calismalarimiz/velora-kurumsal"
   },
   {
     id: "lumen-kahve",
@@ -25,7 +26,7 @@ export const projectsData = [
     category: "Restoran & Menü",
     icon: "utensils",
     image: null,
-    href: "calismalarimiz.html#lumen-kahve"
+    href: "#/calismalarimiz/lumen-kahve"
   },
   {
     id: "atlas-hukuk",
@@ -33,7 +34,7 @@ export const projectsData = [
     category: "Kurumsal Web Sitesi",
     icon: "scale",
     image: null,
-    href: "calismalarimiz.html#atlas-hukuk"
+    href: "#/calismalarimiz/atlas-hukuk"
   },
   {
     id: "fitcore-studyo",
@@ -41,7 +42,7 @@ export const projectsData = [
     category: "Fitness & Spor",
     icon: "dumbbell",
     image: null,
-    href: "calismalarimiz.html#fitcore-studyo"
+    href: "#/calismalarimiz/fitcore-studyo"
   },
   {
     id: "vera-klinik",
@@ -49,7 +50,7 @@ export const projectsData = [
     category: "Sağlık & Klinik",
     icon: "heart",
     image: null,
-    href: "calismalarimiz.html#vera-klinik"
+    href: "#/calismalarimiz/vera-klinik"
   },
   {
     id: "marka-vitrin",
@@ -57,7 +58,7 @@ export const projectsData = [
     category: "E-Ticaret",
     icon: "cart",
     image: null,
-    href: "calismalarimiz.html#marka-vitrin"
+    href: "#/calismalarimiz/marka-vitrin"
   },
   {
     id: "ada-mimarlik",
@@ -65,6 +66,6 @@ export const projectsData = [
     category: "Kişisel Portfolyo",
     icon: "brush",
     image: null,
-    href: "calismalarimiz.html#ada-mimarlik"
+    href: "#/calismalarimiz/ada-mimarlik"
   }
 ];

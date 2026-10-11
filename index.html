@@ -700,10 +700,13 @@
     </section>
   </div>
 
-  <!-- Görünümler arası geçiş katmanı: siyah zemin + ortada VELORA logosu
-       (assets/Velora First logo.png — siyah zeminli beyaz logo, olduğu gibi). -->
+  <!-- Görünümler arası geçiş katmanı: aşağı inip yukarı çekilen siyah panel +
+       ortada VELORA logosu. Logo, assets/Velora First logo.png'nin (siyah
+       zeminli beyaz logo) yazı alanına kırpılmış, 960px genişliğe küçültülmüş
+       kopyasıdır (assets/velora-logo-gecis.png); görünümü değiştirilmedi. -->
   <div class="view-transition" aria-hidden="true">
-    <img class="view-transition-logo" src="assets/Velora First logo.png" alt="" width="1932" height="1932"
+    <div class="view-transition-panel"></div>
+    <img class="view-transition-logo" src="assets/velora-logo-gecis.png" alt="" width="960" height="274"
       decoding="async" />
   </div>
 

@@ -18,6 +18,11 @@
 //    belirir, yeni görünüm katmanın altında hazırlanır ve katman aşağıdan
 //    yukarı açılarak gösterir. prefers-reduced-motion açıkken geçiş
 //    animasyonsuz, anında yapılır.
+//  - Performans: katman yalnızca transform/opacity ile (GPU'da, ana iş
+//    parçacığından bağımsız) hareket eder. Kapalı görünümler display:none
+//    yerine content-visibility:hidden ile gizlenir; bir kez yerleştirilen
+//    görünüm tekrar açılırken baştan hesaplanmaz. Görünümler sayfa açıldıktan
+//    sonra boşta kalan zamanda (requestIdleCallback) önceden yerleştirilir.
 //  - Odak: görünüm açılınca görünüm başlığına, ana sayfaya dönünce görünümü
 //    açan kontrole (veya hedef bölüme) taşınır.
 
@@ -26,9 +31,9 @@ import { refreshMeta } from "./i18n.js";
 
 export const VIEW_NAMES = ["calismalarimiz", "hakkimizda", "projenizi-anlatin"];
 
-const COVER_MS = 560;
-const REVEAL_MS = 640;
-const HOLD_MS = 180;
+const COVER_MS = 440;
+const REVEAL_MS = 520;
+const HOLD_MS = 80;
 const EASE_IN_OUT = "cubic-bezier(0.76, 0, 0.24, 1)";
 const EASE_OUT = "cubic-bezier(0.22, 1, 0.36, 1)";
 
@@ -87,6 +92,7 @@ export function initViewRouter() {
   const viewEls = new Map(qsa(".app-view").map((el) => [el.dataset.view, el]));
   const homeEls = [qs("#main-content"), qs("#home-footer")].filter(Boolean);
   const overlay = qs(".view-transition");
+  const panel = overlay ? qs(".view-transition-panel", overlay) : null;
   const logo = overlay ? qs(".view-transition-logo", overlay) : null;
   const skipLink = qs('a.visually-hidden[href="#main-content"]');
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -154,6 +160,28 @@ export function initViewRouter() {
     if (skipLink) skipLink.setAttribute("href", viewEl ? `#${viewEl.id}` : "#main-content");
     markHeader(view);
     current = view;
+    // Ana sayfa bileşenleri (ör. çalışmalar slider'ının otomatik kayması)
+    // görünüm açıkken kendini duraklatabilsin diye.
+    document.dispatchEvent(new CustomEvent("velora:viewchange", { detail: { view } }));
+  }
+
+  // Görünüm açıldığı anda ekranda olan kartlar (js/reveal.js) katmanın
+  // altında animasyonsuz görünür hâle getirilir; böylece katman açılırken
+  // kartlar ikinci bir giriş animasyonu oynatmaz. Aşağıdakiler kaydırıldıkça
+  // normal şekilde sırayla görünür.
+  function revealVisibleInstantly(viewEl) {
+    const items = qsa(".reveal-item:not(.is-revealed)", viewEl);
+    if (!items.length) return;
+    const limit = window.innerHeight;
+    const shown = items.filter((el) => {
+      const rect = el.getBoundingClientRect();
+      return rect.top < limit && rect.bottom > 0;
+    });
+    shown.forEach((el) => {
+      el.style.transition = "none";
+      el.classList.add("is-revealed");
+    });
+    window.requestAnimationFrame(() => shown.forEach((el) => el.style.removeProperty("transition")));
   }
 
   function scrollIntoPlace(target) {
@@ -187,6 +215,7 @@ export function initViewRouter() {
       viewEl.scrollTop = 0;
       if (moveFocus) focusElement(viewTitle(viewEl));
     }
+    revealVisibleInstantly(viewEl);
   }
 
   // Ana sayfa konumunu ayarlar ve odağı geri verir.
@@ -217,55 +246,107 @@ export function initViewRouter() {
 
   // ---------- Geçiş animasyonu ----------
 
-  const canAnimate = () => Boolean(overlay && overlay.animate) && !reduceMotion.matches;
+  const canAnimate = () => Boolean(panel && panel.animate) && !reduceMotion.matches;
 
+  // Siyah panel ekranın üstünden aşağı iner (alt kenarı yukarıdan aşağı
+  // ilerler); yalnızca transform kullanıldığı için tüm tarayıcılarda GPU'da
+  // çalışır. Logo, panel ekranın ortasını geçtikten sonra belirir.
   async function cover() {
     overlay.classList.add("is-active");
-    const panel = overlay.animate(
-      [{ clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0% 0)" }],
+    const slide = panel.animate(
+      [{ transform: "translate3d(0, -100%, 0)" }, { transform: "translate3d(0, 0, 0)" }],
       { duration: COVER_MS, easing: EASE_IN_OUT, fill: "forwards" }
     );
     const mark = logo?.animate(
       [
-        { opacity: 0, transform: "translateY(14px) scale(0.96)" },
-        { opacity: 1, transform: "translateY(0) scale(1)" }
+        { opacity: 0, transform: "translate3d(0, 10px, 0) scale(0.97)" },
+        { opacity: 1, transform: "translate3d(0, 0, 0) scale(1)" }
       ],
-      { duration: 420, delay: COVER_MS * 0.4, easing: EASE_OUT, fill: "forwards" }
+      { duration: 320, delay: COVER_MS * 0.55, easing: EASE_OUT, fill: "forwards" }
     );
-    await Promise.all([panel.finished, mark?.finished].filter(Boolean));
+    await Promise.all([slide.finished, mark?.finished].filter(Boolean));
   }
 
+  // Logo kaybolur, panel yukarı çekilir: alt kenarı aşağıdan yukarı
+  // yükselerek yeni görünümü gösterir.
   async function reveal() {
     const mark = logo?.animate(
       [
-        { opacity: 1, transform: "translateY(0) scale(1)" },
-        { opacity: 0, transform: "translateY(-14px) scale(0.98)" }
+        { opacity: 1, transform: "translate3d(0, 0, 0) scale(1)" },
+        { opacity: 0, transform: "translate3d(0, -10px, 0) scale(0.99)" }
       ],
-      { duration: 260, easing: EASE_IN_OUT, fill: "forwards" }
+      { duration: 200, easing: EASE_IN_OUT, fill: "forwards" }
     );
-    const panel = overlay.animate(
-      [{ clipPath: "inset(0 0 0% 0)" }, { clipPath: "inset(0 0 100% 0)" }],
-      { duration: REVEAL_MS, delay: 120, easing: EASE_IN_OUT, fill: "forwards" }
+    const slide = panel.animate(
+      [{ transform: "translate3d(0, 0, 0)" }, { transform: "translate3d(0, -100%, 0)" }],
+      { duration: REVEAL_MS, delay: 40, easing: EASE_IN_OUT, fill: "forwards" }
     );
-    await Promise.all([panel.finished, mark?.finished].filter(Boolean));
+    await Promise.all([slide.finished, mark?.finished].filter(Boolean));
   }
 
   function resetOverlay() {
     if (!overlay) return;
-    overlay.getAnimations().forEach((animation) => animation.cancel());
+    panel?.getAnimations().forEach((animation) => animation.cancel());
     logo?.getAnimations().forEach((animation) => animation.cancel());
     overlay.classList.remove("is-active");
   }
 
+  // Kapalı görünümleri sayfa açıldıktan sonra boşta kalan zamanda birer
+  // birer yerleştirir (görünmeden). content-visibility:hidden bu yerleşimi
+  // saklar; ilk açılışta da görünümün tamamı geçişin ortasında baştan
+  // hesaplanmaz. Desteklemeyen tarayıcılarda (bkz. css/views.css @supports)
+  // hiçbir şey yapmaz.
+  function warmViews() {
+    if (!window.CSS?.supports?.("content-visibility", "hidden")) return;
+    const idle = window.requestIdleCallback || ((fn) => window.setTimeout(fn, 200));
+    const queue = [...viewEls.values()];
+    const step = () => {
+      const el = queue.shift();
+      if (!el) return;
+      if (!el.classList.contains("is-active")) {
+        el.classList.add("is-warming");
+        // eslint-disable-next-line no-unused-expressions
+        el.offsetHeight; // yerleşimi şimdi (boşta) hesaplat
+        el.classList.remove("is-warming");
+      }
+      idle(step, { timeout: 4000 });
+    };
+    idle(step, { timeout: 4000 });
+  }
+
   // ---------- Yönlendirme ----------
+
+  // Hedefin (görünüm veya ana sayfa) stil/yerleşim hesabını, katman inmeye
+  // başladıktan sonraki ilk karede başlatır. Panel ve logo GPU'da hareket
+  // ettiğinden bu sırada ana iş parçacığının meşgul olması animasyonu
+  // etkilemez; katman kapandığındaki değişim anı ise hafifler. Hedef bu
+  // arada görünmez kalır (görünüm visibility:hidden; ana sayfa açık
+  // görünümün arkasında).
+  function prepare(route) {
+    if (route.view) viewEls.get(route.view)?.classList.add("is-warming");
+    else root.classList.add("is-preparing-home");
+    // eslint-disable-next-line no-unused-expressions
+    document.documentElement.offsetHeight;
+  }
+
+  function unprepare() {
+    viewEls.forEach((el) => el.classList.remove("is-warming"));
+    root.classList.remove("is-preparing-home");
+  }
 
   async function go(route, { animate }) {
     busy = true;
     const useAnimation = animate && canAnimate();
     try {
-      if (useAnimation) await cover();
+      if (useAnimation) {
+        const covering = cover();
+        await nextFrame();
+        prepare(route);
+        await covering;
+      }
 
       applyState(route.view);
+      unprepare();
       // Yeni görünümün düzeni katmanın altında tamamlansın (yanlış ya da
       // yarım görünüm hiçbir an görünmesin).
       await nextFrame();
@@ -281,6 +362,7 @@ export function initViewRouter() {
     } catch (error) {
       // Animasyon hatası durumu bozmamalı: yine de doğru görünüm uygulanır.
       if (current !== route.view) applyState(route.view);
+      unprepare();
     } finally {
       resetOverlay();
       busy = false;
@@ -379,4 +461,8 @@ export function initViewRouter() {
   } else {
     applyState(null);
   }
+
+  // Sayfa yüklendikten sonra kapalı görünümleri boşta önceden yerleştir.
+  if (document.readyState === "complete") warmViews();
+  else window.addEventListener("load", warmViews, { once: true });
 }

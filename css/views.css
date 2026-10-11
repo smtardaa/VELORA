@@ -30,7 +30,14 @@
    JS çalışmadan önce de aynı durum kurulur. */
 
 .app-view {
-  display: none;
+  /* Kapalı görünüm: display:none yerine content-visibility:hidden. İçerik
+     çizilmez, odaklanamaz, ekran okuyucuya kapalıdır (ayrıca inert), ama
+     bir kez hesaplanan yerleşimi saklanır; görünüm tekrar açılırken geçişin
+     ortasında baştan hesaplanmaz (bkz. js/viewRouter.js > warmViews). */
+  display: block;
+  visibility: hidden;
+  content-visibility: hidden;
+  pointer-events: none;
   position: fixed;
   inset: var(--header-height) 0 0 0;
   z-index: 90;
@@ -49,7 +56,30 @@
 html[data-boot-view="calismalarimiz"] #view-calismalarimiz,
 html[data-boot-view="hakkimizda"] #view-hakkimizda,
 html[data-boot-view="projenizi-anlatin"] #view-projenizi-anlatin {
-  display: block;
+  visibility: visible;
+  content-visibility: visible;
+  pointer-events: auto;
+}
+
+/* Boşta önceden yerleştirme sırasında yalnızca yerleşim hesaplanır;
+   görünüm görünmez kalır. */
+.app-view.is-warming {
+  content-visibility: visible;
+}
+
+/* content-visibility desteklemeyen eski tarayıcılarda kapalı görünümler
+   tamamen düzenden çıkarılır (gizli içeriklerin ilk yüklemede boşuna
+   yerleşmemesi için). */
+@supports not (content-visibility: hidden) {
+  .app-view:not(.is-active) {
+    display: none;
+  }
+
+  html[data-boot-view="calismalarimiz"] #view-calismalarimiz,
+  html[data-boot-view="hakkimizda"] #view-hakkimizda,
+  html[data-boot-view="projenizi-anlatin"] #view-projenizi-anlatin {
+    display: block;
+  }
 }
 
 html.has-open-view,
@@ -58,12 +88,38 @@ html[data-boot-view] {
 }
 
 /* Görünüm açıkken ana sayfa çizilmez (iOS'taki kaydırma sekmesinde de
-   arkadan görünmez); ayrıca inert + aria-hidden ile erişilemez. */
+   arkadan görünmez); ayrıca inert + aria-hidden ile erişilemez.
+   content-visibility:hidden, ana sayfanın tüm alt ağacının stilini yeniden
+   hesaplatan visibility değişikliğinin aksine içeriği atlar ve yerleşimini
+   saklar. contain-intrinsic-block-size: auto, gizliyken son ölçülen
+   yüksekliği korur; böylece sayfa yüksekliği ve kaydırma konumu değişmez. */
+#main-content,
+#home-footer {
+  contain-intrinsic-block-size: auto 10000px;
+}
+
 html.has-open-view #main-content,
 html.has-open-view #home-footer,
 html[data-boot-view] #main-content,
 html[data-boot-view] #home-footer {
-  visibility: hidden;
+  content-visibility: hidden;
+}
+
+/* Görünümden ana sayfaya dönüşte, siyah katman inerken ana sayfanın stil
+   hesabı önceden başlatılır (bkz. js/viewRouter.js > prepare). Ana sayfa bu
+   sırada hâlâ açık görünümün arkasındadır. */
+html.has-open-view.is-preparing-home #main-content,
+html.has-open-view.is-preparing-home #home-footer {
+  content-visibility: visible;
+}
+
+@supports not (content-visibility: hidden) {
+  html.has-open-view #main-content,
+  html.has-open-view #home-footer,
+  html[data-boot-view] #main-content,
+  html[data-boot-view] #home-footer {
+    visibility: hidden;
+  }
 }
 
 /* Header görünüm açıkken her zaman alt çizgisiyle görünür. */
@@ -78,9 +134,9 @@ html[data-boot-view] .site-header::before {
   position: sticky;
   top: 0;
   z-index: 5;
-  background-color: rgba(245, 245, 247, 0.9);
-  -webkit-backdrop-filter: saturate(180%) blur(16px);
-  backdrop-filter: saturate(180%) blur(16px);
+  /* Düz zemin: kaydırma sırasında her karede yeniden hesaplanan
+     backdrop-filter bulanıklığı kullanılmaz. */
+  background-color: var(--home-gray-50);
   border-bottom: 1px solid var(--home-gray-300);
 }
 
@@ -215,11 +271,24 @@ html[data-boot-view] .site-header::before {
   border-radius: var(--radius-lg);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   scroll-margin-top: calc(var(--view-bar-height) + 1.25rem);
-  transition: box-shadow var(--transition-base);
+  position: relative;
 }
 
-.page-home .app-view .work-detail:hover {
+/* Hover gölgesi: ana sayfa kartlarındaki gibi, hazır çizilmiş gölge
+   katmanının yalnızca opaklığı değişir. */
+.page-home .app-view .work-detail::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04), 0 18px 40px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+}
+
+.page-home .app-view .work-detail:hover::after {
+  opacity: 1;
 }
 
 .page-home .app-view .work-detail-badge {
@@ -357,21 +426,22 @@ html[data-boot-view] .site-header::before {
 /* ---------- 7. Sıralı görünme (js/reveal.js) ---------- */
 
 .page-home .is-reveal-ready .reveal-item {
-  transition: opacity 480ms var(--ease-out), transform 480ms var(--ease-out),
-    box-shadow var(--transition-base);
+  transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
 .page-home .is-reveal-ready .reveal-item:not(.is-revealed) {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translate3d(0, 16px, 0);
 }
 
 /* ---------- 8. Geçiş katmanı ----------
-   Siyah katman ekranı üstten alta kaplar (clip-path), ortada logo belirir;
-   katman aşağıdan yukarı açılarak yeni görünümü gösterir. Animasyonlar
-   js/viewRouter.js'te Web Animations API ile yürütülür; katman yalnızca
-   geçiş sırasında görünür ve tıklamaları engeller. */
+   Siyah panel ekranın üstünden aşağı iner (ekranı üstten alta kaplar),
+   ortada logo belirir; panel yukarı çekilerek yeni görünümü aşağıdan
+   yukarı açar. Panel ve logo yalnızca transform/opacity ile hareket eder
+   (GPU'da çalışır). Animasyonlar js/viewRouter.js'te Web Animations API
+   ile yürütülür; katman yalnızca geçiş sırasında görünür ve tıklamaları
+   engeller. */
 
 .view-transition {
   position: fixed;
@@ -380,18 +450,28 @@ html[data-boot-view] .site-header::before {
   display: none;
   align-items: center;
   justify-content: center;
-  background-color: #000000;
-  clip-path: inset(0 0 100% 0);
+  overflow: hidden;
+  contain: strict;
 }
 
 .view-transition.is-active {
   display: flex;
 }
 
+.view-transition-panel {
+  position: absolute;
+  inset: 0;
+  background-color: #000000;
+  transform: translate3d(0, -100%, 0);
+  will-change: transform;
+}
+
 .view-transition-logo {
-  width: min(64vw, 440px);
+  position: relative;
+  width: min(56vw, 387px);
   height: auto;
   opacity: 0;
+  will-change: transform, opacity;
   pointer-events: none;
   -webkit-user-select: none;
   user-select: none;

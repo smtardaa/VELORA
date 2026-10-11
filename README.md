@@ -39,7 +39,8 @@ components/                Header, paketler, proje slider'ı, çalışma detayla
 data/                      Yapısal veriler (paketler ve başlangıç fiyatları, projeler,
                            iletişim kanalları, logo yolu)
 data/i18n/                 Çeviri dosyaları: tr.js, en.js, de.js, fr.js, it.js
-assets/                    Logo görselleri
+assets/                    Logo görselleri (velora-logo-gecis.png: geçiş katmanı için
+                           küçültülmüş logo kopyası)
 ```
 
 Metin içeriğinin tek kaynağı `data/i18n/*.js` dosyalarıdır; `data/*.js`
@@ -78,7 +79,9 @@ index.html bunları yüklemez.
     anlatım formu, çalışmalara bağlantı ve iletişim kanalları.
 - **Geçiş:** görünümler arasında siyah katman üstten alta kapanır, ortada
   VELORA logosu belirir, yeni görünüm aşağıdan yukarı açılır. Hareketi
-  azaltma tercihinde geçiş animasyonsuzdur. Tarayıcının geri/ileri düğmeleri
+  azaltma tercihinde geçiş animasyonsuzdur. Animasyonlar yalnızca `transform`/`opacity`
+  kullanır; kapalı görünümler `content-visibility: hidden` ile yerleşimlerini
+  saklar (ayrıntı ve ölçümler: `degisiklik-gunlugu-6.md`). Tarayıcının geri/ileri düğmeleri
   aynı durumları yeniden kurar (History API + `popstate`).
 - Her yerde: sabit header (dropdown, mobil hamburger menü, dil seçici,
   açık görünümün işaretlenmesi), site içi arama (paketler ve SSS içinde),

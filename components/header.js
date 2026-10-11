@@ -46,10 +46,24 @@ export function initHeader() {
     });
   }
 
-  const onScroll = () => {
-    header.classList.toggle("is-scrolled", window.scrollY > 8);
+  // Kaydırma işleyicisi kare başına en fazla bir kez çalışır ve sınıfı
+  // yalnızca durum değiştiğinde günceller (her kaydırma olayında DOM'a
+  // dokunmamak için).
+  let isScrolled = null;
+  let scrollScheduled = false;
+  const applyScrolled = () => {
+    scrollScheduled = false;
+    const next = window.scrollY > 8;
+    if (next === isScrolled) return;
+    isScrolled = next;
+    header.classList.toggle("is-scrolled", next);
   };
-  onScroll();
+  const onScroll = () => {
+    if (scrollScheduled) return;
+    scrollScheduled = true;
+    window.requestAnimationFrame(applyScrolled);
+  };
+  applyScrolled();
   window.addEventListener("scroll", onScroll, { passive: true });
 
   if (menuToggle && navLinks) {
@@ -190,27 +204,45 @@ function initScrollSpy(header, links, worksTrigger) {
     }
   };
 
+  // Bölüm konumları her karede yeniden ölçülmez: sayfa içindeki mutlak
+  // konumlar bir kez hesaplanır ve yalnızca boyut değişince (yeniden
+  // boyutlandırma, içerik yüklenmesi, dil değişimi) yenilenir. Kaydırma
+  // sırasında yalnızca window.scrollY ile karşılaştırılır.
+  let metrics = null;
+  const measure = () => {
+    const y = window.scrollY;
+    metrics = {
+      tops: sections.map((section) => section.getBoundingClientRect().top + y),
+      headerHeight: header.offsetHeight,
+      viewportHeight: window.innerHeight,
+      docHeight: document.documentElement.scrollHeight
+    };
+  };
+  const invalidate = () => {
+    metrics = null;
+  };
+
   const computeActiveId = () => {
     // Tam ekran görünüm açıkken (js/viewRouter.js) aktif bağlantıyı
     // görünüm yönetir; ana sayfa bölümlerine göre vurgulama yapılmaz.
     if (document.documentElement.classList.contains("has-open-view")) return null;
+    if (!metrics) measure();
 
+    const y = window.scrollY;
     const first = sections[0];
     const last = sections[sections.length - 1];
-    if (window.scrollY <= 1) return `#${first.id}`;
+    if (y <= 1) return `#${first.id}`;
+    if (metrics.viewportHeight + y >= metrics.docHeight - 2) return `#${last.id}`;
 
-    const scrollBottom = window.innerHeight + window.scrollY;
-    if (scrollBottom >= document.documentElement.scrollHeight - 2) return `#${last.id}`;
-
-    const line = header.offsetHeight + Math.min(window.innerHeight * 0.25, 160);
+    const line = y + metrics.headerHeight + Math.min(metrics.viewportHeight * 0.25, 160);
     let current = first;
-    for (const section of sections) {
-      if (section.getBoundingClientRect().top <= line) current = section;
-      else break;
-    }
+    sections.forEach((section, index) => {
+      if (metrics.tops[index] <= line) current = section;
+    });
     return `#${current.id}`;
   };
 
+  let lastId = null;
   let scheduled = false;
   const update = () => {
     if (scheduled) return;
@@ -218,13 +250,35 @@ function initScrollSpy(header, links, worksTrigger) {
     window.requestAnimationFrame(() => {
       scheduled = false;
       const id = computeActiveId();
-      if (id) setActive(id);
+      if (id && id !== lastId) {
+        lastId = id;
+        setActive(id);
+      }
     });
   };
 
   const initialId = computeActiveId();
-  if (initialId) setActive(initialId);
+  if (initialId) {
+    lastId = initialId;
+    setActive(initialId);
+  }
   window.addEventListener("scroll", update, { passive: true });
-  window.addEventListener("resize", update);
-  window.addEventListener("load", update);
+  window.addEventListener("resize", () => {
+    invalidate();
+    update();
+  });
+  window.addEventListener("load", () => {
+    invalidate();
+    update();
+  });
+  if ("ResizeObserver" in window) {
+    const main = document.getElementById("main-content");
+    if (main) new ResizeObserver(() => invalidate()).observe(main);
+  }
+  // Görünüm açılıp kapanınca vurgular görünüm tarafından değiştirildiği
+  // için bir sonraki güncellemede yeniden uygulanır.
+  document.addEventListener("velora:viewchange", () => {
+    lastId = null;
+    invalidate();
+  });
 }

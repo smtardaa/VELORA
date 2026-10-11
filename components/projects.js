@@ -17,6 +17,11 @@
 //    aria-hidden ve tabindex="-1" alır.
 //  - Mobilde (≤640px) bir sonraki kartın kenarı görünür (1.12 kart), böylece
 //    yatay kaydırılabildiği anlaşılır.
+//  - Performans: track yalnızca transform (translate3d) ile hareket eder.
+//    Sürüklemede genişlik bir kez ölçülür, konum kare başına bir kez yazılır
+//    (requestAnimationFrame); animasyon sürerken başlayan dokunuş kartı
+//    olduğu yerden yakalar; hızlı kısa kaydırma (flick) da kart değiştirir.
+//    Otomatik kayma, slider ekranda değilken veya bir görünüm açıkken durur.
 //  - Sonsuzluk, baştan/sondan klon kart ekleyip sınıra ulaşınca
 //    animasyonsuz gerçek konuma geri sarmakla sağlanır.
 //
@@ -88,6 +93,8 @@ export function initProjectsSlider({ sliderEl, viewportEl, trackEl, prevBtn, nex
   let autoplayTimer = null;
   let isHovered = false;
   let hasFocusInside = false;
+  let inViewport = true; // IntersectionObserver ile güncellenir
+  let viewOpen = false; // tam ekran görünüm açıkken ana sayfa gizlidir
 
   const loopEnabled = () => N > cardsPerView;
   const realIndex = () => (loopEnabled() ? (((currentIndex - K) % N) + N) % N : 0);
@@ -99,12 +106,14 @@ export function initProjectsSlider({ sliderEl, viewportEl, trackEl, prevBtn, nex
   }
 
   function renderTrack() {
+    slideState = [];
     trackEl.innerHTML = extended.map(renderCard).join("");
     trackEl.style.setProperty("--project-per-view", cardsPerView);
   }
 
   function renderDots() {
     if (!dotsEl) return;
+    activeDot = -1;
     dotsEl.hidden = !loopEnabled();
     dotsEl.innerHTML = items
       .map(
@@ -112,15 +121,21 @@ export function initProjectsSlider({ sliderEl, viewportEl, trackEl, prevBtn, nex
           <button class="works-dot" type="button" data-index="${index}" aria-label="${escapeHtml(t("works.dotAriaLabel").replace("{n}", String(index + 1)))}"></button>
         `
       )
-      .join("");
+      .join("") + '<span class="works-dot-indicator" aria-hidden="true"></span>';
   }
 
   // Yalnızca ekranda tam görünen kartlar odaklanabilir/okunabilir kalır.
+  // Yalnızca durumu değişen kartların öznitelikleri güncellenir (her
+  // harekette tüm kartlara dokunup stil yeniden hesaplatmamak için).
+  let slideState = [];
+  let activeDot = -1;
   function updateVisibility() {
     const fullyVisible = Math.max(1, Math.floor(cardsPerView + 0.001));
     const active = realIndex();
     Array.from(trackEl.children).forEach((slide, index) => {
       const visible = !loopEnabled() || (index >= currentIndex && index < currentIndex + fullyVisible);
+      if (slideState[index] === visible) return;
+      slideState[index] = visible;
       slide.toggleAttribute("aria-hidden", !visible);
       const link = slide.querySelector("a");
       if (link) {
@@ -128,12 +143,15 @@ export function initProjectsSlider({ sliderEl, viewportEl, trackEl, prevBtn, nex
         else link.setAttribute("tabindex", "-1");
       }
     });
-    if (dotsEl) {
-      dotsEl.querySelectorAll(".works-dot").forEach((dot, index) => {
-        dot.classList.toggle("is-active", index === active);
-        if (index === active) dot.setAttribute("aria-current", "true");
-        else dot.removeAttribute("aria-current");
-      });
+    if (dotsEl && active !== activeDot) {
+      const dots = dotsEl.querySelectorAll(".works-dot");
+      dots[activeDot]?.classList.remove("is-active");
+      dots[activeDot]?.removeAttribute("aria-current");
+      dots[active]?.classList.add("is-active");
+      dots[active]?.setAttribute("aria-current", "true");
+      // Mavi gösterge yalnızca transform ile kayar (bkz. css/home.css).
+      dotsEl.style.setProperty("--works-dot-index", String(active));
+      activeDot = active;
     }
     // Odak, artık gizlenen bir kartta kaldıysa görünen ilk karta taşınır.
     const focused = document.activeElement;
@@ -145,7 +163,7 @@ export function initProjectsSlider({ sliderEl, viewportEl, trackEl, prevBtn, nex
   function setTransform(withTransition) {
     const cardPercent = 100 / cardsPerView;
     trackEl.style.transition = withTransition ? "" : "none";
-    trackEl.style.transform = `translateX(-${currentIndex * cardPercent}%)`;
+    trackEl.style.transform = `translate3d(-${currentIndex * cardPercent}%, 0, 0)`;
     if (!withTransition) {
       // eslint-disable-next-line no-unused-expressions
       trackEl.offsetHeight;
@@ -166,12 +184,10 @@ export function initProjectsSlider({ sliderEl, viewportEl, trackEl, prevBtn, nex
 
   const goTo = (direction) => moveTo(currentIndex + direction);
 
-  trackEl.addEventListener("transitionend", (event) => {
-    // event.target === trackEl kontrolü: kart içindeki öğelerin kendi
-    // geçişlerinin "bubbling" ile track'i yanlışlıkla kaydırmasını önler.
-    if (event.target !== trackEl || event.propertyName !== "transform") return;
+  // Klon kartlardan birine gelindiyse, kullanıcı fark etmeden gerçek
+  // karşılığına geri sarılır.
+  function settle() {
     isAnimating = false;
-
     if (currentIndex >= N + K) {
       currentIndex -= N;
       setTransform(false);
@@ -181,11 +197,28 @@ export function initProjectsSlider({ sliderEl, viewportEl, trackEl, prevBtn, nex
     } else {
       updateVisibility();
     }
-  });
+  }
+
+  const onTrackTransitionDone = (event) => {
+    // event.target === trackEl kontrolü: kart içindeki öğelerin kendi
+    // geçişlerinin "bubbling" ile track'i yanlışlıkla kaydırmasını önler.
+    if (event.target !== trackEl || event.propertyName !== "transform") return;
+    settle();
+  };
+  trackEl.addEventListener("transitionend", onTrackTransitionDone);
+  // Geçiş yarıda kesilirse (ör. ana sayfa bir görünümün arkasında gizlenince)
+  // "transitionend" gelmez; durum yine de toparlanır.
+  trackEl.addEventListener("transitioncancel", onTrackTransitionDone);
 
   // ---------- Otomatik oynatma (yalnızca masaüstü) ----------
   const autoplayAllowed = () =>
-    loopEnabled() && window.innerWidth > 1024 && !reduceMotion.matches && !isHovered && !hasFocusInside;
+    loopEnabled() &&
+    window.innerWidth > 1024 &&
+    !reduceMotion.matches &&
+    !isHovered &&
+    !hasFocusInside &&
+    inViewport &&
+    !viewOpen;
 
   function stopAutoplay() {
     if (autoplayTimer) {
@@ -226,6 +259,25 @@ export function initProjectsSlider({ sliderEl, viewportEl, trackEl, prevBtn, nex
   });
   reduceMotion.addEventListener?.("change", startAutoplay);
 
+  // Slider ekranda değilken otomatik kayma boşuna çalışmaz.
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      (entries) => {
+        inViewport = entries[entries.length - 1].isIntersecting;
+        if (inViewport) startAutoplay();
+        else stopAutoplay();
+      },
+      { threshold: 0.2 }
+    ).observe(sliderEl);
+  }
+
+  // Tam ekran görünüm (js/viewRouter.js) açıkken ana sayfa gizlidir.
+  document.addEventListener("velora:viewchange", (event) => {
+    viewOpen = Boolean(event.detail?.view);
+    if (viewOpen) stopAutoplay();
+    else startAutoplay();
+  });
+
   // ---------- Oklar, noktalar, klavye ----------
   prevBtn.addEventListener("click", () => goTo(-1));
   nextBtn.addEventListener("click", () => goTo(1));
@@ -252,18 +304,35 @@ export function initProjectsSlider({ sliderEl, viewportEl, trackEl, prevBtn, nex
   // bağlantı tıklamaları karışmasın diye).
   let drag = null;
   let suppressClickUntil = 0;
+  const FLICK_SPEED = 0.35; // px/ms — kısa ama hızlı kaydırma da kart değiştirir
+
+  function writeDragPosition() {
+    if (!drag) return;
+    drag.raf = 0;
+    trackEl.style.transform = `translate3d(${drag.base + drag.dx}px, 0, 0)`;
+  }
 
   viewportEl.addEventListener("pointerdown", (event) => {
-    if (event.pointerType === "mouse" || isAnimating || !loopEnabled()) return;
-    drag = { id: event.pointerId, x0: event.clientX, y0: event.clientY, dx: 0, active: false };
+    if (event.pointerType === "mouse" || !loopEnabled()) return;
+    drag = {
+      id: event.pointerId,
+      x0: event.clientX,
+      y0: event.clientY,
+      dx: 0,
+      vx: 0,
+      lastX: event.clientX,
+      lastT: event.timeStamp,
+      active: false,
+      raf: 0
+    };
   });
 
   viewportEl.addEventListener("pointermove", (event) => {
     if (!drag || event.pointerId !== drag.id) return;
-    const dx = event.clientX - drag.x0;
-    const dy = event.clientY - drag.y0;
 
     if (!drag.active) {
+      const dx = event.clientX - drag.x0;
+      const dy = event.clientY - drag.y0;
       if (Math.abs(dx) < DRAG_START_PX && Math.abs(dy) < DRAG_START_PX) return;
       // Hareket dikey başladıysa sayfa kaydırması tarayıcıya bırakılır.
       if (Math.abs(dy) >= Math.abs(dx)) {
@@ -272,7 +341,14 @@ export function initProjectsSlider({ sliderEl, viewportEl, trackEl, prevBtn, nex
       }
       drag.active = true;
       stopAutoplay();
+      // Ölçümler sürükleme başında bir kez yapılır. Kayma animasyonu
+      // sürüyorsa kart, o an bulunduğu yerden yakalanır (dokunuş yok
+      // sayılmaz, zıplama olmaz).
+      drag.slideWidth = viewportEl.clientWidth / cardsPerView;
+      drag.base = new DOMMatrixReadOnly(getComputedStyle(trackEl).transform).m41;
+      drag.x0 = event.clientX;
       trackEl.style.transition = "none";
+      isAnimating = false;
       try {
         viewportEl.setPointerCapture(event.pointerId);
       } catch {
@@ -280,23 +356,41 @@ export function initProjectsSlider({ sliderEl, viewportEl, trackEl, prevBtn, nex
       }
     }
 
-    drag.dx = dx;
-    const slideWidth = viewportEl.clientWidth / cardsPerView;
-    trackEl.style.transform = `translateX(${-currentIndex * slideWidth + dx}px)`;
+    drag.dx = event.clientX - drag.x0;
+    const dt = event.timeStamp - drag.lastT;
+    if (dt > 0) drag.vx = 0.8 * ((event.clientX - drag.lastX) / dt) + 0.2 * drag.vx;
+    drag.lastX = event.clientX;
+    drag.lastT = event.timeStamp;
+    if (!drag.raf) drag.raf = window.requestAnimationFrame(writeDragPosition);
   });
 
   function endDrag(event) {
     if (!drag || event.pointerId !== drag.id) return;
-    const { active, dx } = drag;
+    const { active, dx, vx, base, slideWidth, raf } = drag;
+    if (raf) window.cancelAnimationFrame(raf);
     drag = null;
     if (!active) return;
 
-    trackEl.style.transition = "";
     suppressClickUntil = performance.now() + 350;
-    const threshold = Math.min(60, viewportEl.clientWidth * 0.15);
-    if (dx <= -threshold) goTo(1);
-    else if (dx >= threshold) goTo(-1);
-    else setTransform(true); // yeterince sürüklenmediyse yerine oturur
+    const position = base + dx;
+    const startIndex = Math.round(-base / slideWidth);
+    let target = Math.round(-position / slideWidth);
+    const threshold = Math.min(60, slideWidth * 0.15);
+    const flicked = Math.abs(vx) > FLICK_SPEED && Math.sign(vx) === Math.sign(dx);
+    if (target === startIndex && (Math.abs(dx) >= threshold || flicked)) {
+      target = startIndex + (dx < 0 ? 1 : -1);
+    }
+    target = Math.min(Math.max(target, 0), extended.length - Math.ceil(cardsPerView));
+
+    currentIndex = target;
+    trackEl.style.transition = "";
+    if (Math.abs(position + target * slideWidth) < 0.5) {
+      setTransform(false);
+      settle();
+    } else {
+      isAnimating = true;
+      setTransform(true);
+    }
     startAutoplay();
   }
 

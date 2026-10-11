@@ -231,10 +231,10 @@
 }
 
 .page-home .project-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow: hidden;
   background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: var(--radius-lg);
@@ -243,12 +243,37 @@
   -webkit-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
-  transition: box-shadow var(--transition-base), transform var(--transition-base);
+  transition: transform var(--transition-base);
+}
+
+/* Hover gölgesi: büyük gölgenin kendisi animasyonla değişmez (her karede
+   yeniden çizilirdi); hazır çizilmiş gölge katmanının yalnızca opaklığı
+   değişir (GPU'da çalışır). Aynı yöntem paket, iletişim ve çalışma
+   kartlarında da kullanılır. */
+.page-home .project-card::after,
+.page-home .package-card::after,
+.page-home .contact-card:not(.is-pending)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+}
+
+.page-home .project-card::after {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04), 0 18px 40px rgba(0, 0, 0, 0.1);
 }
 
 .page-home .project-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04), 0 18px 40px rgba(0, 0, 0, 0.1);
+}
+
+.page-home .project-card:hover::after,
+.page-home .package-card:hover::after,
+.page-home .contact-card:not(.is-pending):hover::after {
+  opacity: 1;
 }
 
 /* Kart, overflow:hidden olan viewport içinde durduğu için odak halkası
@@ -264,6 +289,9 @@
   justify-content: center;
   aspect-ratio: 4 / 3;
   background: linear-gradient(160deg, #eeeef2 0%, #e1e1e6 100%);
+  /* Kart artık overflow:hidden değil (gölge katmanı kırpılmasın diye);
+     görselin üst köşeleri kartın köşesine kendi yuvarlaklığıyla uyar. */
+  border-radius: calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px) 0 0;
   overflow: hidden;
 }
 
@@ -356,10 +384,21 @@
   margin-top: 1.25rem;
 }
 
+/* Konum noktaları: gri noktalar sabit yerinde durur; mavi etkin gösterge
+   (28px'lik hap) noktaların üzerinde yalnızca transform ile kayar. Önceki
+   genişlik/renk geçişi her karede ana iş parçacığında yeniden yerleşim
+   gerektiriyor ve düşük güçlü cihazlarda kare kaybına yol açıyordu.
+   Göstergenin konumu --works-dot-index ile verilir (components/projects.js). */
 .page-home .works-dots {
+  --works-dot-size: 8px;
+  --works-dot-gap: 1.125rem;
+  --works-dot-pill: 28px;
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: var(--works-dot-gap);
+  padding-inline: calc((var(--works-dot-pill) - var(--works-dot-size)) / 2);
+  margin-inline-start: calc((var(--works-dot-pill) - var(--works-dot-size)) / -2);
 }
 
 .page-home .works-dots[hidden] {
@@ -368,27 +407,42 @@
 
 .page-home .works-dot {
   position: relative;
-  width: 8px;
-  height: 8px;
+  width: var(--works-dot-size);
+  height: var(--works-dot-size);
   border-radius: 999px;
   background-color: #c7c7cc;
-  transition: width var(--transition-base), background-color var(--transition-base);
 }
 
-/* 8px'lik göstergenin dokunma alanı görünmez bir katmanla büyütülür. */
+/* 8px'lik noktanın dokunma alanı görünmez bir katmanla büyütülür. */
 .page-home .works-dot::before {
   content: "";
   position: absolute;
-  inset: -12px -5px;
+  inset: -12px calc(var(--works-dot-gap) / -2);
 }
 
-.page-home .works-dot:hover {
-  background-color: #8e8e93;
+@media (hover: hover) {
+  .page-home .works-dot:hover {
+    background-color: #8e8e93;
+  }
 }
 
-.page-home .works-dot.is-active {
-  width: 28px;
+.page-home .works-dot-indicator {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: var(--works-dot-pill);
+  height: var(--works-dot-size);
+  margin-top: calc(var(--works-dot-size) / -2);
+  border-radius: 999px;
   background-color: var(--home-accent);
+  pointer-events: none;
+  transform: translate3d(
+    calc(var(--works-dot-index, 0) * (var(--works-dot-size) + var(--works-dot-gap))),
+    0,
+    0
+  );
+  transition: transform var(--transition-base);
+  will-change: transform;
 }
 
 .page-home .works-arrows {
@@ -417,6 +471,7 @@
 }
 
 .page-home .package-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -425,14 +480,17 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 1.75rem 1.5rem;
-  transition: opacity 480ms var(--ease-out), transform 480ms var(--ease-out),
-    border-color var(--transition-base), box-shadow var(--transition-base);
+  transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out),
+    border-color var(--transition-base);
   transition-delay: var(--reveal-delay, 0ms);
+}
+
+.page-home .package-card::after {
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 }
 
 .page-home .package-card:hover {
   border-color: #4a4a50;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
   transform: translateY(-4px);
 }
 
@@ -641,7 +699,7 @@
    gizlenmez. */
 .page-home .packages-grid.is-reveal-ready .package-card:not(.is-revealed) {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translate3d(0, 16px, 0);
 }
 
 @media (max-width: 1099px) {
@@ -739,7 +797,18 @@
   font-size: 1rem;
 }
 
-.page-home .contact-card:not(.is-pending):hover {
+/* Gölge, ortak gölge katmanıyla (bkz. .project-card::after) verilir;
+   kartın kendi box-shadow geçişi kapatılır. */
+.page-home .contact-card {
+  position: relative;
+  transition: transform var(--transition-base);
+}
+
+.page-home .contact-card:hover {
+  box-shadow: none;
+}
+
+.page-home .contact-card:not(.is-pending)::after {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 }
 
@@ -836,6 +905,36 @@
 @media (max-width: 480px) {
   .page-home .footer-grid {
     gap: 2rem 1.5rem;
+  }
+}
+
+/* Dokunmatik cihazlarda (gerçek hover yok) kartların hover kalkması ve
+   gölgesi uygulanmaz: dokunuştan sonra "takılı kalan" hover durumunu ve
+   slider sürüklenirken parmağın altındaki kart değiştikçe tetiklenen
+   gereksiz stil/geçiş işlerini önler. */
+@media (hover: none) {
+  .page-home .card:hover,
+  .page-home .project-card:hover,
+  .page-home .package-card:hover,
+  .page-home .contact-card:hover,
+  .page-home .project-card:hover .project-thumb-icon,
+  .page-home .project-card:hover .project-link span {
+    transform: none;
+  }
+
+  .page-home .project-card:hover::after,
+  .page-home .package-card:hover::after,
+  .page-home .contact-card:not(.is-pending):hover::after,
+  .page-home .app-view .work-detail:hover::after {
+    opacity: 0;
+  }
+
+  .page-home .package-card:hover {
+    border-color: var(--color-border);
+  }
+
+  .page-home .package-card.is-highlighted:hover {
+    border-color: #46464c;
   }
 }
 

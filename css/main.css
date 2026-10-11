@@ -1048,9 +1048,9 @@ p {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background-color: color-mix(in srgb, var(--color-bg) 55%, transparent);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  /* Tüm ekranı kaplayan backdrop-filter bulanıklığı yerine (opaklık geçişi
+     boyunca her karede yeniden hesaplanır) düz, yarı opak bir perde. */
+  background-color: color-mix(in srgb, var(--color-bg) 86%, transparent);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -1168,9 +1168,9 @@ p {
   position: fixed;
   inset: 0;
   z-index: 210;
-  background-color: color-mix(in srgb, var(--color-bg) 55%, transparent);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  /* Tüm ekranı kaplayan backdrop-filter bulanıklığı yerine (opaklık geçişi
+     boyunca her karede yeniden hesaplanır) düz, yarı opak bir perde. */
+  background-color: color-mix(in srgb, var(--color-bg) 86%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
